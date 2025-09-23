@@ -1,4 +1,4 @@
-name: Update IBKR Canada Interest Rates
+name: IBKR CA - Update Rate CSVs
 
 on:
   schedule:
