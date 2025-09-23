@@ -103,16 +103,18 @@ inRow && /<\/tr>/ {
         }
     }
 
-    # Extract BenchmarkDiff from "(BM - X%)" if present
+    # Extract BenchmarkDiff from "(BM - X%)" if present; emit as negative value; default to 0
     if (rateTxt != "") {
         tmp = rateTxt
         if (match(tmp, /BM[ \t]*-[ \t]*[0-9]+(\.[0-9]+)?%/)) {
             seg = substr(tmp, RSTART, RLENGTH)
             if (match(seg, /[0-9]+(\.[0-9]+)?/)) {
-                bmDiff = substr(seg, RSTART, RLENGTH)
+                bmVal = substr(seg, RSTART, RLENGTH)
+                bmDiff = "-" bmVal
             }
         }
     }
+    if (bmDiff == "") { bmDiff = "0" }
 
     # Parse tier into TierLow and TierHigh (strip commas)
     if (tier != "") {
