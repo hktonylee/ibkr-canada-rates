@@ -8,6 +8,8 @@ on:
 jobs:
   update-interest-rates:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - run: ./src/030-update.sh
