@@ -1,6 +1,7 @@
 name: IBKR CA - Update Rate CSVs
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 10 * * *'  # 6AM EST
 
