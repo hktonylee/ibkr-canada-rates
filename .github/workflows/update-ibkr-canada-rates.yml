@@ -1,0 +1,20 @@
+name: Update IBKR Canada Interest Rates
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # 6AM EST
+
+jobs:
+  update-interest-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./src/030-update.sh
+      - uses: EndBug/add-and-commit@v9.1.4
+        with:
+          add: |
+            - ./ibkr-canada-interest-rates.csv
+            - ./ibkr-canada-margin-rates.csv
+          message: Daily Update
+          committer_name: GitHub Actions
+          committer_email: actions@github.com

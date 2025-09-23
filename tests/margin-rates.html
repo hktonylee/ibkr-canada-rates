@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Margin Rates and Financing | Interactive Brokers Canada Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<meta name="description" content="Margin rates and financing at Interactive Brokers can vary by tiers. See our chart and benchmark rates here.">
+<meta name="keywords" content="margin rates, interest rates, margin rates US, Margin rates non US, ibkr pro margin, ibkr lite margin, benchmark rates, blended rates, margin loan, quoted spread">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta http-equiv="expires" content="-1">
+<meta name="robots" content="index, follow">
+<meta http-equiv="pragma" content="no-cache">
+<meta property="og:site_name" content="Interactive Brokers Canada Inc." />
+<!--Pid:46803-->
+<link rel="canonical" href="https://www.interactivebrokers.ca/en/trading/margin-rates.php"/>
+<meta name="apple-mobile-web-app-title" content="IBKR">
+<link rel="icon" sizes="192x192" href="/images/web/favicons/home-screen-icon-192x192.png" />
+<link rel="icon" sizes="128x128" href="/images/web/favicons/home-screen-icon-128x128.png" />
+<link rel="apple-touch-icon" sizes="57x57" href="/images/web/favicons/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/images/web/favicons/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="/images/web/favicons/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="/images/web/favicons/apple-touch-icon-144x144.png" />
+<!-- SCRIPTS HEAD ---------------------------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+const FP_PAGE_ID = '46803';
+</script>
+
+<script type="text/javascript" src='/scripts/common/js/jquery-3.6.1/jquery.min.js'></script>
+<script type="text/javascript">
+function createScriptElement(data) {
+ if (typeof data == "undefined") {
+  return;
+ }
+ var element = document.createElement("SCRIPT");
+ element.type = "text/javascript";
+ if (typeof data.id != "undefined") {
+  element.id = data.id;
+ }
+ if (typeof data.source != "undefined") {
+  element.src = data.source;
+ }
+ if (typeof data.loadfunction == "function") {
+  element.onload = data.loadfunction;
+ }
+ //console.log(data.function);
+ document.head.appendChild(element);
+}
+createScriptElement({ source : "/scripts/common/js/bootstrap-5.2.2/bootstrap.bundle.min.js", loadfunction: bsLoaded  });
+createScriptElement({ source : "/scripts/common/js/lib.js?ver=9", loadfunction: storeCookie });
+createScriptElement({ source :  "/scripts/common/js/forge.all.min.js" });
+createScriptElement({ source : "/scripts/common/js/analytics/ibkranalyticscomb.js?t=1758585569" });
+createScriptElement({ source : "/scripts/common/js/ibmkttrack.js" });
+window.onload = function (){ addCookies();}
+function bsLoaded() {
+  createScriptElement({ source : "/scripts/common/js/appear/appear.min.js?ver=1" });
+  createScriptElement({ source : "/scripts/common/js/easing/easing.min.js?ver=1" });
+  createScriptElement({ source : "/scripts/common/js/parallax/parallax.min.js?ver=1" });
+  createScriptElement({ source : "/scripts/common/js/uitotop/uitotop.min.js?ver=1", loadfunction: uiLoaded });
+}
+function uiLoaded() {
+  createScriptElement({ source : "/scripts/common/js/twsUtils.js?ver=2" });
+  createScriptElement({ source : "/scripts/common/js/design/design.js?ver=1" }); 
+}
+function storeCookie()
+{
+ if(typeof(Storage) !== 'undefined')
+ {
+   if(localStorage.getItem('web') !== null)
+   {
+     localStorage.removeItem('web');
+   }
+ }
+}
+</script>
+<script type="text/javascript">
+$(function() {
+ $('div#langselector').find('a').each(function() {
+  $(this).click(function() {
+   var link = $(this).attr("href");
+   if(link.match(/\/(en|fr|de|es|it|ru|cn|jp)\//))
+   {
+    var langs = link.split("/");
+    if(langs[3] == 'en' || langs[3] == 'fr' || langs[3] == 'de' || langs[3] == 'es' || langs[3] == 'it' || langs[3] == 'ru' || langs[3] == 'cn' || langs[3] == 'jp')
+    {
+      var lang = langs[3];
+      if(lang == 'cn')
+      {
+        lang = 'zh_CN';
+      }
+      if(lang == 'jp')
+      {
+        lang = 'ja';
+      }
+      if(hasCookie("IB_LANG"))
+      {
+        deleteCookie("IB_LANG");
+      }
+      setCookie("IB_LANG", lang, 7, '.interactivebrokers.ca');
+    } else if(langs[1] == 'en') {
+      var lang = 'en';
+      setCookie("IB_LANG", lang, 7, '.interactivebrokers.ca');
+    }
+   }
+  });
+ });
+ $('p#bandaid-close').click(function() {
+  setCookie("IB_BANDAID", 1, 30, '.interactivebrokers.ca');
+ });
+});
+</script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    if(localStorage.getItem('consentMode') ===  null){
+                    const consentMode = {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            };
+                localStorage.setItem('consentMode', JSON.stringify(consentMode));
+        gtag('consent', 'default', consentMode);
+    }
+    else {
+        gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
+    }
+</script>
+<script>
+function hideHeaderFooter() {
+    // Get full URL including fragment
+    const fullUrl = window.location.href;
+    // Check if conf=am exists
+    if (fullUrl.includes('conf=am')) {
+        const elementsToHide = [
+            document.querySelector('#ibkr-header'),
+            document.querySelector('#footer'),
+        ];
+        elementsToHide.forEach(element => {
+            if (element) element.style.display = 'none';
+        });
+    }
+}
+// Run when DOM is ready
+document.addEventListener('DOMContentLoaded', hideHeaderFooter);
+</script><!-- STYLES HEAD -->
+<style type="text/css">
+@import url('/css/bootstrap-5.2.2/bootstrap.min.css') layer(bootstrap);
+</style>
+<link rel="preload" as="style" href="/css/ibkr/website.min.css?v=0872a75bef6e1ab9a5d16e96a58a0734">
+<link rel="stylesheet" type="text/css" media="all" href="/css/ibkr/website.min.css?v=0872a75bef6e1ab9a5d16e96a58a0734">
+<link rel="preload" as="style" href="/css/ibkr/theme-ibkr.min.css?v=0872a75bef6e1ab9a5d16e96a58a0734">
+<link rel="stylesheet" type="text/css" media="all" href="/css/ibkr/theme-ibkr.min.css?v=0872a75bef6e1ab9a5d16e96a58a0734"><link rel="stylesheet" type="text/css" media="all" href="/css/web/margins-v2.css" />
+<script type="text/javascript">
+$(function() {
+ window.setInterval(ping, 30000);
+ $('#int_calc_db, #int_calc_ssp, #int_calc_pcb').click(function(){
+  var method = $(this).attr("id") || '';
+  var nav = method == 'int_calc_pcb' ? $('#int_calc_pcb_nav').val() : 0;
+  var lite = 'f';
+  if(method == 'int_calc_pcb' && $("#int_calc_pcb_pro_mode").hasClass("hide-mode"))
+  {
+    lite = 't';
+  }
+  if(method == 'int_calc_db' && $("#int_calc_pro_mode").hasClass("hide-mode"))
+  {
+    lite = 't';
+  }
+  if(method == 'int_calc_ssp' && $("#int_calc_ssp_pro_mode").hasClass("hide-mode"))
+  {
+    lite = 't';
+  }
+  $.ajax({
+   url : '/response_handlers/interest/index.php',
+   accept : 'application/json',
+   type: 'POST',
+   dataType: 'json',
+   data: {
+    calc: method,
+    t: 'fc2dc7d20994a777cfd5e6de734fe254',
+    curr: $('#' + method + '_currency').val(),
+    bal: $('#' + method + '_balance').val(),
+    lite: lite,
+    nav: nav
+   },
+   success: function(res)
+   {
+    if(res && !res['error'])
+    {
+     $('#' + method + '_table').html(res['table']);
+     $('#' + method + '_content').show();
+     $('#' + method + '_baltotal').text(res['totbal']);
+     $('#' + method + '_curr').text(res['curr']);
+     $('#' + method + '_blendrate').text(res['blendedrate']);
+     if(method == 'int_calc_pcb')
+     {
+      $('#' + method + '_navinusd').text(res['nav_in_usd']);
+      if(nav < 100000)
+      {
+        $('#' + method + '_navadjusted').show();
+      } else {
+        $('#' + method + '_navadjusted').hide();
+      }
+     }
+    } else {
+     alert(res['error']);
+    }
+   },
+   error: function(xhr, ajaxOpt, err)
+   {
+    $('#' + method + '_table').html('<p>Error.</p>');
+   }
+  });
+ });
+});
+function ping()
+{
+ $.ajax({
+  url : '/response_handlers/interest/index.php',
+  accept : 'application/json',
+  type: 'POST',
+  dataType: 'json',
+  data: {
+   ping: 'true',
+   t: 'fc2dc7d20994a777cfd5e6de734fe254'
+  },
+  success: function(res)
+  {
+   if(res && !res['error'])
+   {
+    if(res['success'] && res['success'] == '1')
+    {
+     return;
+    }
+   }
+  }, error: function(xhr, ajaxOpt, err) {}
+ });
+}
+$(document).ready(function() {
+    	function GetURLParameter(sParam){
+			var sPageURL = window.location.search.substring(1);
+			var sURLVars = sPageURL.split('&');
+			var news_ibkr_v5 = false;
+			for (var i=0; i < sURLVars.length; i++){
+                var sName = sURLVars[i].split('=');
+				if ( (sName[0] == 'n') && (sName[1] == '1') ){
+					news_ibkr_v5 = true;
+				}
+			}
+			return news_ibkr_v5;
+		}
+		setTimeout(function() {
+			if ( GetURLParameter('n') ){
+				// open second accordion window in response to link from News@IBKR Vol.5 - "IBKR to Pay Interest on Smaller Cash Balances"
+			 	$('#heading02 a').click();
+			}
+		}, 200);
+	});
+	$(document).ready(function(){
+	     $("input[name='int_calc_acct_type']").change(function(){
+		$("#int_calc_db_content").css("display","none");
+		var holdlpmode =  $("input[name='int_calc_acct_type']:checked").val();  
+		// console.log('holdlpmode = ' + holdlpmode );	
+		if ( holdlpmode == 'ibkr_pro' ){
+			$("#int_calc_pro_mode").removeClass('hide-mode');
+			$("#int_calc_lite_mode").addClass('hide-mode');
+		} else {
+			$("#int_calc_lite_mode").removeClass('hide-mode');
+			$("#int_calc_pro_mode").addClass('hide-mode');
+		}
+	    });  
+	     $("input[name='int_calc_pcb_acct_type']").change(function(){
+		$("#int_calc_pcb_content").css("display","none");
+		var holdlpmode =  $("input[name='int_calc_pcb_acct_type']:checked").val();  
+		// console.log('holdlpmode = ' + holdlpmode );	
+		if ( holdlpmode == 'ibkr_pro' ){
+			$("#int_calc_pcb_pro_mode").removeClass('hide-mode');
+			$("#int_calc_pcb_lite_mode").addClass('hide-mode');
+		} else {
+			$("#int_calc_pcb_lite_mode").removeClass('hide-mode');
+			$("#int_calc_pcb_pro_mode").addClass('hide-mode');
+		}
+	    });  
+	});
+</script>
+
+<script>(window.BOOMR_mq=window.BOOMR_mq||[]).push(["addVar",{"rua.upush":"false","rua.cpush":"false","rua.upre":"false","rua.cpre":"false","rua.uprl":"false","rua.cprl":"false","rua.cprf":"false","rua.trans":"","rua.cook":"false","rua.ims":"false","rua.ufprl":"false","rua.cfprl":"false","rua.isuxp":"false","rua.texp":"norulematch","rua.ceh":"false","rua.ueh":"false","rua.ieh.st":"0"}]);</script>
+                              <script>!function(e){var n="https://s.go-mpulse.net/boomerang/";if("False"=="True")e.BOOMR_config=e.BOOMR_config||{},e.BOOMR_config.PageParams=e.BOOMR_config.PageParams||{},e.BOOMR_config.PageParams.pci=!0,n="https://s2.go-mpulse.net/boomerang/";if(window.BOOMR_API_key="XE2AM-F37QZ-LYWQP-H8KRM-4SNX5",function(){function e(){if(!o){var e=document.createElement("script");e.id="boomr-scr-as",e.src=window.BOOMR.url,e.async=!0,i.parentNode.appendChild(e),o=!0}}function t(e){o=!0;var n,t,a,r,d=document,O=window;if(window.BOOMR.snippetMethod=e?"if":"i",t=function(e,n){var t=d.createElement("script");t.id=n||"boomr-if-as",t.src=window.BOOMR.url,BOOMR_lstart=(new Date).getTime(),e=e||d.body,e.appendChild(t)},!window.addEventListener&&window.attachEvent&&navigator.userAgent.match(/MSIE [67]\./))return window.BOOMR.snippetMethod="s",void t(i.parentNode,"boomr-async");a=document.createElement("IFRAME"),a.src="about:blank",a.title="",a.role="presentation",a.loading="eager",r=(a.frameElement||a).style,r.width=0,r.height=0,r.border=0,r.display="none",i.parentNode.appendChild(a);try{O=a.contentWindow,d=O.document.open()}catch(_){n=document.domain,a.src="javascript:var d=document.open();d.domain='"+n+"';void(0);",O=a.contentWindow,d=O.document.open()}if(n)d._boomrl=function(){this.domain=n,t()},d.write("<bo"+"dy onload='document._boomrl();'>");else if(O._boomrl=function(){t()},O.addEventListener)O.addEventListener("load",O._boomrl,!1);else if(O.attachEvent)O.attachEvent("onload",O._boomrl);d.close()}function a(e){window.BOOMR_onload=e&&e.timeStamp||(new Date).getTime()}if(!window.BOOMR||!window.BOOMR.version&&!window.BOOMR.snippetExecuted){window.BOOMR=window.BOOMR||{},window.BOOMR.snippetStart=(new Date).getTime(),window.BOOMR.snippetExecuted=!0,window.BOOMR.snippetVersion=12,window.BOOMR.url=n+"XE2AM-F37QZ-LYWQP-H8KRM-4SNX5";var i=document.currentScript||document.getElementsByTagName("script")[0],o=!1,r=document.createElement("link");if(r.relList&&"function"==typeof r.relList.supports&&r.relList.supports("preload")&&"as"in r)window.BOOMR.snippetMethod="p",r.href=window.BOOMR.url,r.rel="preload",r.as="script",r.addEventListener("load",e),r.addEventListener("error",function(){t(!0)}),setTimeout(function(){if(!o)t(!0)},3e3),BOOMR_lstart=(new Date).getTime(),i.parentNode.appendChild(r);else t(!1);if(window.addEventListener)window.addEventListener("load",a,!1);else if(window.attachEvent)window.attachEvent("onload",a)}}(),"".length>0)if(e&&"performance"in e&&e.performance&&"function"==typeof e.performance.setResourceTimingBufferSize)e.performance.setResourceTimingBufferSize();!function(){if(BOOMR=e.BOOMR||{},BOOMR.plugins=BOOMR.plugins||{},!BOOMR.plugins.AK){var n=""=="true"?1:0,t="",a="nswcimfyd2liq2gr4lqq-f-8c81c790d-clientnsv4-s.akamaihd.net",i="false"=="true"?2:1,o={"ak.v":"39","ak.cp":"1131478","ak.ai":parseInt("665092",10),"ak.ol":"0","ak.cr":6,"ak.ipv":4,"ak.proto":"h2","ak.rid":"2fef3d1f","ak.r":44990,"ak.a2":n,"ak.m":"a","ak.n":"essl","ak.bpcip":"108.172.36.0","ak.cport":50302,"ak.gh":"184.30.149.136","ak.quicv":"","ak.tlsv":"tls1.3","ak.0rtt":"","ak.0rtt.ed":"","ak.csrc":"-","ak.acc":"","ak.t":"1758585569","ak.ak":"hOBiQwZUYzCg5VSAfCLimQ==eBcqutIh3BGDfQnmQghsETGUl49Gm/sysxFHUaNSDbsjp2jeu8d5AMDPNbsIoKFOrbsdEGcLUezyAqC2Cc0pPbpFiykSJWFh4chLVAhoNhVAj+s8StPlI4ynyj73KRg8HpX7VE0va3rjTvvIFJXg1gbJ0hNDDnba4dmh2Xy3SvnE4pbtF80xgoJbiqwqn/dy2/oXKxq1WA8GQemUI9TURnjCUC/id1s8PtlLAnYkdeKuz8kfWZ8E8AxDGQ4B2F2g+eqFRFzbeRo511vBq23Q2kgIbhZQMME51n7gwioFoQn6AUIGgpBjy1nX9lJsvudRUDq7hvdbilNcfwup3DnwZ+pb+1RS/ePwuhQkFRqNWvk58iob8A4qRn+7TTxeMA6j7pfjjLX/Ht6AT10UAAxCmyfezmBjosR47JPy8IoBG+E=","ak.pv":"398","ak.dpoabenc":"","ak.tf":i};if(""!==t)o["ak.ruds"]=t;var r={i:!1,av:function(n){var t="http.initiator";if(n&&(!n[t]||"spa_hard"===n[t]))o["ak.feo"]=void 0!==e.aFeoApplied?1:0,BOOMR.addVar(o)},rv:function(){var e=["ak.bpcip","ak.cport","ak.cr","ak.csrc","ak.gh","ak.ipv","ak.m","ak.n","ak.ol","ak.proto","ak.quicv","ak.tlsv","ak.0rtt","ak.0rtt.ed","ak.r","ak.acc","ak.t","ak.tf"];BOOMR.removeVar(e)}};BOOMR.plugins.AK={akVars:o,akDNSPreFetchDomain:a,init:function(){if(!r.i){var e=BOOMR.subscribe;e("before_beacon",r.av,null,null),e("onbeacon",r.rv,null,null),r.i=!0}return this},is_complete:function(){return!0}}}}()}(window);</script></head>
+<body>
+<!-- CA EN -->
+<style type="text/css">
+#toptabs {
+	margin-top: 20px; 
+	margin-end:0px; -webkit-margin-end:0px; -moz-margin-end:0px;
+	margin-bottom:20px;
+	margin-start: 15px; -webkit-margin-start: 15px; -moz-margin-start: 15px;
+	width: 100%;
+}
+section#page-title {
+	display: none;
+}
+h2 {
+	font-weight: var(--fw-600);
+	font-size: 2.5rem;
+}
+.ibkr-pro-lite-toggle {
+	display: block;
+	margin-top: 0px; 
+	margin-end:10px; -webkit-margin-end:10px; -moz-margin-end:10px;
+	margin-bottom:20px;
+	margin-start: 0px; -webkit-margin-start: 0px; -moz-margin-start: 0px;
+	width: 220px;
+}
+.ibkr-pro-lite-toggle input[type=radio] {
+	margin-top: 0px; 
+	margin-end:5px; -webkit-margin-end:5px; -moz-margin-end:5px;
+	margin-bottom:0px;
+	margin-start: 10px; -webkit-margin-start: 10px; -moz-margin-start: 10px;
+}
+.ibkr-pro-lite-toggle a.btn {
+	margin-start: 0px; -webkit-margin-start: 0px; -moz-margin-start: 0px;
+	margin-top: 20px;
+}
+.hide-mode {
+	display: none;
+}
+.margin-balance-wrapper {
+	display: inline;
+}
+.calc-box {
+	border: 1px solid var(--border-color);
+	background-color: var(--gray-5-solid);
+	padding: 20px;
+}
+.calc-box .btn-calculate {
+	min-width: 220px;
+	margin: 30px 0;
+}
+.calc-box .calc-flex-end {
+	display: flex;
+	align-self: end;
+}
+.text-regular {
+	font-weight: var(--fw-400) !important;
+}
+@media (max-width:767px) {
+.ibkr-pro-lite-toggle a.btn {
+	margin: 0px;
+}
+}
+</style>
+<div id="printheader"></div>
+<!-- HEADER START ---------------------------------------------------------------------------------------------------- -->
+<div class="ibkr-header" id="ibkr-header">
+         
+    <!-- NAV TOP START (LG/XL ONLY) -->
+    <nav class="navbar navbar-inverse navbar-expand-lg navbar-top d-none d-lg-block">
+        <div class="container">
+            <div class="navbar-collapse collapse" id="ibkr-nav-top">
+                <!-- LEFT MENU -->
+                <ul class="navbar-nav mr-auto align-items-center">
+                    <!-- FOR INDIVIDUALS -->
+                    <li class="nav-item dropdown"><a href="#" target="_self" class="nav-link dropdown-toggle" id="nav-for-individuals" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">For Individuals</a>
+                        <div class="dropdown-menu dropdown-ind-accounts" aria-labelledby="nav-for-individuals">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/accounts/individual.php" target="_self" class="dropdown-item" >Individual, Joint, RRSP, TFSA and FHSA</a>
+                                    <a href="/en/accounts/family-advisor.php" target="_self" class="dropdown-item" >Family Advisors</a>
+                                 </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- FOR INSTITUTIONS -->
+                    <li class="nav-item dropdown"><a href="#" target="_self" class="nav-link dropdown-toggle" id="nav-for-institutions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">For Institutions</a>
+                        <div class="dropdown-menu dropdown-inst-accounts" aria-labelledby="nav-for-institutions">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/accounts/institutions.php" target="_self" class="dropdown-item" >Institutions Home</a>
+                                    <a href="/en/accounts/advisor.php" target="_self" class="dropdown-item" >Registered Investment Advisors</a>
+                                    <a href="/en/accounts/proprietary-trading-group.php" target="_self" class="dropdown-item" >Proprietary Trading Groups</a>
+                                    <a href="/en/accounts/hedge-fund.php" target="_self" class="dropdown-item" >Hedge Funds</a>
+                                    <a href="/en/accounts/broker.php" target="_self" class="dropdown-item" >Introducing Brokers</a>
+                                    <a href="/en/accounts/family-office.php" target="_self" class="dropdown-item" >Family Offices</a>
+                                    <a href="/en/accounts/compliance-officer.php" target="_self" class="dropdown-item" >Compliance Officers</a>
+                                    <a href="/en/accounts/small-business.php" target="_self" class="dropdown-item" >Small Businesses</a>
+                                    <a href="/en/accounts/money-manager.php" target="_self" class="dropdown-item" >Money Managers</a>
+                                    <a href="/en/accounts/administrator.php" target="_self" class="dropdown-item" >Fund Administrators</a>
+                                    <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/student-trading-lab/" class="dropdown-item" >Educators</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- RIGHT MENU -->
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <!-- FREE TRIAL -->
+                    <li class="nav-item"><a href="/en/trading/free-trial.php" target="_self" class="nav-link">FREE TRIAL</a></li>
+                    <!-- CAREERS -->
+                    <li class="nav-item"><a href="/en/general/about/careers-splash.php" target="_self" class="nav-link">Careers</a></li>
+                    <!-- ABOUT US -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-about-us" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About Us</a>
+                        <div class="dropdown-menu dropdown-about-us" aria-labelledby="nav-about-us">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/general/financial-strength.php" target="_self" class="dropdown-item" >Strength and Security</a>
+                                    <a href="/en/general/about/info-and-history.php" target="_self" class="dropdown-item">Information and History</a>
+                                    <a href="/en/general/awards.php" target="_self" class="dropdown-item">Awards</a>
+                                    <a href="/en/about/news-at-ibkr.php" target="_self" class="dropdown-item">News at IBKR</a>
+                                    <a href="/en/general/about/press-and-media.php" target="_self" class="dropdown-item">Press and Media</a>
+                                    <a href="https://investors.interactivebrokers.com/ir/main.php" target="_blank" class="dropdown-item" rel="noreferrer noopener">Investor Relations</a>
+                                    <a href="/en/general/about/sustainability.php" target="_self" class="dropdown-item">Sustainability</a>
+                                    <a href="/en/accounts/legalDocuments/brokerPerformanceReports.php" target="_self" class="dropdown-item">Regulatory Reports</a>
+                                    <a href="/en/accounts/referrer.php" target="_self" class="dropdown-item">Refer a Friend</a>
+                                    <a href="/en/general/about/affiliate-programs.php" target="_self" class="dropdown-item">Affiliate Programs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- SUPPORT -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-support" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Support</a>
+                        <div class="dropdown-menu dropdown-contact-us" aria-labelledby="nav-support">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/support/fund-my-account.php" target="_self" class="dropdown-item">Fund Your Account</a>
+                                    <a href="/en/support/individuals.php" target="_self" class="dropdown-item">For Individuals</a>
+                                    <a href="/en/support/institutions.php" target="_self" class="dropdown-item">For Institutions</a>
+                                    <a href="/en/support/institutional-sales-contacts.php?p=cad" target="_self" class="dropdown-item">Institutional Sales Contacts</a>
+                                    <a href="/en/general/contact/ibot-container.php" target="_self" class="dropdown-item">Browse Our FAQs</a>
+                                    <a href="/en/support/reports-and-dates.php" target="_self" class="dropdown-item">Tax Information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- LANGUAGE SELECTOR -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link nav-language dropdown-toggle" id="nav-language" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Language</span><img src="/images/web/icons/icon-language.svg" alt="Language" width="23" height="18" border="0" /></a>
+                        <div class="dropdown-menu dropdown-language" aria-labelledby="nav-language">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/home.php" target="_self" class="dropdown-item">English</a>
+                                    <a href="/fr/home.php" target="_self" class="dropdown-item">Français</a>
+                                                                    </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- NAV TOP END -->
+    <!-- NAV BOTTOM START -->
+    <nav class="navbar navbar-inverse navbar-expand-lg navbar-bottom">
+        <div class="container">
+            <!-- LOGO -->
+                        <a href="/en/home.php" target="_self" title="Interactive Brokers Home" alt="Interactive Brokers Logo" class="navbar-brand brand-logo" aria-label="Interactive Brokers Home"><span>Interactive Brokers Home</span></a>
+            <!-- TOGGLE (XS/SM/MD ONLY) -->
+            <button class="navbar-toggler" type="button" aria-label="Toggle Navigation"><span class="navbar-toggler-icon"><i class="fas fa-bars" aria-hidden="true"></i></span></button>
+            <!-- OPEN ACCOUNT BUTTON (XS/SM/MD ONLY) -->
+            <a href="/Universal/Application" target="_self" class="d-block d-lg-none btn btn-open-account">Open Account</a>
+            <!-- LOG IN (SM/MD ONLY) -->
+                            <a href="https://ndcdyn.interactivebrokers.com/sso/Login?RL=1" target="_self" class="d-none d-sm-block d-lg-none btn btn-log-in">Log In</a>
+                        <!-- IBKR NAV BOTTOM START -->
+            <div class="navbar-collapse collapse" id="ibkr-nav-bottom">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <!-- WHY IBKR -->
+                    <li class="nav-item"><a href="/en/whyib/overview.php" target="_self" class="nav-link">Why IBKR</a></li>
+                    <!-- PRICING -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-pricing" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pricing</a>
+                        <div class="dropdown-menu dropdown-pricing" aria-labelledby="nav-pricing">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/pricing/commissions-home.php" target="_self" class="dropdown-item">Commissions</a>
+                                    <a href="/en/trading/margin-rates.php" target="_self" class="dropdown-item">Margin Rates</a>
+                                    <a href="/en/accounts/fees/pricing-interest-rates.php" target="_self" class="dropdown-item">Interest Rates</a>
+                                    <a href="/en/pricing/short-sale-cost.php" target="_self" class="dropdown-item">Short Sale Cost</a>
+                                    <a href="/en/pricing/research-news-services.php" target="_self" class="dropdown-item">Research and News</a>
+                                    <a href="/en/pricing/market-data-pricing.php" target="_self" class="dropdown-item">Market Data Pricing</a>
+                                    <a href="/en/pricing/stock-yield-enhancement-program.php" target="_self" class="dropdown-item">Stock Yield Enhancement Program</a>
+                                    <a href="/en/pricing/other-fees-overview.php" target="_self" class="dropdown-item">Other Fees</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- TRADING -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-technology" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Trading</a>
+                        <div class="dropdown-menu dropdown-technology" aria-labelledby="nav-technology">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/trading/trading-platforms.php" target="_self" class="dropdown-item">Platforms</a>
+                                    <a href="/en/trading/ib-api.php" target="_self" class="dropdown-item">APIs</a>
+                                    <a href="/en/trading/margin.php" target="_self" class="dropdown-item">Margin</a>
+                                    <a href="/en/trading/products-exchanges.php" target="_self" class="dropdown-item">Symbol and Exchange Search</a>
+                                    <a href="/en/trading/products-stocks.php" target="_self" class="dropdown-item">Products Overview</a>
+                                    <a href="/en/trading/ordertypes.php" target="_self" class="dropdown-item">Order Types</a>
+                                    <a href="/en/whyib/reporting.php" target="_self" class="dropdown-item">Reporting</a>
+                                    <a href="/en/trading/securities-financing.php" target="_self" class="dropdown-item">Securities Financing</a>
+                                    <a href="/en/trading/features-in-focus.php" target="_self" class="dropdown-item">Features in Focus</a>
+                                    <a href="/en/general/education/probability_lab.php" target="_self" class="dropdown-item">Probability Lab</a>
+                                    <a href="/en/trading/sustainable-investing.php" target="_self" class="dropdown-item">Sustainable Investing</a>
+                                    <a href="/en/accounts/rsp_tfsa_information.php" target="_self" class="dropdown-item">RSP, TFSA and FHSA Information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- SERVICES -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-products" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Services</a>
+                        <div class="dropdown-menu dropdown-products" aria-labelledby="nav-products">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/en/trading/globalanalyst.php" target="_self" class="dropdown-item">IBKR GlobalAnalyst</a>
+                                    <a href="/en/portfolioanalyst/overview.php" target="_self" class="dropdown-item" rel="noreferrer noopener">PortfolioAnalyst</a>
+                                    <a href="/en/trading/products-bonds.php" target="_self" class="dropdown-item">Bonds Marketplace</a>
+                                    <a href="/en/trading/commission-free-etfs-mkt.php" target="_self" class="dropdown-item">No Transaction Fee ETFs</a>
+                                    <a href="https://gdcdyn.interactivebrokers.com/aces/Marketplace/InvestorsMarketplace" target="_blank" class="dropdown-item">Investors' Marketplace</a>
+                                    <a href="/en/trading/short-securities-availability.php" target="_self" class="dropdown-item">Short Securities Availability</a>
+                                    <a href="/en/accounts/integrated-cash-management.php" target="_self" class="dropdown-item">Cash Management</a>
+                                    <a href="/en/trading/third-party-integration.php" target="_self" class="dropdown-item">Third Party Integration</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- EDUCATION -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="nav-education" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Education</a>
+                        <div class="dropdown-menu dropdown-education" aria-labelledby="nav-education">
+                            <div class="row">
+                                <div class="col">
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/" class="dropdown-item" >IBKR Campus</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/academy" class="dropdown-item" >Traders' Academy</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/news" class="dropdown-item" >Traders' Insight</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/category/podcasts/" class="dropdown-item" >IBKR Podcasts</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/quant" class="dropdown-item" >IBKR Quant Blog</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/webinars" class="dropdown-item" >Webinars</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/student-trading-lab/" class="dropdown-item" >Student Trading Lab</a>
+                                     <a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/glossary" class="dropdown-item" >Traders' Glossary</a>
+                                    <a href="/en/general/calendar/calendar.php" target="_self" class="dropdown-item">Traders' Calendar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- SEARCH -->
+                    <li class="nav-item dropdown d-none d-lg-block" id="search-expand"><a href="#" class="nav-link nav-search dropdown-toggle" id="nav-search" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Search"><span>Search</span><i class="fas fa-search" aria-hidden="true"></i></a>
+                        <div class="dropdown-menu dropdown-search" aria-labelledby="nav-search">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="search_box">
+                                        <script type="text/javascript">
+                                          searchbox_input_changed=false;
+                                          $('#search-expand').on('shown.bs.dropdown', function(e) {
+                                            $('#searchField').focus();
+                                          });
+                                        </script>
+                                        <form action="/en/search/index.php" method="get" class="search_form" id="search_form_id">
+                                            <input type="text" aria-label="Search Box" placeholder="Search" name="query" maxlength="64" autocomplete="off" id="searchField" class="form-control s swap_value searchinput" aria-label="Search Interactive Brokers">
+                                            <button type="submit" value="" id="searchsubmit" class="searchsubmit" aria-label="Submit Search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                                        </form>
+                                        <ul id='saytlist' style='width:150px;'><li style="display:none"></li></ul>
+<script>
+function delay(cb, ms)
+{
+  var timer = 0;
+  return function() {
+   var context = this, args = arguments;
+   clearTimeout(timer);
+   timer = setTimeout(function() {
+     cb.apply(context, args);
+   }, ms  || 0);
+  };
+}
+$(function() {
+
+ $('#searchField').keyup(delay(function() {
+  var q = $('#searchField').val() || '';
+  if(q.length >= 3)
+  {
+    $.ajax({
+      type: "POST",
+      url: 'https://misc.interactivebrokers.com/response_handlers/search/index.php',
+      dataType: "json",
+      data: {
+        'q': q
+      },
+      success: function(r) {
+        if(r && r.success)
+        {
+          var recommendations = '';
+          var limit = Math.min(r.suggestions.length, 10);
+          for(var i = 0; i < limit; i++)
+          {
+            recommendations += "<li>" + r.suggestions[i] + "</li>";
+          }
+          $('#saytlist').html(recommendations);
+          $('#saytlist').show();
+          $('ul#saytlist li').click(function(e) {
+            var list = $(this).text() || '';
+            e.stopPropagation();
+            if(list != '')
+            {
+              $('input#searchField').val(list);
+              $('button#searchsubmit').click();
+            }
+          });
+        }
+      },
+      error: function(xhr, status, err) {}
+    });
+  } else {
+   $('#saytlist').hide();
+  }
+ }, 500));
+});
+</script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- LOG IN -->
+                    <li class="nav-item dropdown d-none d-lg-block"><a href="#" target="_self" class="nav-link nav-login dropdown-toggle" id="nav-log-in" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</a>
+                        <div class="dropdown-menu dropdown-login" aria-labelledby="nav-log-in">
+                            <div class="row">
+                                <div class="col">
+                                                                            <a href="https://ndcdyn.interactivebrokers.com/sso/Login?RL=1" target="_self" class="dropdown-item dropdown-portal">Portal Login</a>
+                                                                        <a href="/en/trading/ibkr-desktop.php" target="_self" class="dropdown-item">Download IBKR Desktop </a>
+                                    <a href="/en/trading/tws.php#tws-software" target="_self" class="dropdown-item">Download Trader Workstation</a>
+                                    <a href="/en/trading/tws-mobile.php#trytoday-drop" target="_self" class="dropdown-item">Download IBKR Mobile</a>
+                                    <a href="/en/trading/ibgateway-latest.php" target="_self" class="dropdown-item">Download IB Gateway</a>
+                                    <a href="/en/trading/trading-platforms.php" target="_self" class="dropdown-item">Compare All IBKR Platforms</a>
+                                    <a href="https://forecasttrader.interactivebrokers.ca/eventtrader/#/markets" target="_self" class="dropdown-item">IBKR ForecastTrader</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- OPEN ACCOUNT -->
+                    <li class="nav-item dropdown d-none d-lg-block"><a href="#" target="_self" class="nav-link nav-open-account dropdown-toggle" id="nav-open-account" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Open Account</a>
+                        <div class="dropdown-menu dropdown-open-account" aria-labelledby="nav-open-account">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="/Universal/Application" target="_self" class="dropdown-item dropdown-portal">Start Application</a>
+                                    <a href="https://ndcdyn.interactivebrokers.com/sso/Login?c=t" target="_self" class="dropdown-item">Finish an Application</a>
+                                    <a href="/en/general/what-you-need-inv.php" target="_self" class="dropdown-item">What You Need</a>
+                                    <a href="/en/accounts/account-guide.php" target="_self" class="dropdown-item">A Guide to Choosing the Right Account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- IBKR MENU END -->
+            </div>
+        </div>
+    </nav>
+    <!-- NAV BOTTOM END -->
+</div>
+<!-- HEADER END ---------------------------------------------------------------------------------------------------- -->
+<!-- MOBILE NAV START (XS/SM/MD ONLY) ---------------------------------------------------------------------------------------------------- -->
+<div class="menu-mobile d-lg-none">
+    <!-- CLOSE BUTTON -->
+    <div class="close-button"><button type="button" class="btn-close" aria-label="Close Menu"><i class="fas fa-times"></i></button></div>
+    <!-- LOGO -->
+    <div class="logo-container"><a href="/en/home.php" target="_self" class="brand-logo" aria-label="Interactive Brokers Home"><span>Interactive Brokers Home</span></a></div>
+    <!-- SEARCH -->
+    <div class="search-container">
+        <div class="search-box">
+            <form action="/en/search/index.php" method="get" class="search_form" id="search_form_id">
+                <input type="text" class="form-control" placeholder="Search" name="query" maxlength="64" autocomplete="off" id="searchFieldMobile" aria-label="Search Interactive Brokers">
+                <button type="submit" class="btn-search-submit" value="" id="searchsubmitMobile" aria-label="Submit Search" ><i class="fas fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+    <ul>
+            <!-- PORTAL LOGIN -->
+        <li><a href="https://ndcdyn.interactivebrokers.com/sso/Login?RL=1" target="_self" class="menu-log-in">Portal Login</a></li>
+        <!-- OPEN ACCOUNT -->
+    <li class="has-submenu"><a href="#" target="_self" class="menu-open-account" data-submenu="submenu-open-account">Open Account</a>
+        <div class="submenu" id="submenu-open-account">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-open-account">Back</button></p>
+            <p class="submenu-title">OPEN ACCOUNT</p>
+            <ul>
+            <li><a href="/Universal/Application" target="_self" class="menu-start-application">Start Application</a></li>
+            <li><a href="https://ndcdyn.interactivebrokers.com/sso/Login?c=t" target="_self">Finish an Application</a></li>
+            <li><a href="/en/general/what-you-need-inv.php" target="_self">What You Need</a></li>
+            <li><a href="/en/accounts/account-guide.php" target="_self">A Guide to Chosing the Right Account</a></li>
+            </ul>
+        </div>
+    </li>
+        <!-- FREE TRIAL -->
+    <li><a href="/en/trading/free-trial.php" target="_self">Free Trial</a></li>
+    <!-- WHY IBKR -->
+    <li><a href="/en/whyib/overview.php" target="_self">Why IBKR</a></li>
+    <!-- ACCOUNT TYPES -->
+    <li class="has-submenu"><a href="#" target="_self" data-submenu="submenu-account-types">Account Types</a>
+        <div class="submenu" id="submenu-account-types">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-account-types">Back</button></p>
+            <p class="submenu-title">FOR INDIVIDUALS</p>
+            <ul>
+            <li><a href="/en/accounts/individual.php" target="_self" >Individual, Joint, RRSP, TFSA and FHSA</a></li>
+            <li><a href="/en/accounts/family-advisor.php" target="_self" >Family Advisors</a></li>
+            </ul>
+            <p class="submenu-title">FOR INSTITUTIONS</p>
+            <ul>
+            <li><a href="/en/accounts/institutions.php" target="_self" >Institutions Home</a></li>
+            <li><a href="/en/accounts/advisor.php" target="_self" >Registered Investment Advisors</a></li>
+            <li><a href="/en/accounts/proprietary-trading-group.php" target="_self" >Proprietary Trading Groups</a></li>
+            <li><a href="/en/accounts/hedge-fund.php" target="_self" >Hedge Funds</a></li>
+            <li><a href="/en/accounts/broker.php" target="_self" >Introducing Brokers</a></li>
+            <li><a href="/en/accounts/family-office.php" target="_self" >Family Offices</a></li>
+            <li><a href="/en/accounts/compliance-officer.php" target="_self" >Compliance Officers</a></li>
+            <li><a href="/en/accounts/small-business.php" target="_self" >Small Businesses</a></li>
+            <li><a href="/en/accounts/money-manager.php" target="_self" >Money Managers</a></li>
+            <li><a href="/en/accounts/administrator.php" target="_self" >Fund Administrators</a></li>
+            <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/student-trading-lab/" >Educators</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- PRICING -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-pricing">Pricing</a>
+        <div class="submenu" id="submenu-pricing">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-pricing">Back</button></p>
+            <p class="submenu-title">PRICING</p>
+            <ul>
+            <li><a href="/en/pricing/commissions-home.php" target="_self">Commissions</a></li>
+            <li><a href="/en/trading/margin-rates.php" target="_self">Margin Rates</a></li>
+            <li><a href="/en/accounts/fees/pricing-interest-rates.php" target="_self">Interest Rates</a></li>
+            <li><a href="/en/pricing/short-sale-cost.php" target="_self">Short Sale Cost</a></li>
+            <li><a href="/en/pricing/research-news-services.php" target="_self">Research and News</a></li>
+            <li><a href="/en/pricing/market-data-pricing.php" target="_self">Market Data Pricing</a></li>
+            <li><a href="/en/pricing/stock-yield-enhancement-program.php" target="_self">Stock Yield Enhancement Program</a></li>
+            <li><a href="/en/pricing/other-fees-overview.php" target="_self">Other Fees</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- TRADING -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-trading">Trading</a>
+        <div class="submenu" id="submenu-trading">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-trading">Back</button></p>
+            <p class="submenu-title">TRADING</p>
+            <ul>
+            <li><a href="/en/trading/trading-platforms.php" target="_self">Platforms</a></li>
+            <li><a href="/en/trading/ib-api.php" target="_self">APIs</a></li>
+            <li><a href="/en/trading/margin.php" target="_self">Margin</a></li>
+            <li><a href="/en/trading/products-exchanges.php" target="_self">Symbol and Exchange Search</a></li>
+            <li><a href="/en/trading/products-stocks.php" target="_self">Products Overview</a></li>
+            <li><a href="/en/trading/ordertypes.php" target="_self">Order Types</a></li>
+            <li><a href="/en/whyib/reporting.php" target="_self">Reporting</a></li>
+            <li><a href="/en/trading/securities-financing.php" target="_self">Securities Financing</a></li>
+            <li><a href="/en/trading/features-in-focus.php" target="_self">Features in Focus</a></li>
+            <li><a href="/en/general/education/probability_lab.php" target="_self">Probability Lab</a></li>
+            <li><a href="/en/trading/sustainable-investing.php" target="_self">Sustainable Investing</a></li>
+            <li><a href="/en/accounts/rsp_tfsa_information.php" target="_self">RSP, TFSA and FHSA Information</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- SERVICES -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-services">Services</a>
+        <div class="submenu" id="submenu-services">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-services">Back</button></p>
+            <p class="submenu-title">SERVICES</p>
+            <ul>
+            <li><a href="/en/trading/globalanalyst.php" target="_self">IBKR GlobalAnalyst</a></li>
+            <li><a href="/en/portfolioanalyst/overview.php" target="_self" rel="noreferrer noopener">PortfolioAnalyst</a></li>
+            <li><a href="/en/trading/products-bonds.php" target="_self">Bonds Marketplace</a></li>
+            <li><a href="/en/trading/commission-free-etfs-mkt.php" target="_self">No Transaction Fee ETFs</a></li>
+            <li><a href="https://gdcdyn.interactivebrokers.com/aces/Marketplace/InvestorsMarketplace" target="_blank">Investors' Marketplace</a></li>
+            <li><a href="/en/trading/short-securities-availability.php" target="_self">Short Securities Availability</a></li>
+            <li><a href="/en/accounts/integrated-cash-management.php" target="_self">Cash Management</a></li>
+            <li><a href="/en/trading/third-party-integration.php" target="_self">Third Party Integration</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- EDUCATION -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-education">Education</a>
+        <div class="submenu" id="submenu-education">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-education">Back</button></p>
+            <p class="submenu-title">EDUCATION</p>
+            <ul>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/" >IBKR Campus</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/academy" >Traders' Academy</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/news" >Traders' Insight</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/category/podcasts/" >IBKR Podcasts</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/quant" >IBKR Quant Blog</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/webinars" >Webinars</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/student-trading-lab/" >Student Trading Lab</a></li>
+             <li><a href="#modalAlert" target="_self" data-bs-toggle="modal" data-bs-target="#modalAlert" data-mymessage="You will be brought to the website of our IB Group affiliate. This site contains information common to the IB Group, including Interactive Brokers Canada Inc., and may contain information about products, functions and services not available for IBCA account holders.
+" data-mytargetlink="https://www.interactivebrokers.com/campus/glossary" >Traders' Glossary</a></li>
+                <li><a href="/en/general/calendar/calendar.php" target="_self">Traders' Calendar</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- ABOUT US -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-about-us">About Us</a>
+        <div class="submenu" id="submenu-about-us">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-about-us">Back</button></p>
+            <p class="submenu-title">ABOUT US</p>
+            <ul>
+            <li><a href="/en/general/financial-strength.php" target="_self">Strength and Security</a></li>
+            <li><a href="/en/general/about/info-and-history.php" target="_self">Information and History</a></li>
+            <li><a href="/en/general/about/careers-splash.php" target="_self">Careers</a></li>
+            <li><a href="/en/general/awards.php" target="_self">Awards</a></li>
+            <li><a href="/en/about/news-at-ibkr.php" target="_self">News at IBKR</a></li>
+            <li><a href="/en/general/about/press-and-media.php" target="_self">Press and Media</a></li>
+            <li><a href="https://investors.interactivebrokers.com/ir/main.php" target="_blank" rel="noreferrer noopener">Investor Relations</a></li>
+            <li><a href="/en/general/about/sustainability.php" target="_self">Sustainability</a></li>
+            <li><a href="/en/accounts/legalDocuments/brokerPerformanceReports.php" target="_self">Regulatory Reports</a></li>
+            <li><a href="/en/accounts/referrer.php" target="_self">Refer a Friend</a></li>
+            <li><a href="/en/general/about/affiliate-programs.php" target="_self">Affiliate Programs</a></li>
+            </ul>
+        </div>
+    </li>
+    <!-- SUPPORT -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-support">Support</a>
+        <div class="submenu" id="submenu-support">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-support">Back</button></p>
+            <p class="submenu-title">SUPPORT</p>
+            <ul>
+            <li><a href="/en/support/fund-my-account.php" target="_self">Fund Your Account</a></li>
+            <li><a href="/en/support/individuals.php" target="_self">For Individuals</a></li>
+            <li><a href="/en/support/institutions.php" target="_self">For Institutions</a></li>
+            <li><a href="/en/support/institutional-sales-contacts.php?p=cad" target="_self">Institutional Sales Contacts</a></li>
+            <li><a href="/en/general/contact/ibot-container.php" target="_self">Browse Our FAQs</a></li>
+            <li><a href="/en/support/reports-and-dates.php" target="_self">Tax Information</a></li>  
+            </ul>
+        </div>
+    </li>
+    <!-- LANGUAGE -->
+    <li class="has-submenu"><a href="#" data-submenu="submenu-language">Language</a>
+        <div class="submenu" id="submenu-language">
+            <p class="nav-link-back"><button type="button" data-submenu-close="submenu-language">Back</button></p>
+            <p class="submenu-title">LANGUAGE</p>
+            <ul>
+            <li><a href="/en/home.php" target="_self" >English</a></li>
+            <li><a href="/fr/home.php" target="_self" >Français</a></li>
+                        </ul>
+        </div>
+    </li>
+    </ul>
+</div>
+<!-- MOBILE NAV OVERLAY -->
+<div class="website-overlay d-lg-none"></div>
+<!-- MOBILE NAV END  -->
+
+<!-- MODAL START | GDPR COOKIES  -->
+<div class="modal modal-cookies fade" id="cookie-modal" tabindex="-1" role="dialog" aria-labelledby="modalCookieLabel">
+	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+		<div class="modal-content">
+			<div class="modal-header d-block">
+				<p class="fs-5 modal-title" id="modalCookieLabel">Privacy Preference Center</p>
+                <p class="pt-10 pr-30">This website uses cookies to offer a better browsing experience and to collect usage information. <br>By clicking on the "ACCEPT COOKIES" button you accept our Cookie Policy.</p>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-12 col-lg-4">
+                        <p class="fs-4 modal-title text black" id="modalCookieLabel">Customize Privacy Settings</p>
+						<ul role="tablist" class="nav flex-column" id="cookieTabs">
+                            <li role="presentation" class="nav-item" name="tab1"><a class="nav-link" href="#tab-01" aria-controls="tab-01" role="tab" data-bs-toggle="tab">Your Privacy</a></li>
+                            <li role="presentation" class="nav-item" name="tab2"><a id="temporary" class="nav-link" href="#tab-02" aria-controls="tab-02" role="tab" data-bs-toggle="tab">Strictly Necessary Cookies</a></li>
+                            <li role="presentation" class="nav-item" name="tab3"><a class="nav-link" href="#tab-03" aria-controls="tab-03" role="tab" data-bs-toggle="tab">Performance Cookies</a></li>
+                            <li role="presentation" class="nav-item" name="tab4"><a class="nav-link" href="#tab-04" aria-controls="tab-04" role="tab" data-bs-toggle="tab">Functional Cookies</a></li>
+                            <li role="presentation" class="nav-item" name="tab5"><a class="nav-link" href="#tab-05" aria-controls="tab-05" role="tab" data-bs-toggle="tab">Marketing Cookies</a></li>
+                            <li role="presentation" class="nav-item" name="tab6"><a class="nav-link" href="#tab-06" aria-controls="tab-06" role="tab" data-bs-toggle="tab">Cookie Policy</a></li>
+						</ul>
+		            </div>
+					<div class="col-12 col-lg-8">
+						<!-- TAB CONTENT START -->
+						<div class="tab-content">
+							<!-- TAB 01 -->
+							<div role="tabpanel" id="tab-01" class="tab-pane active">
+								<p><strong>Your Privacy</strong></p>
+								<p>When you visit any website it may use cookies and web beacons to store or retrieve information on your browser. This information might be about you, your preferences or your device and is typically used to make the website work as expected. The information does not usually directly identify you, but can provide a personalized browsing experience. Because we respect your right to privacy, you can choose not to allow some types of cookies and web beacons. Please click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience on our website and limit the services we can offer.</p>
+							</div>
+							<!-- TAB 02 -->
+							<div role="tabpanel" id="tab-02" class="tab-pane">
+								<p><strong>Strictly Necessary Cookies</strong></p>
+								<p>Strictly necessary cookies are necessary for the website to function and cannot be switched off in our systems. They are typically set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. While you can set your browser to block or alert you about these cookies, some parts of the website will not work. These cookies do not store any personally identifiable information.</p>
+								<br>
+								<p class="text-success text-small">Always Active</p>
+							</div>
+							<!-- TAB 03 -->
+							<div role="tabpanel" id="tab-03" class="tab-pane">
+								<p><strong>Performance Cookies and Web Beacons</strong></p>
+								<p>Performance cookies and web beacons allow us to count visits and traffic sources so we can measure and improve website performance. They help us to know which pages are the most and least popular and see how visitors navigate around our website. All information these cookies and web beacons collect is aggregated and anonymous. If you do not allow these cookies and web beacons we will not know when you have visited our website and will not be able to monitor its performance.</p>
+								<form>
+								<fieldset>
+								<p class="checkbox-label"><input type="checkbox" name="toggle-performance-cookies" data-on-color="success" data-off-color="default" data-on-text="Yes" data-off-text="No"><label id="act-perf">Active</label></p>
+								</fieldset>
+								</form>
+							</div>
+							<!-- TAB 04 -->
+							<div role="tabpanel" id="tab-04" class="tab-pane">
+								<p><strong>Functional Cookies</strong></p>
+								<p>Functional cookies enable our website to provide enhanced functionality and personalisation. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly.</p>
+								<form>
+								<fieldset>
+								<p class="checkbox-label"><input type="checkbox" name="toggle-functional-cookies" data-on-color="success" data-off-color="default" data-on-text="Yes" data-off-text="No"><label id="act-func">Active</label></p>
+								</fieldset>
+								</form>
+							</div>
+							<!-- TAB 05 -->
+							<div role="tabpanel" id="tab-05" class="tab-pane">
+								<p><strong>Marketing Cookies and Web Beacons</strong></p>
+								<p>Marketing Cookies and web beacons may be set through our website by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other websites. They do not directly store personal information, but uniquely identify your browser and internet device. If you do not allow these cookies and web beacons, you will experience less targeted advertising. Our website does not track users when they cross to third party websites, does not provide targeted advertising to them and therefore does not respond to "Do Not Track" signals.</p>
+								<form>
+								<fieldset>
+								<p class="checkbox-label"><input type="checkbox" name="toggle-targeting-cookies" data-on-color="success" data-off-color="default" data-on-text="Yes" data-off-text="No"><label id="act-target">Active</label></p>
+								</fieldset>
+								</form>
+							</div>
+                            <!-- TAB COOKIE POLICY  -->
+			<div role="tabpanel" id="tab-06" class="tab-pane tab-policy">
+                                                                <h2>Interactive Brokers Group Cookie Policy</h2><br>
+                                                                <p><strong>What are Cookies and Web Beacons?</strong></p>
+                                    <p> Cookies are pieces of data that a website transfers to  a user's hard drive for record-keeping purposes. Web beacons are transparent  pixel images that are used in collecting information about website usage,  e-mail response and tracking. Generally,  cookies may contain information about your Internet Protocol ("IP") addresses, the region or general  location where your computer or device is accessing the internet, browser type,  operating system and other usage information about the website or your usage of  our services, including a history of the pages you view.</p>
+                                <p><strong>How We Use Cookies and Web Beacons</strong></p>
+                                                                        <p>Interactive Brokers Group collects information from cookies and web beacons and stores it in an internal database. This information is retained in accordance with our Privacy Policy. This website uses the following cookies and web beacons:</p>
+                                                                        <p><strong>Strictly Necessary Cookies</strong></p>
+                                    <p>These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms. You can configure your browser to block or alert you about these cookies, but certain areas of the site will not function properly. These cookies do not store any personal data.</p>
+                                    <p><strong>Performance Cookies and Web Beacons</strong></p>
+                                    <p>These cookies and web beacons allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site. All information that these cookies and web beacons collect is aggregated and, therefore, anonymous. If you do not allow these cookies and web beacons our aggregated statistics will not have a record of your visit.</p>
+                                    <p>The website uses Google Analytics, a web analytics service provided by Google, Inc. ("Google"). Google Analytics  uses cookies to help  analyse how  you use this  website. The information generated by the cookie about your use of this website (including your IP address) will be transmitted to and stored by Google on servers in the United States. Google will use this information for the purposes of evaluating your use of the website, compiling reports on website activity for website operators and providing other services relating to website activity and internet usage. Google may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Google's behalf. Google will not associate your IP address with any other data held by Google. </p>
+                                    <p><strong>Functional Cookies</strong></p>
+                                    <p>These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies, some or all of these services may not function properly.</p>
+                                    <p><strong>Marketing Cookies and Web Beacons</strong></p>
+                                <p>These cookies and web beacons may be set throughout our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. They do not store personal information that could identify you directly, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies and web beacons, you will experience less targeted advertising. The website does not track users when they cross to third party websites, does not provide targeted advertising to them and therefore does not respond to Do Not Track ("DNT") signals.</p>
+                                <p><strong>Managing Your Cookie Preferences</strong></p>
+                                <p>You have many choices with regards to the management of cookies on your computer. All major browsers allow you to block or delete cookies from your system. However, if you do decide to disable cookies you may not be able to access some areas of our website or the website may function incorrectly. To learn more about your ability to manage cookies and web beacons and how   to   disable   them,   please   consult   the   privacy   features   in   your   browser   or visit <a href="http://www.allaboutcookies.org" target="_new" class="linkarrowexternal">www.allaboutcookies.org</a>. </p>
+                                <p>This website may link through to third party websites which may also use cookies and web beacons over which we have no control. We recommend that you check the relevant third parties privacy policy for information about any cookies and web beacons that may be used.</p>
+							</div>
+						</div>
+						<!-- TAB CONTENT END -->
+					</div>
+				</div>		
+		    </div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col">
+						<p>
+                            <button type="button" class="btn btn-default" id="gdpr-customize-settings">Customize Settings</button>
+                            <button type="button" class="btn btn-default" id="gdpr-save-settings">Save Custom Settings</button>
+                                                        <a href="javascript:allowAllCookies();" class="btn btn-success" id="btn_accept_cookies"><i class="fas fa-check-circle"></i> Accept Cookies</a>
+                        </p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- MODAL END | GDPR COOKIES  -->
+<script type="text/javascript" src="/scripts/common/js/2015/bootstrap-switch.min.js"></script>
+<script type="text/javascript">
+ var statePerformanceCookie = false;
+ var stateFunctionalCookie = false;
+ var stateTargetingCookie = false;
+function setConsent(consent){
+    const consentMode = {
+        'functionality_storage': consent.necessary ? 'granted' : 'denied',
+        'security_storage': consent.necessary ? 'granted' : 'denied',
+        'ad_storage': consent.marketing ? 'granted' : 'denied',
+        'analytics_storage': consent.analytics ? 'granted' : 'denied',
+        'ad_personalization': consent.preferences ? 'granted' : 'denied',
+        'ad_user_data': consent.marketing ? 'granted' : 'denied'
+    };
+    if (typeof gtag == 'function'){
+        gtag('consent', 'update', consentMode);
+    }
+    localStorage.setItem('consentMode', JSON.stringify(consentMode));
+}
+ $(function() {
+        $('#btn_accept_cookies').on("click tap touch", function() {
+   $('#cookie-header').slideUp();
+  });
+  $('#cookie-modal-close').on("click tap touch", function() {
+   window.location.reload(true);
+  });
+  $('#btn_accept_cookies').on("click tap touch", function() {
+   if(typeof document.fp === "function")
+   {
+    var fip = fp();
+   } else {
+    var fip = '';
+   }
+   $.ajax({
+    url: '/response_handlers/cookies/index.php',
+    accept: 'application/json',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+     gdpr_update_cookies: 'true',
+     t: 'fc2dc7d20994a777cfd5e6de734fe254',
+     perf: true,
+     func: true,
+     targ: true,
+     fp: fip
+    },
+    success: function(res)
+    {
+     if(res && !res['error'])
+     {
+      if(res['success'] && res['success'] == '1')
+      {
+       $('#cookie-modal').modal('hide');
+       $('#cookie-header').slideUp();
+       location.reload(true);
+      } 
+     } else {
+       location.reload(true); 
+     }
+    },
+    error: function(xhr, ajaxOpt, err)
+    {
+     location.reload(true);
+    }
+   });
+     });
+  // Show Modal Body and hide 'Customize Settings' button
+  $('#gdpr-customize-settings').on("click tap touch", function() {
+     $('#gdpr-save-settings').show();
+     $('#gdpr-customize-settings').hide();
+     $('.modal-body').show(); 
+      // Initialize first tab in modal window to display
+      $('#cookieTabs li:first-child a').click();
+  }); 
+  $('#gdpr-save-settings').on("click tap touch", function() {
+   if(typeof document.fp === "function")
+   {
+    var fip = fp();
+   } else {
+    var fip = '';
+   }
+   setConsent({
+    necessary: true,
+    analytics: statePerformanceCookie,
+    preferences: stateFunctionalCookie,
+    marketing: stateTargetingCookie
+  });
+   $.ajax({
+    url: '/response_handlers/cookies/index.php',
+    accept: 'application/json',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+     gdpr_update_cookies: 'true',
+     t: 'fc2dc7d20994a777cfd5e6de734fe254',
+     perf: statePerformanceCookie,
+     func: stateFunctionalCookie,
+     targ: stateTargetingCookie,
+     fp: fip
+    },
+    success: function(res)
+    {
+     if(res && !res['error'])
+     {
+      if(res['success'] && res['success'] == '1')
+      {
+       $('#cookie-modal').modal('hide');
+       $('#cookie-header').slideUp();
+       location.reload(true);
+      }
+     } else {
+       location.reload(true); 
+     }
+    },
+    error: function(xhr, ajaxOpt, err)
+    {
+      location.reload(true); 
+    }
+   });
+  });
+  $('#gdpr-reject-all').on("click tap touch", function() {
+   if(typeof document.fp === "function")
+   {
+    var fip = fp();
+   } else {
+    var fip = '';
+   }
+   setConsent({
+    necessary: false,
+    analytics: false,
+    preferences: false,
+    marketing: false
+   });
+   $.ajax({
+    url: '/response_handlers/cookies/index.php',
+    accept: 'application/json',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+     gdpr_update_cookies: 'true',
+     t: 'fc2dc7d20994a777cfd5e6de734fe254',
+     perf: false,
+     func: false,
+     targ: false,
+     fp: fip
+    },
+    success: function(res)
+    {
+     if(res && !res['error'])
+     {
+      if(res['success'] && res['success'] == '1')
+      {
+       $('#cookie-modal').modal('hide');
+       $('#cookie-header').slideUp();
+       location.reload(true);
+      } 
+     } else {
+       location.reload(true); 
+     }
+    },
+    error: function(xhr, ajaxOpt, err)
+    {
+     location.reload(true);
+    }
+   });
+  });
+  // BOOTSTRAP SWITCH initialize
+  $("[name='toggle-performance-cookies']").bootstrapSwitch();
+  $("[name='toggle-functional-cookies']").bootstrapSwitch();
+  $("[name='toggle-targeting-cookies']").bootstrapSwitch();
+ });
+ // respond to on/off switch events
+ $("input[name='toggle-performance-cookies']").on('switchChange.bootstrapSwitch', function (event, state) {
+  statePerformanceCookie = state;
+  if(state === true)
+  {
+   $('#act-perf').addClass('text-success');
+  } else {
+   $('#act-perf').removeClass('text-success');
+  }
+  $("input[name='toggle-performance-cookies']").attr( "checked", state );
+ });
+ $("input[name='toggle-functional-cookies']").on('switchChange.bootstrapSwitch', function (event, state) {
+  stateFunctionalCookie = state;
+  if(state === true)
+  {
+   $('#act-func').addClass('text-success');
+  } else {
+   $('#act-func').removeClass('text-success');
+  }
+  $("input[name='toggle-functional-cookies']").attr( "checked", state );
+ });
+ $("input[name='toggle-targeting-cookies']").on('switchChange.bootstrapSwitch', function (event, state) {
+  stateTargetingCookie = state;
+  if(state === true)
+  {
+   $('#act-target').addClass('text-success');
+  } else {
+   $('#act-target').removeClass('text-success');
+  }
+  $("input[name='toggle-targeting-cookies']").attr( "checked", state );
+ });
+ // initialize button state when tab is clicked
+ $("[name='tab3']").on("click tap touch", function() {
+	initPerformanceCookie();
+ });
+  $("[name='tab4']").on("click tap touch", function() {
+	initFunctionalCookie();
+ });
+  $("[name='tab5']").on("click tap touch", function() {
+	initTargetingCookie();
+ });
+ function initPerformanceCookie(){
+	 // read current state of bootstrapSwtich and change if it doesn't match the saved cookie boolean
+	if (statePerformanceCookie != $("[name='toggle-performance-cookies']").bootstrapSwitch('state')){
+		$("[name='toggle-performance-cookies']").bootstrapSwitch().click();
+		$("input[name='toggle-performance-cookies']").attr( "checked", statePerformanceCookie );
+	}
+ }
+ function initFunctionalCookie(){
+	 if (stateFunctionalCookie != $("[name='toggle-functional-cookies']").bootstrapSwitch('state')){
+		$("[name='toggle-functional-cookies']").bootstrapSwitch().click();
+   		$("input[name='toggle-functional-cookies']").attr( "checked", stateFunctionalCookie );
+	}
+ }
+ function initTargetingCookie(){
+	 if (stateTargetingCookie != $("[name='toggle-targeting-cookies']").bootstrapSwitch('state')){
+		$("[name='toggle-targeting-cookies']").bootstrapSwitch().click();
+   		$("input[name='toggle-targeting-cookies']").attr( "checked", stateTargetingCookie );
+	}
+ }
+ function allowAllCookies(){
+  // reset all Active on/off switches to on and update corresponding variables
+  if ( !statePerformanceCookie ) {
+   $("input[name='toggle-performance-cookies']").attr( "checked", true );
+   $("[name='toggle-performance-cookies']").bootstrapSwitch().click();
+   statePerformanceCookie = true;
+  }
+  if ( !stateFunctionalCookie ) {
+   $("input[name='toggle-functional-cookies']").attr( "checked", true );
+   $("[name='toggle-functional-cookies']").bootstrapSwitch().click();
+   stateFunctionalCookie = true;
+  }
+  if ( !stateTargetingCookie ) {
+   $("input[name='toggle-targeting-cookies']").attr( "checked", true );
+   $("[name='toggle-targeting-cookies']").bootstrapSwitch().click();
+   stateTargetingCookie = true;
+  }
+  setConsent({
+    necessary: true,
+    analytics: true,
+    preferences: true,
+    marketing: true
+  });
+  initPerformanceCookie();
+  initFunctionalCookie();
+  initTargetingCookie();
+ }
+ $(window).on('load', function() {
+    if (!$(location).attr('href').includes('?conf=am')) {
+        $('#cookie-modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+        $('#cookie-modal').modal('show');
+        $('body').removeClass('modal-open');
+        $('body').css('overflow', '');
+        $('body').css('padding-right', '');
+    }   
+});
+   // Hide Modal Body and hide 'Save Custom Settings' button
+  $('#gdpr-save-settings').hide();
+  $('.modal-body').hide();
+</script><div id="contents">
+    <section class="page-title" id="page-title">
+        <div class="container">
+            <div class="row">
+                                <div class="col"><h1>Margin Rates and Financing</h1></div>
+                            </div>
+        </div>
+    </section>
+    	
+<!-- INTRO -->
+<section class="hero hero-side-nav" id="">
+    <figure class="hero-bg-img img-flip-rtl">
+        <picture class="r-img"> <img src="/images/web/hero-margin.jpg" alt="" border="0" /> </picture>
+    </figure>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-4 col-xl-3">
+                
+<!-- Side Nav -->
+<nav class="ibkr-sidebar">
+    <ul class="list-unstyled" id="nav_set">
+        <li  > <a href="/en/trading/margin.php" id="nav_overview" target="_self">Margin Trading Overview</a> </li>
+        <li  > <a href="/en/trading/margin-education.php" id="nav_overview" target="_self">Margin Education Center</a> </li>
+        <li  class="active" > <a href="/en/trading/margin-rates.php" id="nav_margin_rate" target="_self">Margin Rates & Financing</a> </li>
+        <li  > <a href="/en/trading/margin-requirements.php" id="nav_margin_requirements" target="_self">Margin Requirements</a> </li>
+        <li  > <a href="/en/trading/margin-calculator.php" id="nav_margin_calculator" target="_self">Stock Margin Calculator</a> </li>
+    </ul>
+</nav>
+<script>
+        $(document).ready(navSetAnimation);
+        $(window).on('resize',navSetAnimation);
+        function navSetAnimation() {
+            const mqMd = window.matchMedia( "(max-width:991.98px)" );
+            if (mqMd.matches) {
+                $('#nav_set li').each(function() {
+                    let navItem = $(this);
+                    let navItemIndex = (parseInt($(navItem).index() + 1)) * 0.1;
+                    let navOrigin = $('.hero').offset().left;
+                    if ($(navItem).hasClass('active')) {
+                        let navItemActive = $(this);
+                        let navItemActiveOffset = navItemActive.offset().left - navOrigin;
+                        let navItemActiveDuration = navItemIndex * 1000;
+                        $('#nav_set').animate({scrollLeft: navItemActiveOffset}, navItemActiveDuration);
+                    }
+                });
+            }
+        }
+</script>            </div>
+            <div class="col-12 col-sm-9 col-lg-6">
+                <div class="hero-content">
+	           <h2 class="mb-40">Margin Rates & Financing</h2>
+	           <div class="hero-tabs">
+	                <a href="/en/trading/margin-rates.php" class="btn btn-lg btn-hero-tab-active">Margin Rates</a>
+
+<a href="/en/trading/margin-benchmarks.php" class="btn btn-lg btn-hero-tab">Benchmark Rates</span></a>
+<a href="/en/trading/margin-calculation-details.php" class="btn btn-lg btn-hero-tab">Calculations</a>
+	           </div>
+		  <ul class="checklist-circle">
+                       <li><a href="#interest-schedule" target="_self" class="page-scroll">Calculate Blended Rate Charged on Margin Loan</a></li>
+		  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>	
+		<section id="interest-schedule">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-12">
+	                <h2><span class="margin-right-20">Interest Charged on Margin Loans </span><span class="d-inline d-lg-none"><br /></span><a href="/en/accounts/fees/interestCharged_Examples.php" target="_blank" class="btn btn-sm btn-tertiary btn-outline">View Examples</a></h2>
+	                <br />
+	                <p>When calculating rates, keep in mind that IBKR uses a blended rate based on the tiers below. For example, for a balance over USD 1,000,000, the first 100,000 
+	                is charged at the Tier I rate, the next 900,000 at the Tier II rate, etc. When determining the quoted spread, IBKR will use the set benchmark rate or a benchmark rate of 0 for all benchmark rates less than 0.</p>
+	                <p>IBKR accrues interest on a daily basis and posts actual interest monthly on the third business day of the following month.</p>
+	                <p>Interest tiers may change without prior notice to clients. These adjustments are made periodically to account for fluctuations in currency rates.</p>	
+	                <br />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<style type="text/css">
+	.ibkr-pro-lite-toggle {
+		display: flex;
+		margin-top: 0;
+		margin-bottom: 10px;
+	}
+	.ibkr-pro-lite-toggle input[type=radio] {
+		margin-top: 0px;
+		margin-bottom: 0px;
+		margin-start: 5px; -webkit-margin-start: 5px; -moz-margin-start: 5px;
+		margin-end: 5px; -webkit-margin-end: 5px; -moz-margin-end: 5px;
+	}
+	.hide-mode {
+		display: none;
+	}
+	.margin-balance-wrapper {
+		display: inline;
+	}
+	#int_calc_db {
+		margin: 2px 0;
+	}
+	.calc-box {
+		display: flex;
+		flex-wrap: wrap;
+		border-left: unset;
+		background-color: unset;
+		height: 100%;
+		border: 2px solid var(--gray-10-solid);
+		padding: 0 20px 0 20px;
+	}
+	.calc-box .calc-flex-end {
+		display: flex;
+		align-self: end;
+	}
+/*REDESIGN STYLING*/
+	.calc-results-heading-cell {
+		display: flex;
+		width: fit-content;
+	}
+	.calc-results-callout-box {
+		border-left: 4px solid var(--primary);
+  		background-color: var(--gray-10-solid);
+		padding: 20px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.btn-width-auto {
+		width: fit-content;
+	}
+	.calc-button-wrap {
+		padding-right: calc(var(--bs-gutter-x) * .5);
+	}
+	#calc-content-box {
+		margin-top: 40px;
+	}
+	#calc-content-box input {
+		font-size: 22px;
+		text-align: end;
+		background-color: var(--gray-10-solid);
+		border-width: 1px;
+		border-style: none;
+		border-color: var(--border-color);
+		border-image: initial;
+		padding: 4px;		
+	}
+	#calc-content-box select {
+		font-size: 18px;
+		text-align: start;
+		background-color: var(--gray-10-solid);
+		border-width: 1px;
+		border-style: none;
+		border-color: var(--border-color);
+		border-image: initial;
+		padding: 4px;		
+	}
+	#calc-init-placeholder-copy {
+		margin-top: 0;
+		margin-bottom: 40px;
+	}
+	#ibkr-plans-compare-btn {
+		margin-top: 0;
+	}	
+	#int_calc_db_table .table > thead > tr > th {
+		border-top: none;
+		border-bottom: 1px solid var(--border-color);
+		padding: .75rem;
+		background-color: var(--th-bg-color);
+	}
+	input.ibkr-plan-radio[type="radio"] {
+		accent-color: red;
+		height: 16px;
+		width: 16px;
+		vertical-align: middle;
+	}
+	@media (min-width:768px) {
+	}	
+	@media (min-width:992px) {
+		.calc-box {
+			padding: 0 0 0 20px;
+		}
+		.ibkr-pro-lite-toggle {
+			margin-bottom: 0;
+		}
+		#calc-init-placeholder-copy {
+			margin-top: 80px;
+			margin-bottom: 100px;			
+		}		
+		.calc-button-wrap {
+			padding-right: 0;
+		}	
+		.calc-results-callout-box {
+			padding: 20px 20px 20px 40px;
+			margin-top: unset;
+			margin-bottom: unset;
+			height: 100%;			
+		}
+		#int_calc_db {
+			margin: 20px 0 40px 0;
+		}
+	}
+</style>
+  <div class="row">
+	<div class="col-12">
+	   <h5 class="margin-top-0"><span class="text-bold">Estimate Interest Charged on Margin Loans</span></h5>
+	</div>
+	<div class="col-12">
+		<div class="calc-box">
+		<div class="col-12 col-lg-5 mb-0">
+			<div id="calc-content-box" class="row d-flex flex-wrap align-items-center">
+				<!-- item 1 -->
+				<div class="col-12 col-lg-6 mb-10">
+				  <h5 class="fs-7 lh-7 fw-300 mt-0 mb-2"> Enter Balance</h5>
+				  <input class="form-control" id="int_calc_db_balance" name="int_calc_db_balance" aria-label="Enter Balance" type="text" />
+				</div>
+				<!-- item 2 -->
+				<div class="col-12 col-lg-6 calc-flex-end justify-content-center justify-content-lg-start mb-10">
+					<div class="w-100">
+					  <h5 class="fs-7 lh-7 fw-300 mt-0 mb-2">Currency</h5>
+					  <select class="form-control form-select pr-40" aria-label="Select a Currency" id="int_calc_db_currency">
+						 <option value="USD">USD</option>
+						 <option value="AED">AED</option>
+						 <option value="AUD">AUD</option>
+						 <option value="CAD">CAD</option>
+						 <option value="CHF">CHF</option>
+						 <option value="CNH">CNH</option>
+						 <option value="CZK">CZK</option>
+						 <option value="DKK">DKK</option>
+						 <option value="EUR">EUR</option>
+						 <option value="GBP">GBP</option>
+						 <option value="HKD">HKD</option>
+						 <option value="HUF">HUF</option>
+						 <option value="ILS">ILS</option>
+												 <option value="INR">INR</option>
+												 <option value="JPY">JPY</option>
+						 <option value="KRW">KRW</option>
+						 <option value="MXN">MXN</option>
+						 <option value="NOK">NOK</option>
+						 <option value="NZD">NZD</option>
+						 <option value="PLN">PLN</option>
+				   <!-- <option value="RUB">RUB</option> -->
+						 <option value="SAR">SAR</option>
+						 <option value="SEK">SEK</option>
+						 <option value="SGD">SGD</option>
+						 <option value="TRY">TRY</option>
+						 <option value="ZAR">ZAR</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<hr class="mt-20 mb-20">
+				</div>
+				<div class="col-12 calc-button-wrap text-center text-lg-start">
+					<a class="btn btn-primary btn-calculate btn-width-auto" id="int_calc_db">Calculate Blended Rate</a>
+				</div>
+			</div>		
+		</div>
+		<div class="col-12 col-lg-7 col-xl-6 offset-xl-1 mb-0">
+			<div class="calc-results-callout-box">
+				<div id="calc-init-placeholder-copy">
+					<p class="fs-6 lh-6 text-center text-lg-start">Enter your positive cash balance to calculate the approximate interest charged.</p>
+				</div>			
+				<div id="int_calc_db_content" class="" style="display:none;">
+					<div class="row mt-40 mb-40">
+						<div class="col-12">
+							<div class="row align-items-center justify-content-between mb-20">
+								<div class="col-auto">
+									<span class="calc-results-heading-cell">Your blended rate for <span id="int_calc_db_curr"> =</span>: </span>
+								</div>
+								<div class="col-auto">
+									<h2 class="fs-3 lh-3 fw-600 margin-top-0 calc-results-heading-cell" id="int_calc_db_blendrate"></h2>
+								</div>
+							</div>
+						</div>						
+						<div class="col-12">
+							<div id="int_calc_db_table" class="table-responsive calc-table-left"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>
+	<div class="row mb-40">
+		<div class="col">
+		  <!--<div class="clearfix"></div>-->
+			<div class="notes">
+				<p>* IBKR will assess a surcharge of 1% on large loan balances unless otherwise prearranged with IBKR. The 1% surcharge would apply to all balances in the highest tier. </p>
+				<p>The interest calculator is based on information that we believe to be accurate and correct, but neither Interactive Brokers LLC nor its affiliates warrant its accuracy or adequacy and it should not be relied upon as such. Neither IBKR nor its affiliates are responsible for any errors or omissions or for results obtained from the use of this calculator.</p>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	(function($){
+	  $(function(){
+		var $placeholder = $('#calc-init-placeholder-copy'),
+			$results     = $('#int_calc_db_content'),
+			$radios      = $("input[name='int_calc_acct_type']"),
+		    $currencySelection = $('#int_calc_db_currency');
+		// initial page load shows only the placeholder
+		$placeholder.show();
+		$results.hide();
+		// if user switches Pricing Plan after running a calc,
+		//    reset back to placeholder mode
+		$radios.on('change', function(){
+		  $placeholder.show();
+		  $results.hide();
+		});
+		// if user switches currency after running a calc,
+		//    reset back to placeholder mode
+		$currencySelection.on('change', function(){
+		  $placeholder.show();
+		  $results.hide();
+		});		  
+		// when AJAX for "calc=int_calc_db" succeeds swap panels
+		$(document).ajaxSuccess(function(e, xhr, settings){
+		  if (settings.data && settings.data.indexOf('calc=int_calc_db') !== -1) {
+			// guard: only proceed if balance is valid right now
+			var raw = $('#int_calc_db_balance').val();
+			var val = (raw || '').replace(/,/g, '').trim();
+			if (!val || isNaN(Number(val))) {
+			  return; // do not swap panels
+			}
+			$placeholder.hide();
+			$results.show();
+			$results.children().not('.hide-mode').show();
+			$('#int_calc_db_table table').removeClass('table-striped table-bordered');
+			// results table first-column alignment fix
+			$('#int_calc_db_table table tr > td:first-child')
+			  .removeAttr('align')
+			  .attr('align', 'left');
+		  }
+		});
+	  });
+	})(jQuery);
+	// auto format user inputs as they type
+	(function($){
+	  $(function(){
+		// on every keystroke in balance or NAV fields
+		$('#int_calc_db_balance, #int_calc_db_nav').on('input', function(){
+		  var $fld = $(this);
+		  // strip out any existing commas
+		  var raw = $fld.val().replace(/,/g, '');
+		  // if nothing typed yet (or just “.”) don’t try to format
+		  if (!raw || raw === '.') {
+			$fld.val(raw);
+			return;
+		  }
+		  // split integer vs. decimal
+		  var parts = raw.split('.');
+		  // add commas to the integer
+		  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		  // rejoin (so decimal, if any, stays intact)
+		  $fld.val(parts.join('.'));
+		});
+	  });
+	})(jQuery);
+</script>				</div>
+			</div>			
+			<div class="row">
+				<div class="col">
+					<p class="fs-6 fw-600 text-dark">BM = Benchmark Rate</p>
+					<!-- INTEREST CHARGED TO YOU ON POSITIVE CASH BALANCES SECTION-->
+					<div class="table-responsive">
+						<table cellspacing="0" cellpadding="0" border="0" width="100%" class="table table-striped table-bordered">
+						<thead>
+						<tr>
+						<th width="20%" align="left" valign="middle">Currency</th>
+						<th width="40%" align="left" valign="middle">Tier</th>
+						<!-- <th width="40%" align="left" valign="middle">Rate Charged</th> -->
+						<th width="40%" align="left" valign="middle">Rate Charged: </th>
+</tr>
+						</thead>
+						<tbody>
+						<tr>
+						<td align="left" valign="middle">USD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 100,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.580%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">100,000 ≤ 1,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.080%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,000,000 ≤ 50,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.830%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">50,000,000 ≤ 250,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.580%</span>   (BM + <span class="text-price">0.5%</span>)</span><sup>1</sup></td>
+						</tr>
+						<tr>
+							<td align="left" valign="middle"> </td>
+							<td align="left" valign="middle"><span class="text-price">> 250,000,000</span></td>
+							<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.580%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>   
+						</tr>
+					<tr>
+						<td align="left" valign="middle">AED</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 350,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.901%</span>   (BM + <span class="text-price">2.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">350,000 ≤ 3,500,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.401%</span>   (BM + <span class="text-price">2%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">3,500,000 ≤ 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.901%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.901%</span>   (BM + <span class="text-price">1.5%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">AUD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 150,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.461%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">150,000 ≤ 1,500,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.961%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,500,000 ≤ 75,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.711%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">75,000,000 ≤ 300,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.461%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 300,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.461%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">CAD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 130,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.120%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">130,000 ≤ 1,300,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.620%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,300,000 ≤ 64,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.370%</span>   (BM + <span class="text-price">0.75%</span>)</span> </td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">64,000,000 ≤ 260,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.120%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 260,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.120%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">CHF</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤  90,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.532%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">90,000 ≤ 900,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.032%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">900,000 ≤ 46,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">0.782%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">46,000,000 ≤ 180,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">0.75%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 180,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">0.75%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">CNH</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 700,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.384%</span>   (BM + <span class="text-price">4%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">700,000 ≤ 7,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.384%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">7,000,000 ≤ 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.884%</span>   (BM + <span class="text-price">2.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.384%</span>   (BM + <span class="text-price">2%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">CZK</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 400,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.536%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 400,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.536%</span>   (BM + <span class="text-price">3%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">DKK</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 120,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.824%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 120,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.824%</span>   (BM + <span class="text-price">3%</span>)</span> <sup>2</sup></td>
+						</tr>
+							<tr>
+						<td align="left" valign="middle">EUR</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 90,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.674%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">90,000 ≤ 900,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.174%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">900,000 ≤ 44,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.924%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">44,000,000 ≤ 180,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.674%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 180,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.674%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">GBP</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 80,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.694%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">80,000 ≤ 800,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.194%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">800,000 ≤ 38,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.944%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">38,000,000 ≤ 150,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.694%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 150,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.694%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">HKD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 780,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.945%</span>   (BM + <span class="text-price">2.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">780,000 ≤ 7,800,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.445%</span>   (BM + <span class="text-price">2%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">7,800,000 ≤ 780,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.945%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 780,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.945%</span>   (BM + <span class="text-price">1.5%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">HUF</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 4,500,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">11.595%</span>   (BM + <span class="text-price">5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 4,500,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">11.595%</span>   (BM + <span class="text-price">5%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">ILS</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 80,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">9.772%</span>   (BM + <span class="text-price">5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 80,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">9.772%</span>   (BM + <span class="text-price">5%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">INR</td>
+						<td align="left" valign="middle">All</td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">8.580%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>  
+       
+					<tr>
+						<td align="left" valign="middle">JPY</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 11,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.055%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">11,000,000 ≤ 114,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.555%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">114,000,000 ≤ 5,700,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.305%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">5,700,000,000 ≤ 23,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.055%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 23,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">1.055%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">KRW</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 120,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.500%</span>   (BM + <span class="text-price">2%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">120,000,000 ≤ 1,200,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.000%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,200,000,000 ≤ 24,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.500%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 24,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.500%</span>   (BM + <span class="text-price">1%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">MXN</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 2,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">11.167%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">2,000,000 ≤ 20,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">10.167%</span>   (BM + <span class="text-price">2%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">20,000,000 ≤ 2,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">9.667%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 2,000,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">9.667%</span>   (BM + <span class="text-price">1.5%</span>)</span> <sup>2</sup></td>
+						</tr>
+								<tr>
+						<td align="left" valign="middle">NOK</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 900,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.625%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">900,000 ≤ 9,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">5.125%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">9,000,000 ≤ 450,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.875%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">450,000,000 ≤ 1,800,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.625%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 1,800,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.625%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1, 2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">NZD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 150,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.960%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">150,000 ≤ 1,500,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.460%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,500,000 ≤ 150,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.210%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 150,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">4.210%</span>   (BM + <span class="text-price">0.75%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">PLN</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 70,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.980%</span>   (BM + <span class="text-price">3%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 70,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.980%</span>   (BM + <span class="text-price">3%</span>)</span> <sup>2</sup></td>
+						</tr>
+				<tr class="warning">
+						<td align="left" valign="middle">RUB*</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 660,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">21.960%</span>   (BM + <span class="text-price">5%</span>)</span></td>
+						</tr>
+				<tr class="warning">
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 660,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">21.960%</span>   (BM + <span class="text-price">5%</span>)</span> <sup>2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">SAR</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 350,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.646%</span>   (BM + <span class="text-price">2.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">350,000 ≤ 3,500,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.146%</span>   (BM + <span class="text-price">2%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">3,500,000 ≤ 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.646%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 350,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">6.646%</span>   (BM + <span class="text-price">1.5%</span>)</span> <sup>2</sup></td>
+						</tr>
+							<tr>
+						<td align="left" valign="middle">SEK</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 900,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.634%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">900,000 ≤ 9,100,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.134%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">9,100,000 ≤ 454,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.884%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">454,000,000 ≤ 1,820,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.634%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 1,820,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.634%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1,2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">SGD</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 140,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">3.094%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">140,000 ≤ 1,400,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.594%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,400,000 ≤ 68,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.344%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">68,000,000 ≤ 270,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.094%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 270,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">2.094%</span>   (BM + <span class="text-price">0.5%</span>)</span> <sup>1, 2</sup></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle">TRY</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 250,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">40.372%</span>   (BM + <span class="text-price">5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 250,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">40.372%</span>   (BM + <span class="text-price">5%</span>)</span> <sup>2</sup></td>
+						</tr>
+					  <tr>
+						<td align="left" valign="middle">ZAR</td>
+						<td align="left" valign="middle"><span class="text-price">0 ≤ 1,500,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.938%</span>   (BM + <span class="text-price">1.5%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">1,500,000 ≤ 15,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.438%</span>   (BM + <span class="text-price">1%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">15,000,000 ≤ 1,500,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.188%</span>   (BM + <span class="text-price">0.75%</span>)</span></td>
+						</tr>
+						<tr>
+						<td align="left" valign="middle"> </td>
+						<td align="left" valign="middle"><span class="text-price">> 1,500,000,000</span></td>
+						<td align="left" valign="middle"><span class="text-price"><span class="text-price">7.188%</span>   (BM + <span class="text-price">0.75%</span>)</span> <sup>2</sup></td>
+						</tr>
+						</tbody>
+						</table>
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="notes">
+						 <ol>
+						<li>A minimum floor of 0.75% will be charged on margin loans. Rates subject to change.</li>
+						<li>May be subject to a 1% surcharge applied to the spread if financing is not pre-arranged.</li>
+						 </ol>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+				   <div class='alert alert-warning mt-10 pb-20'>
+    <p class='alert p-10'><strong>NOTES:</strong> </p>
+    <ul>
+        <li>Due to sanctions imposed by multiple governments, IBKR clients cannot open or close positions on the Moscow Stock Exchange (MOEX) at this time. </li>
+        <li>We do not currently receive pricing data for MOEX listed securities or securities with a MOEX listed component.</li>
+        <li>Any long or short RUB balances in an account auto-convert to USD or EUR, depending on the entity holding an account. Visit our <a href='https://www.ibkrguides.com/kb/article-4563.htm' target='_blank' rel='noreferrer' class="link-generic">Knowledge Base</a> for additional info.</li>
+    </ul>
+</div>  
+				</div>
+			</div>    
+		</div>
+	</section>
+	<section id="final-cta">
+	    <div class="container">
+			<div class="row align-items-center">
+				<div class="col-12 col-md-5 col-lg-4">
+					<img src="/images/web/futures-traders_1775907056.jpeg" alt="Futures trading at IBKR" loading="lazy" />
+				</div>
+				<div class="col-12 offset-md-1 col-md-6 col-lg-7 cta-block">
+	                    <h2 class="pb-10">Start trading like a professional today!</h2>
+	                    <a href="https://ndcdyn.interactivebrokers.com/Universal/Application" target="_self" class="btn btn-primary btn-open-account">Open an Account</a>				</div>
+			</div>
+		</div>
+		<!-- /.container -->
+	</section>
+<!-- DISCLOSURES -->
+<section id="disclosures" class="disclosure">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="text-bold">Disclosures</p>
+        <ul class="no-style">
+          <li>IBKR may change these rates at any time, in its sole discretion. We will publish the current rates on a best-efforts basis. Interest rates may also vary by program or arrangement, and actual rates charged may be lower than those published due to various circumstances. Restrictions apply. The published rates are for direct clients of IBKR. Clients introduced through another broker may pay a different amount of margin interest at the election of the client's introducing broker. Clients should contact their introducing broker about the rates that will apply to their accounts.
+</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<!-- FOOTER START  -->
+<style>
+/* adding bg behind logo for legibility in dark mode */
+[data-theme="dark"] img.regulator-logo {background-color: var(--slate-dark-40); padding: 10px 15px;}
+</style>
+<section class="disclosure mt-0" id="ca-disclosure">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Interactive Brokers Canada Inc. is a member of the                 <a href="https://www.ciro.ca" target="_blank" rel="noreferrer noopener">Canadian Investment Regulatory Organization (CIRO)</a> 
+                 
+                and Member - <a href="https://www.cipf.ca/" target="_blank" rel="noreferrer noopener">Canadian Investor Protection Fund</a>. Know Your Advisor: View the CIRO AdvisorReport. Trading of securities and derivatives may involve a high degree of risk and investors should be prepared for the risk of losing their entire investment and losing further amounts. Using borrowed money to finance the purchase of securities involves greater risk than using cash resources only. If you borrow money to purchase securities, your responsibility to repay the loan and pay interest as required by its terms remains the same even if the value of the securities purchased declines. Interactive Brokers Canada Inc. is an order execution-only dealer and does not provide investment advice or recommendations regarding the purchase or sale of any securities or derivatives. Our registered office is located at 1800 McGill College Avenue, Suite 2106, Montreal, Quebec, H3A 3J6, Canada.</p>
+                <br>
+                <p class="text-center">Know Your Advisor: View the <a href="https://www.ciro.ca/office-investor/know-your-advisor-advisor-report" target="_blank" rel="noreferrer noopener">CIRO AdvisorReport</a></p>
+                <p class="text-center">
+                     
+                        <a href="https://www.ciro.ca" target="_blank" rel="noreferrer noopener"><img src="/images/web/CIRO_Regulated_Dark-en.svg" alt="CIRO" width="250" border="0" class="regulator-logo" /></a>
+                                    </p>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer noprint" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Interactive Brokers ®, IB<sup>SM</sup>, InteractiveBrokers.com ®, Interactive Analytics ®, IB Options Analytics<sup>SM</sup>, IB SmartRouting<sup>SM</sup>, PortfolioAnalyst ®, IB Trader Workstation<sup>SM</sup> and One World, One Account<sup>SM</sup> are service marks and/or trademarks of Interactive Brokers LLC. Supporting documentation for any claims and statistical information will be provided upon request. Any trading symbols displayed are for illustrative purposes only and are not intended to portray recommendations.</p>
+                <p>The risk of loss in online trading of stocks, options, futures, currencies, foreign equities, and fixed income can be substantial.</p>
+                <p>Options involve risk and are not suitable for all investors. For more information read the <a href="https://www.theocc.com/about/publications/character-risks.jsp" target="_blank" rel="noreferrer noopener">Characteristics and Risks of Standardized Options</a>, also known as the options disclosure document (ODD). Alternatively, please contact <a href="/en/support/customer-service.php?p=contact" target="_self">IB Customer Service</a> to receive a copy of the ODD. Before trading, clients must read the relevant risk disclosure statements on our <a href="/en/general/homepage-disclosures.php" target="_self">Warnings and Disclosures page</a>. Trading on margin is only for experienced investors with high risk tolerance. You may lose more than your initial investment. For additional information about rates on margin loans, please see <a href="/en/trading/margin-rates.php" target="_self">Margin Loan Rates</a>. Security futures involve a high degree of risk and are not suitable for all investors. The amount you may lose may be greater than your initial investment. Before trading security futures, read the <a href="/en/general/homepage-disclosures.php" target="_self">Security Futures Risk Disclosure Statement</a>. Structured products and fixed income products such as bonds are complex products that are riskier and not suitable for all investors. Before trading, please read the <a href="/en/general/homepage-disclosures.php" target="_self">Risk Warning and Disclosure Statement</a>.</p>
+                <p>For information on the IBKR ATS and IBKR Eos ATS, please <a href="https://www.sec.gov/divisions/marketreg/form-ats-n-filings.htm#ats-n" target="_blank" rel="noreferrer noopener">visit the SEC site</a>.</p>
+<p>36 countries include both countries and territories.</p>
+            </div>
+        </div>
+        <div class="footer-site-links" id="footerSiteLinks">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <p>Account</p>
+                    <ul>
+                    <li><a href="https://ndcdyn.interactivebrokers.com/sso/Login?RL=1" target="_self">Log In</a></li>
+                    <li><a href="https://ndcdyn.interactivebrokers.com/Universal/Application" target="_self">Open an Account</a></li>
+                    <li><a href="https://ndcdyn.interactivebrokers.com/sso/Login?c=t" target="_self">Finish an Application</a></li>
+                    <li><a href="/en/accounts/account-guide.php" target="_self">Account Types</a></li>
+                    <li><a href="https://ndcdyn.interactivebrokers.com/Universal/Application?ft=T" target="_self">Free Trial</a></li>
+                    </ul>
+                    <p>Software & Downloads</p>
+                    <ul>
+                    <li><a href="/en/trading/tws.php#tws-software" target="_self">Trader Workstation</a></li>
+                    <li><a href="/en/trading/ibkr-desktop.php" target="_self">IBKR Desktop</a></li>
+                    <li><a href="/en/trading/tws-mobile.php#trytoday" target="_self">IBKR Mobile</a></li>
+                    <li><a href="/en/trading/ib-api.php#api-software" target="_self">APIs</a></li>
+                    </ul>    
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <p>Support</p>
+                    <ul>
+                    <li><a href="/en/support/fund-my-account.php" target="_self">Fund Your Account</a></li>
+					<li><a href="/en/support/individuals.php" target="_self">For Individuals</a></li>
+                    <li><a href="/en/support/institutions.php" target="_self">For Institutions</a></li>
+                    <li><a href="/en/support/institutional-sales-contacts.php?p=cad" target="_self">Institutional Sales Contacts</a></li>
+		   <li><a href="/en/general/contact/ibot-container.php" target="_self">Browse our FAQs</a></li>
+			<li><a href="/en/software/systemStatus.php" target="_self">System Status</a></li>
+                    </ul>
+                    <p>Vendor Support</p>
+                    <ul>
+                    <li><a href="/en/general/about/supplier-information.php" target="_self">Supplier Information</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <p>About Us</p>
+                    <ul>
+                    <li><a href="/en/general/awards.php" target="_self">Awards</a></li>
+                    <li><a href="/en/general/about/careers-splash.php" target="_self">Careers</a></li>
+                    <li><a href="/en/general/about/about.php" target="_self">Information and History</a></li>
+                    <li><a href="https://investors.interactivebrokers.com/ir/main.php" target="_blank" rel="noreferrer noopener">Investor Relations</a></li>
+                    <li><a href="/en/about/news-at-ibkr.php" target="_self">News @ IBKR</a></li>
+                    <li><a href="/en/general/about/press-and-media.php" target="_self">Press and Media</a></li>
+                    <li><a href="/en/accounts/legalDocuments/brokerPerformanceReports.php" target="_self">Regulatory Reports</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <p>Follow Us on Social Media</p>
+                    <ul>
+                    <li><a href="https://www.facebook.com/interactivebrokers" target="_blank" rel="noreferrer noopener"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="https://www.instagram.com/interactivebrokers" target="_blank" rel="noreferrer noopener"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://www.linkedin.com/company/interactive-brokers" target="_blank" rel="noreferrer noopener"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="https://www.reddit.com/r/IBKR_Official/" target="_blank" rel="noreferrer noopener"><i class="fab fa-reddit"></i> Reddit</a></li>
+                    <li><a href="https://www.twitter.com/ibkr" target="_blank" rel="noreferrer noopener"><i class="fab fa-x-twitter"></i> X (Twitter)</a></li>
+                    <li><a href="https://www.youtube.com/interactivebrokers" target="_blank" rel="noreferrer noopener"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-disclosure-links" id="footerDisclosureLinks">
+            <div class="row">
+                <div class="col">
+                    <ul>
+                    <li><a href="/en/accounts/legalDocuments/anti-fraud-notice.php" target="_self">Anti-Fraud Notice</a></li>
+                    <li><a href="/en/accounts/legalDocuments/custIdentificationNotice.php" target="_self">Customer Identification Program Notice</a></li>
+                    <li><a href="/en/general/warnings-on-frauds-and-scams.php" target="_self">Warning on Frauds and Scams</a></li>
+                    <li><a href="/en/accounts/forms-and-disclosures-client-agreements.php" target="_self">Forms and Disclosures</a></li>
+                    <li><a href="/en/accounts/legalDocuments/privacy.php" target="_self">Privacy</a></li>
+                    <li><a href="/en/sitemap/index.php" target="_self">Site Map</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-entities" id="footerEntities">
+            <div class="row">
+                <div class="col">
+                    <div class="footer-entity">
+                        <!-- IBKR CA -->
+                        <p class="entity-name"><a href="https://www.interactivebrokers.ca/en/home.php" target="_self">Interactive Brokers Canada Inc.</a></p>
+                        <p>Is a member of the                             <a href="https://www.ciro.ca" target="_blank" rel="noreferrer noopener">Canadian Investment Regulatory Organization (CIRO)</a> 
+                             
+                            and Member - <a href="https://www.cipf.ca" target="_blank" rel="noreferrer noopener">Canadian Investor Protection Fund.</a><br> <strong>Registered Office:</strong> 1800 McGill College Avenue, Suite 2106, Montreal, Quebec, H3A 3J6, Canada.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.ca/en/home.php" target="_self">www.interactivebrokers.ca</a></p>
+                        <p class="footer-entities-link"><a href="#collapseEntities" target="_self" class="collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseEntities">Information on Other Interactive Brokers Affiliates</a></p>
+                    </div>
+                    <div class="footer-entities-list collapse" id="collapseEntities">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <!-- IBKR LLC -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.com/en/home.php?nored=t" target="_self">Interactive Brokers LLC</a></p>
+                                <p>Is a member <a  rel="noreferrer noopener" target="_blank"  href="https://www.nyse.com">NYSE</a> - <a href="https://www.finra.org" rel="noreferrer noopener"  target="_blank">FINRA</a> - <a href="https://www.sipc.org" rel=" noreferrer noopener" target="_blank">SIPC</a> and regulated by the US Securities and Exchange Commission and the Commodity Futures Trading Commission.<br> <strong>Headquarters:</strong> One Pickwick Plaza, Greenwich, CT 06830 USA<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.com/en/home.php?nored=t" target="_self">www.interactivebrokers.com</a></p>
+                                <!-- IBKR UK -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.co.uk/en/home.php?nored=t" target="_self">Interactive Brokers (U.K.) Limited</a></p>
+                                <p>Is authorised and regulated by the <a href="https://www.fca.org.uk" target="_blank" rel="noreferrer noopener">Financial Conduct Authority</a>. FCA register entry number 208159. Incorporated in England & Wales under company number 03958476. <a href="https://www.fca.org.uk/firms/financial-services-register" target="_blank" rel="noreferrer noopener">[https://www.fca.org.uk/firms/financial-services-register]</a><br> <strong>Registered Office:</strong> 20 Fenchurch Street, Floor 12, London EC3M 3BY.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.co.uk/en/home.php?nored=t" target="_self">www.interactivebrokers.co.uk</a></p>
+                                <!-- IBKR IE -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.ie/en/home.php?nored=t" target="_self">Interactive Brokers Ireland Limited</a></p>
+                                <p>Is regulated by the <a href="https://www.centralbank.ie" target="_blank" rel="noreferrer noopener">Central Bank of Ireland</a> (CBI, reference number C423427), registered with the Companies Registration Office (CRO, registration number 657406), and is a member of the Irish Investor Compensation Scheme (ICS).<br> <strong>Registered Office:</strong> North Dock One, 91/92 North Wall Quay, Dublin 1 D01 H7V7, Ireland.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.ie/en/home.php?nored=t" target="_self">www.interactivebrokers.ie</a></p>
+                                <!-- IBKR AUS -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.com.au/en/home.php?nored=t" target="_self">Interactive Brokers Australia Pty. Ltd.</a></p>
+                                <p>ABN 98 166 929 568 is licensed and regulated by the <a href="https://asic.gov.au/" target="_blank" rel="noreferrer noopener">Australian Securities and Investments Commission</a> (AFSL: 453554) and is a participant of <a href="https://www.asx.com.au/" target="_blank" rel="noreferrer noopener">ASX</a>, <a href="https://www.asx.com.au/" target="_blank" rel="noreferrer noopener">ASX 24</a> and <a href="https://www.cboe.com.au/" target="_blank" rel="noreferrer noopener">Cboe Australia</a>.<br> <strong>Registered Office:</strong> Level 11, 175 Pitt Street, Sydney, New South Wales 2000, Australia.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.com.au/en/home.php?nored=t" target="_self">www.interactivebrokers.com.au </a></p>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <!-- IBKR HK -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.com.hk/en/home.php?nored=t" target="_self">Interactive Brokers Hong Kong Limited</a></p>
+                                <p>Is regulated by the Hong Kong Securities and Futures Commission, and is a member of the <a href="https://www.hkex.com.hk" target="_blank" rel="noreferrer noopener">SEHK</a> and the <a href="https://www.hkex.com.hk" target="_blank" rel="noreferrer noopener">HKFE</a>.<br> <strong>Registered Office:</strong> Suite 1512, Two Pacific Place, 88 Queensway, Admiralty, Hong Kong SAR.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.com.hk/en/home.php?nored=t" target="_self">www.interactivebrokers.com.hk</a></p>
+                                <!-- IBKR IN -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.co.in/en/home.php?nored=t" target="_self">Interactive Brokers India Pvt. Ltd.</a></p>
+                                <p>Is a trading member of <a href="https://www.nseindia.com/" target="_blank" rel="noreferrer noopener">NSE</a>, <a href="https://www.bseindia.com/" target="_blank" rel="noreferrer noopener">BSE</a>, and depository participant of <a href="https://nsdl.co.in/" target="_blank" rel="noreferrer noopener">NSDL</a>. <a href="https://www.sebi.gov.in" target="_blank" rel="noreferrer noopener">SEBI</a> Registration No. INZ000217730; NSDL: IN-DP-602-2021. CIN-U67120MH2007FTC170004.<br> <strong>Registered Office:</strong> 502/A, Times Square, Andheri Kurla Road, Andheri East, Mumbai 400059, India.<br> <strong>Phone:</strong> +91-22-61289888 <span class="pipe">|</span> <strong>Fax:</strong> +91-22-61289898.<br> <strong>Website:</strong> <a href="https://www.interactivebrokers.co.in/en/home.php?nored=t" target="_self">www.interactivebrokers.co.in</a></p>
+                                <!-- IBKR JP -->
+                                <p class="entity-name"><a href="https://www.interactivebrokers.co.jp/en/home.php?nored=t" target="_self">Interactive Brokers Securities Japan Inc.</a></p>
+                                <p>Is regulated by Kanto Local Finance Bureau (Registration No.187) and is a member of <a href="https://www.jsda.or.jp/" target="_blank" rel="noreferrer noopener">Japan Securities Dealers Association</a> and <a href="https://www.nisshokyo.or.jp" target="_blank" rel="noreferrer noopener">The Commodity Futures Association of Japan</a>.<br> <strong>Registered Office:</strong> Kasumigaseki Building 25F, 2-5 Kasumigaseki 3-chome, Chiyoda-ku, Tokyo, 100-6025 Japan.<br> <strong>Phone:</strong> +81 03-4590-0711 <em>(On business days from 8:30-17:30 JST)</em>.<br> <strong>Website:</strong>  <a href="https://www.interactivebrokers.co.jp/en/home.php?nored=t" target="_self">www.interactivebrokers.co.jp</a></p>
+                                <!-- IBKR SG -->
+<p class="entity-name"><a href="https://www.interactivebrokers.com.sg/en/home.php" target="_self">Interactive Brokers Singapore Pte. Ltd.</a></p>
+<p>Is licensed and regulated by the Monetary Authority of Singapore (Licence No. CMS100917).<br> <strong>Registered Office:</strong> 
+1 Harbourfront Place #12-01/03, Harbourfront Tower 1, Singapore 098633.
+<br> <strong>Website:</strong>  <a href="https://www.interactivebrokers.com.sg/en/home.php" target="_self">www.interactivebrokers.com.sg</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- FOOTER END ---------------------------------------------------------------------------------------------------- -->
+<script>
+if(window.location.href.includes('conf=am')) {
+document.querySelector("#ibkr-header").style.display = "none";
+document.querySelector("#footer").style.display = "none";
+}
+</script>
+<!-- MODAL START | ABOUT IB GROUP ---------------------------------------------------------------------------------------------------- -->
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="modalAboutIBGroup">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content modal-primary">
+			<div class="modal-header">
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" ><i class="fas fa-exclamation-circle"></i> Notice</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<p class="message">message</p><!-- You will be brought to the website of our affiliate-->
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-12 col-sm-3 order-2 order-sm-1">
+						<div class="panel-btn-left"><a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-secondary">Stay</a></div>
+					</div>
+					<div class="col-12 col-sm-9 order-1 order-sm-2">
+						<div class="panel-btn-right goto"><a href="javascript:void(0);" onclick=""  data-bs-dismiss="modal"  class="btn btn-primary">Go</a></div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#modalAlert').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+      let myMessage = button.data('mymessage');
+      /*let myLink = "location.href='"+button.data('mytargetlink')+"'"; */
+      let myLink = "window.open('"+button.data('mytargetlink')+"')"; 
+	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	  var modal = $(this)
+	  modal.find('.modal-body .message').text( myMessage );
+	  modal.find('.modal-footer .goto a').attr( "onclick", myLink );
+
+	})
+});
+</script>
+<!-- SHARE ON SOCIAL ---------------------------------------------------------------------------------------------------->
+<div class="social-sidebar animated fadeInLeft noprint">
+	<span><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i></span>
+	<div class="icon-set">
+		<p>SHARE</p>
+		<div class="share-icon"><a href="/insights/ibtr_alerts.php?tiv=46803&cl=F&p=T" target="_blank" rel="noreferrer noopener" title="Share on Facebook" aria-label="Share on Facebook" class="icon-facebook"><i class="fab fa-facebook-square"></i></a></div>
+		<div class="share-icon"><a href="/insights/ibtr_alerts.php?tiv=46803&cl=T&p=T" target="_blank" rel="noreferrer noopener" title="Share on Twitter" aria-label="Share on Twitter" class="icon-twitter"><i class="fab fa-x-twitter"></i></a></div>
+		<div class="share-icon"><a href="/insights/ibtr_alerts.php?tiv=46803&cl=L&p=T" target="_blank" rel="noreferrer noopener" title="Share on Linkedin" aria-label="Share on Linkedin" class="icon-linkedin"><i class="fab fa-linkedin"></i></a></div>
+		<div class="share-icon"><a href="javascript:void(0);" target="_self" title="Share by Email" aria-label="Share by Email" name="btn_trigger" data-bs-toggle="modal" data-bs-target="#emailModal" id="46803" onClick="emailCookie();" class="icon-email"><i class="far fa-envelope"></i></a></div>
+	</div>
+</div>
+<!-- MODAL START | SHARE ON SOCIAL ---------------------------------------------------------------------------------------------------->
+<div class="modal fade noprint" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button id="cls_frm_1" type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="gridSystemModalLabel"><i class="far fa-envelope text-gray"></i> Email</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<form>
+							<div class="form-group">
+								<label for="_to" class="control-label">To:</label> <span id="_err_to" style="color: red;"></span>
+								<input type="text" class="form-control" id="_to">
+							</div>
+							<div class="form-group">
+								<label for="_from" class="control-label">From:</label> <span id="_err_frm" style="color: red;"></span>
+								<input type="text" class="form-control" id="_from">
+							</div>
+							<div class="form-group">
+								<label for="_subject" class="control-label">Subject:</label> <span id="_err_subject" style="color: red;"></span>
+								<input type="text" class="form-control" id="_subject" value="Interactive Brokers">
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" id="_content" style="height:200px;"></textarea>
+							</div>
+							<p class="text-sm">URL: <span class="text-italic text-black">www.interactivebrokers.ca/en/index.php?f=<span id='vid'></span></span></p>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col-6">
+						<div align="left">
+							<button id="cls_frm_2" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<div class="col-6">
+						<div align="right">
+							<button type="button" class="btn btn-primary" id="send">Send</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" id="_page_id" name="_page_id" value="46803" />
+</div>
+<!-- MODAL END | SHARE ON SOCIAL ----------------------------------------------------------------------------------------------------> 
+<script type="text/javascript" src="/insights/ibtr_share.js?t=v1"></script>
+<script>
+$(document).ready(function() {
+	 $(".social-sidebar span").click(function(){
+		 $(".social-sidebar div").toggleClass("social-sidebar-hide");
+		 $(".social-sidebar span").toggleClass("toggle-arrow");
+ 	 });
+});
+function emailCookie() {
+	if (document.cookie.indexOf("IB_EM_SH") == -1) {
+		var ex=new Date();
+		ex.setTime(ex.getTime()+86400000);
+		document.cookie ='IB_EM_SH='+1+';expires='+ex.toGMTString()+';path=/;domain=';
+	}
+}
+</script>
+<!-- SCRIPTS FOOTER ---------------------------------------------------------------------------------------------------- -->
+<script type="text/javascript" src="/scripts/common/js/zeynep-2.2.0/zeynep.js"></script>
+<script type="text/javascript" src="/scripts/common/js/lazyload/lazyload.min.js"></script>
+<script type="text/javascript" src="/search/conversions.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // GATHER HEIGHT OF HEADER
+    var headerHeight = $("div#ibkr-header").outerHeight();
+    // GATHER HEIGHT OF DISCLOSURES
+    var disclosureHeight = $("section#UKProductDisclosure, section#TurbosDisclosure").outerHeight();
+    $("section#UKProductDisclosure").css("top", headerHeight);
+    $("section#TurbosDisclosure").css("top", headerHeight);
+    // SET CONTENTS DIV PADDING TOP
+    $("div#contents").css("padding-top", disclosureHeight);
+    // OVERRIDE TOP OF DISCLOSURE AND PADDING-TOP OF CONTENTS ON WINDOW RESIZE
+    $(window).resize(function() {
+        var headerHeight = $("div#ibkr-header").outerHeight();
+        var disclosureHeight = $("section#UKProductDisclosure, section#TurbosDisclosure").outerHeight();
+        var headerHeightDelta = headerHeight - disclosureHeight;
+        $("section#UKProductDisclosure").css("top", disclosureHeight + headerHeightDelta);
+        $("section#TurbosDisclosure").css("top", disclosureHeight + headerHeightDelta);
+        $("div#contents").css("padding-top", disclosureHeight);
+    });
+    // OVERRIDE TOP OF DISCLOSURE AND PADDING-TOP OF CONTENTS ON BANNER CLOSE
+    $("#bannerRegionSelector a.btn-close").click(function() {
+        setTimeout(function() {
+            var headerHeight = $("div#ibkr-header").outerHeight();
+            $("section#UKProductDisclosure").css("top", headerHeight);
+            $("section#TurbosDisclosure").css("top", headerHeight);
+            $("div#contents").css("padding-top", disclosureHeight);
+        },500);
+    });
+    // MOBILE MENU
+    $(function() {
+        // Initilize mobile menu
+        var zeynep = $('.menu-mobile').zeynep({
+            opened: function () {
+        },
+        closed: function () {
+            }
+        })
+        // Dynamically bind closing event
+        zeynep.on('closing', function () {
+        })
+        // Mobile menu close on overlay click
+        $('.website-overlay').on('click', function () {
+            zeynep.close()
+        })
+        // Mobile menu close on button click
+        $('.btn-close').on('click', function () {
+            zeynep.close()
+        })
+        // Mobile menu open on navbar-toggler click
+        $('.navbar-toggler').on('click', function () {
+            zeynep.open()
+        })
+    })
+});
+if(window.location.href.includes('conf=am')) {
+document.querySelector("#ibkr-header").style.display = "none";
+document.querySelector("#footer").style.display = "none";
+}
+</script>
+<!-- STYLES FOOTER ---------------------------------------------------------------------------------------------------- -->
+<link rel="preload" as="font" type="font/woff2" href="/fonts/fontawesome-6.4.2/webfonts/fa-brands-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/fontawesome-6.4.2/webfonts/fa-regular-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/fontawesome-6.4.2/webfonts/fa-solid-900.woff2" crossorigin>
+<link rel="preload" as="style" href="/css/ibkr/website-print.min.css">
+<link rel="stylesheet" type="text/css" media="print" href="/css/ibkr/website-print.min.css">
+<style type="text/css">
+@import url('/css/fontawesome-6.4.2/all.min.css') layer(vendors);
+@import url('/css/animate-3.7.2/animate.min.css') layer(vendors);
+@import url('/css/bootstrap-switch-3.3.2/bootstrap-switch.min.css') layer(vendors);
+@import url('/css/icheck-1.0.2/icheck.css') layer(vendors);
+</style></body>
+</html>
