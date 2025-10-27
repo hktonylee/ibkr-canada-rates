@@ -24,6 +24,14 @@ PYTHONPATH=src python -m ibkr_rates.update \
     --margin-html tests/margin-rates.html
 ```
 
+## Automation
+
+The scheduled GitHub Actions workflow runs the updater daily and pushes the
+resulting CSV snapshots directly to the default branch. When the workflow runs
+for a pull request it creates a temporary branch named `auto-update/<run-id>`
+and pushes the generated data there so reviewers can inspect the diff without
+affecting the base branch.
+
 ## Testing
 
 ```

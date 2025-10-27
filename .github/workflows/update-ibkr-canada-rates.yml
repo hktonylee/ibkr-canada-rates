@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 10 * * *'  # 6AM EST
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   update-interest-rates:
@@ -12,9 +17,24 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+      - name: Prepare target branch
+        id: branch
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH="auto-update/${{ github.run_id }}"
+            git checkout -B "$BRANCH"
+          else
+            BRANCH="${GITHUB_REF_NAME:-$DEFAULT_BRANCH}"
+          fi
+          echo "name=$BRANCH" >> "$GITHUB_OUTPUT"
       - name: Run Python updater
         run: python -m ibkr_rates.update --output-dir data
         env:
@@ -26,3 +46,4 @@ jobs:
           message: Daily Update
           committer_name: GitHub Actions
           committer_email: actions@github.com
+          push: origin HEAD:${{ steps.branch.outputs.name }}
