@@ -1,0 +1,148 @@
+"""High level orchestration for downloading and exporting rate tables."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import date, datetime
+from pathlib import Path
+from typing import Callable, Dict, Mapping, Optional, Sequence
+
+from .fetch import fetch_html
+from .parser import DEFAULT_TZ, RateRow, parse_interest_rates, parse_margin_rates, rows_to_csv
+
+
+@dataclass(frozen=True)
+class SourceConfig:
+    name: str
+    url: str
+    filename: str
+    parser: "ParserFunc"
+    minimum_rows: int = 20
+    required_currency: str = "USD"
+
+
+ParserFunc = Callable[[str, Optional[date]], Sequence[RateRow]]
+
+
+def _parse_interest(html: str, as_of: Optional[date]) -> Sequence[RateRow]:
+    return parse_interest_rates(html, as_of=as_of)
+
+
+def _parse_margin(html: str, as_of: Optional[date]) -> Sequence[RateRow]:
+    return parse_margin_rates(html, as_of=as_of)
+
+
+SOURCES: Dict[str, SourceConfig] = {
+    "interest": SourceConfig(
+        name="interest",
+        url="https://www.interactivebrokers.ca/en/accounts/fees/pricing-interest-rates.php",
+        filename="ibkr-canada-interest-rates.csv",
+        parser=_parse_interest,
+    ),
+    "margin": SourceConfig(
+        name="margin",
+        url="https://www.interactivebrokers.ca/en/trading/margin-rates.php",
+        filename="ibkr-canada-margin-rates.csv",
+        parser=_parse_margin,
+    ),
+}
+
+
+def _resolve_sources(source_names: Optional[Sequence[str]]) -> Sequence[SourceConfig]:
+    if source_names is None:
+        return list(SOURCES.values())
+    resolved = []
+    for name in source_names:
+        if name not in SOURCES:
+            raise KeyError(f"Unknown source '{name}'")
+        resolved.append(SOURCES[name])
+    return resolved
+
+
+def _ensure_valid(rows: Sequence[RateRow], config: SourceConfig) -> None:
+    if len(rows) < config.minimum_rows:
+        raise ValueError(
+            f"Parsed {len(rows)} rows for {config.name}, expected at least {config.minimum_rows}"
+        )
+    if not any(row.currency == config.required_currency for row in rows):
+        raise ValueError(
+            f"No rows found for {config.required_currency} in {config.name} data set"
+        )
+
+
+def _determine_as_of_date(as_of_date: Optional[date]) -> date:
+    if as_of_date is not None:
+        return as_of_date
+    return datetime.now(tz=DEFAULT_TZ).date()
+
+
+def run_update(
+    output_root: Path,
+    *,
+    as_of_date: Optional[date] = None,
+    source_names: Optional[Sequence[str]] = None,
+    html_overrides: Optional[Mapping[str, str]] = None,
+    fetcher: Callable[[str], str] = fetch_html,
+) -> Dict[str, Path]:
+    """Fetch, parse, validate and export the configured data sets.
+
+    Returns a mapping from source name to the path of the written CSV file.
+    """
+
+    html_overrides = html_overrides or {}
+    sources = _resolve_sources(source_names)
+    resolved_date = _determine_as_of_date(as_of_date)
+    date_dir = output_root / resolved_date.strftime("%Y/%m/%d")
+    date_dir.mkdir(parents=True, exist_ok=True)
+
+    written: Dict[str, Path] = {}
+    for config in sources:
+        override = html_overrides.get(config.name)
+        html_text = override if override is not None else fetcher(config.url)
+        rows = config.parser(html_text, resolved_date)
+        _ensure_valid(rows, config)
+        csv_text = rows_to_csv(rows)
+        output_path = date_dir / config.filename
+        output_path.write_text(csv_text, encoding="utf-8")
+        written[config.name] = output_path
+    return written
+
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Download and export IBKR Canada rate tables.")
+    parser.add_argument("--output-dir", type=Path, default=Path("data"))
+    parser.add_argument("--as-of", type=lambda s: date.fromisoformat(s), default=None)
+    parser.add_argument(
+        "--source",
+        choices=list(SOURCES.keys()) + ["all"],
+        default="all",
+        help="Which data set to refresh",
+    )
+    parser.add_argument("--interest-html", type=Path, default=None, help="Use a local HTML file for interest rates")
+    parser.add_argument("--margin-html", type=Path, default=None, help="Use a local HTML file for margin rates")
+
+    args = parser.parse_args(argv)
+    source_names: Optional[Sequence[str]]
+    if args.source == "all":
+        source_names = None
+    else:
+        source_names = [args.source]
+
+    overrides: Dict[str, str] = {}
+    if args.interest_html is not None:
+        overrides["interest"] = args.interest_html.read_text(encoding="utf-8")
+    if args.margin_html is not None:
+        overrides["margin"] = args.margin_html.read_text(encoding="utf-8")
+
+    run_update(
+        args.output_dir,
+        as_of_date=args.as_of,
+        source_names=source_names,
+        html_overrides=overrides,
+    )
+    return 0
+
+
+if __name__ == "__main__":  # pragma: no cover - CLI entry point
+    raise SystemExit(main())

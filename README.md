@@ -4,6 +4,39 @@ This repository contains the daily IBKR Canada interest and margin rates.
 
 The data is updated daily at 6AM EST.
 
+## Usage
+
+Run the Python updater to download the latest HTML pages, parse them, and
+write CSV snapshots into `data/<YYYY>/<MM>/<DD>`. The project uses a `src`
+layout, so set `PYTHONPATH` accordingly before invoking the module:
+
+```
+PYTHONPATH=src python -m ibkr_rates.update --output-dir data
+```
+
+For development or testing you can point the updater at local HTML copies
+instead of fetching from the network:
+
+```
+PYTHONPATH=src python -m ibkr_rates.update \
+    --output-dir data \
+    --interest-html tests/interest-rates.html \
+    --margin-html tests/margin-rates.html
+```
+
+## Automation
+
+The scheduled GitHub Actions workflow runs the updater daily and pushes the
+resulting CSV snapshots directly to the default branch. When the workflow runs
+for a pull request it creates a temporary branch named `auto-update/<run-id>`
+and pushes the generated data there so reviewers can inspect the diff without
+affecting the base branch.
+
+## Testing
+
+```
+pytest
+```
 
 # Disclaimer
 
