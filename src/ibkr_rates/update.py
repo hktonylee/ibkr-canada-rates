@@ -1,6 +1,7 @@
 """High level orchestration for downloading and exporting rate tables."""
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from datetime import date, datetime
 from pathlib import Path
@@ -104,7 +105,50 @@ def run_update(
         output_path = date_dir / config.filename
         output_path.write_text(csv_text, encoding="utf-8")
         written[config.name] = output_path
+
+    _update_readme_links(output_root, written)
     return written
+
+
+def _update_readme_links(output_root: Path, written: Mapping[str, Path]) -> None:
+    """Update README.md with links to the freshly written CSV files."""
+
+    try:
+        interest_path = written["interest"]
+        margin_path = written["margin"]
+    except KeyError:
+        # Only update the README when both CSVs are refreshed.
+        return
+
+    output_root = output_root.resolve()
+    readme_path = output_root.parent / "README.md"
+    if not readme_path.exists():
+        return
+
+    repo_root = readme_path.parent.resolve()
+    try:
+        interest_rel = interest_path.resolve().relative_to(repo_root).as_posix()
+        margin_rel = margin_path.resolve().relative_to(repo_root).as_posix()
+    except ValueError:
+        # CSVs are outside of the repository – nothing to update.
+        return
+
+    updated_line = (
+        "This repository contains the daily IBKR Canada interest and margin rates, "
+        f"with the latest snapshots available in [`{interest_rel}`]({interest_rel}) "
+        f"and [`{margin_rel}`]({margin_rel})."
+    )
+
+    readme_text = readme_path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"This repository contains the daily IBKR Canada interest and margin rates,.*"
+    )
+    new_text, count = pattern.subn(updated_line, readme_text, count=1)
+    if count == 0:
+        return
+
+    if new_text != readme_text:
+        readme_path.write_text(new_text, encoding="utf-8")
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
