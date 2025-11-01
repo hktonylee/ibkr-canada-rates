@@ -70,7 +70,7 @@ jobs:
           message: Daily Update
           committer_name: GitHub Actions
           committer_email: actions@github.com
-          push: origin HEAD:${{ steps.branch.outputs.name }}
+          push: origin ${{ steps.branch.outputs.name }} --set-upstream --force
 
   cleanup-pr-branch:
     if: >-
@@ -89,7 +89,7 @@ jobs:
             const ref = `auto-update/pr-${context.payload.pull_request.number}`;
             core.info(`Deleting branch ${ref}`);
             try {
-              await github.git.getRef({
+              await github.rest.git.getRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: `heads/${ref}`,
@@ -101,7 +101,7 @@ jobs:
               }
               throw error;
             }
-            await github.git.deleteRef({
+            await github.rest.git.deleteRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: `heads/${ref}`,
