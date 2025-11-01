@@ -1,3 +1,5 @@
+<!-- Generated from README.md.jinja; do not edit directly. -->
+
 # ibkr-canada-rates
 
 This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/10/29/ibkr-canada-interest-rates.csv`](data/2025/10/29/ibkr-canada-interest-rates.csv) and [`data/2025/10/29/ibkr-canada-margin-rates.csv`](data/2025/10/29/ibkr-canada-margin-rates.csv).
