@@ -33,15 +33,35 @@ jobs:
           set -euo pipefail
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BRANCH="auto-update/pr-${PR_NUMBER}"
-            git checkout -B "$BRANCH"
           else
             BRANCH="${GITHUB_REF_NAME:-$DEFAULT_BRANCH}"
+            git checkout -B "$BRANCH"
           fi
           echo "name=$BRANCH" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "base=${{ github.event.pull_request.base.ref }}" >> "$GITHUB_OUTPUT"
+          fi
       - name: Run Python updater
         run: python -m ibkr_rates.update --output-dir data
         env:
           PYTHONPATH: src
+      - name: Create auto-update branch from base
+        if: github.event_name == 'pull_request'
+        env:
+          TARGET_BRANCH: ${{ steps.branch.outputs.name }}
+          BASE_BRANCH: ${{ steps.branch.outputs.base }}
+        run: |
+          set -euo pipefail
+          CHANGES=0
+          if ! git diff --quiet -- ./data; then
+            git stash push --include-untracked -- ./data
+            CHANGES=1
+          fi
+          git fetch origin "$BASE_BRANCH"
+          git checkout -B "$TARGET_BRANCH" "origin/$BASE_BRANCH"
+          if [ "$CHANGES" -eq 1 ]; then
+            git stash pop
+          fi
       - uses: EndBug/add-and-commit@v9.1.4
         with:
           add: |
