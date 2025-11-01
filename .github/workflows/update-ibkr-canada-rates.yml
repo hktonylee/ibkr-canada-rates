@@ -9,9 +9,11 @@ on:
       - opened
       - synchronize
       - reopened
+      - closed
 
 jobs:
   update-interest-rates:
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,10 +28,11 @@ jobs:
         id: branch
         env:
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          PR_NUMBER: ${{ github.event.pull_request.number || '' }}
         run: |
           set -euo pipefail
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BRANCH="auto-update/${{ github.run_id }}"
+            BRANCH="auto-update/pr-${PR_NUMBER}"
             git checkout -B "$BRANCH"
           else
             BRANCH="${GITHUB_REF_NAME:-$DEFAULT_BRANCH}"
@@ -47,3 +50,38 @@ jobs:
           committer_name: GitHub Actions
           committer_email: actions@github.com
           push: origin HEAD:${{ steps.branch.outputs.name }}
+
+  cleanup-pr-branch:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete temporary auto-update branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ref = `auto-update/pr-${context.payload.pull_request.number}`;
+            core.info(`Deleting branch ${ref}`);
+            try {
+              await github.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${ref}`,
+              });
+            } catch (error) {
+              if (error.status === 404) {
+                core.info('Branch does not exist, skipping');
+                return;
+              }
+              throw error;
+            }
+            await github.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${ref}`,
+            });
