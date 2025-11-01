@@ -88,7 +88,7 @@ jobs:
             const ref = `auto-update/pr-${context.payload.pull_request.number}`;
             core.info(`Deleting branch ${ref}`);
             try {
-              await github.git.getRef({
+              await github.rest.git.getRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 ref: `heads/${ref}`,
@@ -100,7 +100,7 @@ jobs:
               }
               throw error;
             }
-            await github.git.deleteRef({
+            await github.rest.git.deleteRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: `heads/${ref}`,
