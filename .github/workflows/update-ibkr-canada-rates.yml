@@ -43,6 +43,7 @@ jobs:
         with:
           add: |
             - ./data/**/*.csv
+            - README.md
           message: Daily Update
           committer_name: GitHub Actions
           committer_email: actions@github.com
