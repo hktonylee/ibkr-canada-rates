@@ -28,6 +28,8 @@ jobs:
         run: python -m ibkr_rates.update --output-dir data
         env:
           PYTHONPATH: src
+      - name: Build USD margin chart asset
+        run: python scripts/build_usd_margin_chart.py --data-dir data
       - name: Create auto-update branch from base
         id: branch
         env:
@@ -48,6 +50,7 @@ jobs:
           add: |
             - ./data/**/*.csv
             - README.md
+            - ./assets/**/*
           message: Daily Update
           committer_name: GitHub Actions
           committer_email: actions@github.com
