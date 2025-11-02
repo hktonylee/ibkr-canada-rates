@@ -152,8 +152,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("assets/usd-margin-100k.svg"),
-        help="Path to the SVG that will be written (default: assets/usd-margin-100k.svg)",
+        default=None,
+        help=(
+            "Path to the SVG that will be written (default: assets/<date>/"
+            "usd-margin-100000.svg)"
+        ),
     )
     return parser.parse_args()
 
@@ -162,7 +165,14 @@ def main() -> None:
     args = parse_args()
     records = load_usd_margin_history(args.data_dir)
     svg = build_svg(records)
-    write_svg(svg, args.output)
+
+    if args.output is not None:
+        output_path = args.output
+    else:
+        latest_date = records[-1][0]
+        output_path = Path("assets") / latest_date.isoformat() / "usd-margin-100000.svg"
+
+    write_svg(svg, output_path)
 
 
 if __name__ == "__main__":  # pragma: no cover

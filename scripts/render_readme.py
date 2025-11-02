@@ -82,6 +82,8 @@ def build_chart_section(data_dir: Path) -> str:
 
     earliest = records[0][0]
     latest = records[-1][0]
+    chart_path = Path("assets") / latest.isoformat() / "usd-margin-100000.svg"
+    chart_rel = chart_path.as_posix()
 
     return textwrap.dedent(
         f"""
@@ -92,12 +94,12 @@ def build_chart_section(data_dir: Path) -> str:
         available entry on {earliest.isoformat()} through the latest snapshot on {latest.isoformat()}.
 
         <p align=\"center\">
-          <img src=\"./assets/usd-margin-100k.svg\" alt=\"Historical USD margin rate for $100,000 borrowed\" width=\"720\" />
+          <img src=\"./{chart_rel}\" alt=\"Historical USD margin rate for $100,000 borrowed\" width=\"720\" />
         </p>
 
-        The SVG is generated automatically by the repository workflow and is not kept
-        under version control. To preview it locally, run the helper script below after
-        adding new data files:
+        The SVG is generated automatically by the repository workflow and written to
+        `{chart_rel}`. To refresh it locally after adding new data files, run the helper
+        script below:
 
         ```
         python scripts/build_usd_margin_chart.py
