@@ -33,6 +33,12 @@ def load_usd_margin_history(data_dir: Path, tier_lower_bound: str = "100000") ->
 
     records = list(records_by_date.values())
     records.sort()
+
+    if records:
+        latest_date = records[-1][0]
+        cutoff_date = latest_date - dt.timedelta(days=31)
+        records = [record for record in records if record[0] >= cutoff_date]
+
     return records
 
 
