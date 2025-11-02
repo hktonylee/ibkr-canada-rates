@@ -2,7 +2,7 @@
 
 # ibkr-canada-rates
 
-This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/10/29/ibkr-canada-interest-rates.csv`](data/2025/10/29/ibkr-canada-interest-rates.csv) and [`data/2025/10/29/ibkr-canada-margin-rates.csv`](data/2025/10/29/ibkr-canada-margin-rates.csv).
+This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/11/01/ibkr-canada-interest-rates.csv`](data/2025/11/01/ibkr-canada-interest-rates.csv) and [`data/2025/11/01/ibkr-canada-margin-rates.csv`](data/2025/11/01/ibkr-canada-margin-rates.csv).
 
 The data is updated daily at 6AM EST.
 
@@ -46,10 +46,10 @@ The chart below visualizes the historical USD margin rate that applies to a
 borrowed balance of USD 100,000 (the second tier in IBKR Canada's pricing
 table). The data points come directly from the daily CSV snapshots stored in
 `data/<YYYY>/<MM>/<DD>/ibkr-canada-margin-rates.csv`, spanning from the earliest
-available entry on 2025-09-23 through the latest snapshot on 2025-10-29.
+available entry on 2025-09-23 through the latest snapshot on 2025-11-01.
 
 <p align="center">
-  <img src="./assets/usd-margin-100k.svg" alt="Historical USD margin rate for $100,000 borrowed" width="720" />
+  <img src="./assets/usd-margin-100k.svg" alt="Historical USD margin rate for tier ≥ USD 100,000" width="720" />
 </p>
 
 The SVG is generated automatically by the repository workflow and is not kept
@@ -57,7 +57,14 @@ under version control. To preview it locally, run the helper script below after
 adding new data files:
 
 ```
-python scripts/build_usd_margin_chart.py
+python scripts/build_usd_margin_chart.py --infer-second-tier
+```
+
+To generate comparable charts for every supported currency across the interest
+and margin datasets, use the bulk helper:
+
+```
+python scripts/build_rate_charts.py
 ```
 
 # Disclaimer

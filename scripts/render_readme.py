@@ -8,7 +8,7 @@ import textwrap
 from datetime import date
 from pathlib import Path
 
-from build_usd_margin_chart import load_usd_margin_history
+from rate_chart_utils import load_rate_history
 
 try:  # pragma: no cover - dependency injection path
     from jinja2 import Environment, FileSystemLoader, StrictUndefined  # type: ignore
@@ -74,7 +74,12 @@ def build_latest_snapshot_sentence(data_dir: Path) -> str:
 def build_chart_section(data_dir: Path) -> str:
     """Return the README snippet that documents the USD margin chart."""
 
-    records = load_usd_margin_history(data_dir)
+    records = load_rate_history(
+        data_dir,
+        csv_name="ibkr-canada-margin-rates.csv",
+        currency="USD",
+        tier_lower_bound="100000",
+    )
     if not records:
         raise SystemExit(
             "No USD margin rate records found; ensure the data directory contains snapshots."
@@ -92,7 +97,7 @@ def build_chart_section(data_dir: Path) -> str:
         available entry on {earliest.isoformat()} through the latest snapshot on {latest.isoformat()}.
 
         <p align=\"center\">
-          <img src=\"./assets/usd-margin-100k.svg\" alt=\"Historical USD margin rate for $100,000 borrowed\" width=\"720\" />
+          <img src=\"./assets/usd-margin-100k.svg\" alt=\"Historical USD margin rate for tier ≥ USD 100,000\" width=\"720\" />
         </p>
 
         The SVG is generated automatically by the repository workflow and is not kept
@@ -100,7 +105,14 @@ def build_chart_section(data_dir: Path) -> str:
         adding new data files:
 
         ```
-        python scripts/build_usd_margin_chart.py
+        python scripts/build_usd_margin_chart.py --infer-second-tier
+        ```
+
+        To generate comparable charts for every supported currency across the interest
+        and margin datasets, use the bulk helper:
+
+        ```
+        python scripts/build_rate_charts.py
         ```
         """
     ).strip()
