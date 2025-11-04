@@ -87,23 +87,9 @@ def build_chart_section(data_dir: Path) -> str:
 
     return textwrap.dedent(
         f"""
-        The chart below visualizes the historical USD margin rate that applies to a
-        borrowed balance of USD 100,000 (the second tier in IBKR Canada's pricing
-        table). The data points come directly from the daily CSV snapshots stored in
-        `data/<YYYY>/<MM>/<DD>/ibkr-canada-margin-rates.csv`, spanning from the earliest
-        available entry on {earliest.isoformat()} through the latest snapshot on {latest.isoformat()}.
-
         <p align=\"center\">
           <img src=\"./{chart_rel}\" alt=\"Historical USD margin rate for $100,000 borrowed\" width=\"720\" />
         </p>
-
-        The SVG is generated automatically by the repository workflow and written to
-        `{chart_rel}`. To refresh it locally after adding new data files, run the helper
-        script below:
-
-        ```
-        python scripts/build_usd_margin_chart.py
-        ```
         """
     ).strip()
 
