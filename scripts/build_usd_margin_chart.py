@@ -123,15 +123,15 @@ def build_svg(records: Sequence[RateRecord], *, width: int = 900, height: int = 
         text {{ font-family: 'DejaVu Sans', Arial, sans-serif; }}
     </style>
     <rect x='0' y='0' width='{width}' height='{height}' fill='white'/>
-    <text x='{width/2}' y='{margin_top-20}' text-anchor='middle' font-size='20' fill='#111'>Historical USD Margin Rate for $100,000 Borrowed</text>
+    <text x='{width/2}' y='{margin_top-20}' text-anchor='middle' font-size='20' fill='#111'>Historical USD Margin Rate ($100,000, {unique_dates[0].isoformat()} - {unique_dates[-1].isoformat()})</text>
+    <text x='{width/2}' y='{height-margin_bottom+50}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
+    <text x='{margin_left-60}' y='{height/2}' text-anchor='middle' font-size='14' fill='#333' transform='rotate(-90 {margin_left-60} {height/2})'>Annual Margin Rate (%)</text>
+    <text x='{width/2}' y='{height-20}' text-anchor='middle' font-size='12' fill='#555'>Data source: IBKR Canada margin rate snapshots • Generated on {generated_on}</text>
     {''.join(axis_lines)}
     <polyline fill='none' stroke='#1f77b4' stroke-width='2' points='{" ".join(points)}' />
     {''.join(circles)}
     {''.join(y_ticks)}
     {''.join(x_ticks)}
-    <text x='{width/2}' y='{height-margin_bottom+50}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
-    <text x='{margin_left-60}' y='{height/2}' text-anchor='middle' font-size='14' fill='#333' transform='rotate(-90 {margin_left-60} {height/2})'>Annual Margin Rate (%)</text>
-    <text x='{width/2}' y='{height-20}' text-anchor='middle' font-size='12' fill='#555'>Data source: IBKR Canada margin rate snapshots • Generated on {generated_on}</text>
 </svg>"""
     return svg
 
