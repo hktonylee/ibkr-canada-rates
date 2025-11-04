@@ -30,6 +30,8 @@ jobs:
           PYTHONPATH: src
       - name: Build USD margin chart asset
         run: python scripts/build_usd_margin_chart.py --data-dir data
+      - name: Regenerate README from template
+        run: python scripts/render_readme.py --data-dir data
       - name: Create auto-update branch from base
         id: branch
         env:
