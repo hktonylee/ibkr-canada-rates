@@ -102,13 +102,25 @@ def build_svg(records: Sequence[RateRecord], *, width: int = 900, height: int = 
         )
 
     x_ticks: List[str] = []
+    label_y = height - margin_bottom + 36
+
     for date in unique_dates:
         x = scale_x(date)
+        rotate_anchor = f"{x:.2f} {label_y:.2f}"
         x_ticks.append(
             "".join(
                 [
                     f"<line x1='{x:.2f}' y1='{height-margin_bottom}' x2='{x:.2f}' y2='{height-margin_bottom+6}' stroke='#333' stroke-width='1' />",
-                    f"<text x='{x:.2f}' y='{height-margin_bottom+24}' font-size='12' text-anchor='middle' fill='#333'>{date.isoformat()}</text>",
+                    (
+                        "<text x='{x:.2f}' y='{label_y:.2f}' font-size='12' "
+                        "text-anchor='end' dominant-baseline='middle' fill='#333' "
+                        "transform='rotate(-90 {rotate_anchor})'>{date}</text>"
+                    ).format(
+                        x=x,
+                        label_y=label_y,
+                        rotate_anchor=rotate_anchor,
+                        date=date.isoformat(),
+                    ),
                     f"<line x1='{x:.2f}' y1='{margin_top}' x2='{x:.2f}' y2='{height-margin_bottom}' stroke='#eeeeee' stroke-width='0.5' />",
                 ]
             )
