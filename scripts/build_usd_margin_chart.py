@@ -60,7 +60,8 @@ def build_svg(records: Sequence[RateRecord], *, width: int = 900, height: int = 
         min_rate -= 0.01
         max_rate += 0.01
 
-    margin_left, margin_right, margin_top, margin_bottom = 90, 40, 50, 80
+    # Increase the bottom margin so vertically rotated date labels have room to render fully.
+    margin_left, margin_right, margin_top, margin_bottom = 90, 40, 50, 160
     plot_width = width - margin_left - margin_right
     plot_height = height - margin_top - margin_bottom
 
@@ -102,13 +103,25 @@ def build_svg(records: Sequence[RateRecord], *, width: int = 900, height: int = 
         )
 
     x_ticks: List[str] = []
+    label_y = height - margin_bottom + 48
+
     for date in unique_dates:
         x = scale_x(date)
+        rotate_anchor = f"{x:.2f} {label_y:.2f}"
         x_ticks.append(
             "".join(
                 [
                     f"<line x1='{x:.2f}' y1='{height-margin_bottom}' x2='{x:.2f}' y2='{height-margin_bottom+6}' stroke='#333' stroke-width='1' />",
-                    f"<text x='{x:.2f}' y='{height-margin_bottom+24}' font-size='12' text-anchor='middle' fill='#333'>{date.isoformat()}</text>",
+                    (
+                        "<text x='{x:.2f}' y='{label_y:.2f}' font-size='12' "
+                        "text-anchor='end' dominant-baseline='middle' fill='#333' "
+                        "transform='rotate(-90 {rotate_anchor})'>{date}</text>"
+                    ).format(
+                        x=x,
+                        label_y=label_y,
+                        rotate_anchor=rotate_anchor,
+                        date=date.isoformat(),
+                    ),
                     f"<line x1='{x:.2f}' y1='{margin_top}' x2='{x:.2f}' y2='{height-margin_bottom}' stroke='#eeeeee' stroke-width='0.5' />",
                 ]
             )
@@ -124,7 +137,7 @@ def build_svg(records: Sequence[RateRecord], *, width: int = 900, height: int = 
     </style>
     <rect x='0' y='0' width='{width}' height='{height}' fill='white'/>
     <text x='{width/2}' y='{margin_top-20}' text-anchor='middle' font-size='20' fill='#111'>Historical USD Margin Rate ($100,000, {unique_dates[0].isoformat()} - {unique_dates[-1].isoformat()})</text>
-    <text x='{width/2}' y='{height-margin_bottom+50}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
+    <text x='{width/2}' y='{height-margin_bottom+120}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
     <text x='{margin_left-60}' y='{height/2}' text-anchor='middle' font-size='14' fill='#333' transform='rotate(-90 {margin_left-60} {height/2})'>Annual Margin Rate (%)</text>
     <text x='{width/2}' y='{height-20}' text-anchor='middle' font-size='12' fill='#555'>Data source: IBKR Canada margin rate snapshots • Generated on {generated_on}</text>
     {''.join(axis_lines)}
