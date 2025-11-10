@@ -55,6 +55,10 @@ and interest rate tiers across USD, CAD, and JPY.
   <img src="./assets/2025-11-07/cad-margin-130000.svg" alt="Historical CAD margin rate for C$130,000 borrowed" width="720" />
 </p>
 
+<p align="center">
+  <img src="./assets/2025-11-07/jpy-margin-11000000.svg" alt="Historical JPY margin rate for ¥11,000,000 borrowed" width="720" />
+</p>
+
 ### Interest rates
 
 <p align="center">
