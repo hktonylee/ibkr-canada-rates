@@ -40,10 +40,33 @@ affecting the base branch.
 pytest
 ```
 
-## Historical USD margin rate snapshot
+## Historical rate snapshots
+
+The charts below track the latest 31-day history for several popular margin
+and interest rate tiers across USD, CAD, and JPY.
+
+### Margin rates
 
 <p align="center">
   <img src="./assets/2025-11-11/usd-margin-100000.svg" alt="Historical USD margin rate for $100,000 borrowed" width="720" />
+</p>
+
+<p align="center">
+  <img src="./assets/2025-11-07/cad-margin-130000.svg" alt="Historical CAD margin rate for C$130,000 borrowed" width="720" />
+</p>
+
+<p align="center">
+  <img src="./assets/2025-11-07/jpy-margin-11000000.svg" alt="Historical JPY margin rate for ¥11,000,000 borrowed" width="720" />
+</p>
+
+### Interest rates
+
+<p align="center">
+  <img src="./assets/2025-11-07/cad-interest-13000.svg" alt="Historical CAD interest rate for balances ≥ C$13,000" width="720" />
+</p>
+
+<p align="center">
+  <img src="./assets/2025-11-07/jpy-interest-5000000.svg" alt="Historical JPY interest rate for balances ≥ ¥5,000,000" width="720" />
 </p>
 
 # Disclaimer

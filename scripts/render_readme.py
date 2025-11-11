@@ -5,10 +5,11 @@ from __future__ import annotations
 
 import argparse
 import textwrap
+from collections import OrderedDict
 from datetime import date
 from pathlib import Path
 
-from build_usd_margin_chart import load_usd_margin_history
+from build_rate_charts import CHART_DEFINITIONS, ChartDefinition, load_rate_history
 
 try:  # pragma: no cover - dependency injection path
     from jinja2 import Environment, FileSystemLoader, StrictUndefined  # type: ignore
@@ -72,26 +73,52 @@ def build_latest_snapshot_sentence(data_dir: Path) -> str:
 
 
 def build_chart_section(data_dir: Path) -> str:
-    """Return the README snippet that documents the USD margin chart."""
+    """Return the README snippet that documents the rendered rate charts."""
 
-    records = load_usd_margin_history(data_dir)
-    if not records:
-        raise SystemExit(
-            "No USD margin rate records found; ensure the data directory contains snapshots."
+    grouped: "OrderedDict[str, list[str]]" = OrderedDict()
+
+    def ensure_group(definition: ChartDefinition) -> list[str]:
+        if definition.group_heading not in grouped:
+            grouped[definition.group_heading] = []
+        return grouped[definition.group_heading]
+
+    for definition in CHART_DEFINITIONS:
+        records = load_rate_history(
+            data_dir,
+            definition.dataset,
+            currency=definition.currency,
+            tier_lower_bound=definition.tier_lower_bound,
+            tier_upper_bound=definition.tier_upper_bound,
+            lookback_days=definition.lookback_days,
         )
+        if not records:
+            raise SystemExit(
+                "No rate records found; ensure the data directory contains snapshots."
+            )
 
-    earliest = records[0][0]
-    latest = records[-1][0]
-    chart_path = Path("assets") / latest.isoformat() / "usd-margin-100000.svg"
-    chart_rel = chart_path.as_posix()
+        latest = records[-1][0]
+        chart_path = Path("assets") / latest.isoformat() / definition.filename
+        chart_rel = chart_path.as_posix()
 
-    return textwrap.dedent(
-        f"""
-        <p align=\"center\">
-          <img src=\"./{chart_rel}\" alt=\"Historical USD margin rate for $100,000 borrowed\" width=\"720\" />
-        </p>
-        """
-    ).strip()
+        snippet = textwrap.dedent(
+            f"""
+            <p align=\"center\">
+              <img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"720\" />
+            </p>
+            """
+        ).strip()
+
+        ensure_group(definition).append(snippet)
+
+    parts: list[str] = []
+    for group_heading, snippets in grouped.items():
+        parts.append(f"### {group_heading}")
+        parts.append("")
+        for snippet in snippets:
+            parts.append(snippet)
+            parts.append("")
+
+    return "\n".join(parts).strip()
 
 
 def render_template(template_path: Path, context: dict[str, str]) -> str:
@@ -144,7 +171,7 @@ def main() -> None:
     rendered = render_template(
         args.template,
         {
-            "README_INJECT_CHART": chart_section,
+            "README_INJECT_CHARTS": chart_section,
             "README_INJECT_LATEST_SNAPSHOTS": latest_snapshot_links,
         },
     )
