@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import textwrap
 from collections import OrderedDict
 from datetime import date
 from pathlib import Path
@@ -73,14 +72,11 @@ def build_latest_snapshot_sentence(data_dir: Path) -> str:
 
 
 def build_chart_section(data_dir: Path) -> str:
-    """Return the README snippet that documents the rendered rate charts."""
+    """Return the README snippet that documents the latest rate snapshot table."""
 
-    grouped: "OrderedDict[str, list[str]]" = OrderedDict()
-
-    def ensure_group(definition: ChartDefinition) -> list[str]:
-        if definition.group_heading not in grouped:
-            grouped[definition.group_heading] = []
-        return grouped[definition.group_heading]
+    grouped: "OrderedDict[str, dict[str, tuple[ChartDefinition, date, float]]]" = (
+        OrderedDict()
+    )
 
     for definition in CHART_DEFINITIONS:
         records = load_rate_history(
@@ -96,29 +92,27 @@ def build_chart_section(data_dir: Path) -> str:
                 "No rate records found; ensure the data directory contains snapshots."
             )
 
-        latest = records[-1][0]
-        chart_path = Path("assets") / latest.isoformat() / definition.filename
-        chart_rel = chart_path.as_posix()
+        latest_date, latest_rate = records[-1]
+        currency_entries = grouped.setdefault(definition.currency, {})
+        currency_entries[definition.dataset] = (definition, latest_date, latest_rate)
 
-        snippet = textwrap.dedent(
-            f"""
-            <p align=\"center\">
-              <img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"720\" />
-            </p>
-            """
-        ).strip()
+    def format_cell(entry: tuple[ChartDefinition, date, float] | None) -> str:
+        if entry is None:
+            return "—"
 
-        ensure_group(definition).append(snippet)
+        definition, latest_date, latest_rate = entry
+        rate_text = f"{latest_rate:.3f}%"
+        return f"{rate_text} ({definition.tier_display}, {latest_date.isoformat()})"
 
-    parts: list[str] = []
-    for group_heading, snippets in grouped.items():
-        parts.append(f"### {group_heading}")
-        parts.append("")
-        for snippet in snippets:
-            parts.append(snippet)
-            parts.append("")
+    rows: list[str] = ["| Currency | Margin rate | Interest rate |", "| --- | --- | --- |"]
+    for currency, datasets in grouped.items():
+        margin_entry = datasets.get("margin")
+        interest_entry = datasets.get("interest")
+        rows.append(
+            f"| {currency} | {format_cell(margin_entry)} | {format_cell(interest_entry)} |"
+        )
 
-    return "\n".join(parts).strip()
+    return "\n".join(["### Selected rates", "", *rows])
 
 
 def render_template(template_path: Path, context: dict[str, str]) -> str:

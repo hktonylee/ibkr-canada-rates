@@ -42,32 +42,16 @@ pytest
 
 ## Historical rate snapshots
 
-The charts below track the latest 31-day history for several popular margin
-and interest rate tiers across USD, CAD, and JPY.
+The table below lists the latest rates for several popular margin and interest
+rate tiers across USD, CAD, and JPY.
 
-### Margin rates
+### Selected rates
 
-<p align="center">
-  <img src="./assets/2025-11-11/usd-margin-100000.svg" alt="Historical USD margin rate for $100,000 borrowed" width="720" />
-</p>
-
-<p align="center">
-  <img src="./assets/2025-11-07/cad-margin-130000.svg" alt="Historical CAD margin rate for C$130,000 borrowed" width="720" />
-</p>
-
-<p align="center">
-  <img src="./assets/2025-11-07/jpy-margin-11000000.svg" alt="Historical JPY margin rate for ¥11,000,000 borrowed" width="720" />
-</p>
-
-### Interest rates
-
-<p align="center">
-  <img src="./assets/2025-11-07/cad-interest-13000.svg" alt="Historical CAD interest rate for balances ≥ C$13,000" width="720" />
-</p>
-
-<p align="center">
-  <img src="./assets/2025-11-07/jpy-interest-5000000.svg" alt="Historical JPY interest rate for balances ≥ ¥5,000,000" width="720" />
-</p>
+| Currency | Margin rate | Interest rate |
+| --- | --- | --- |
+| USD | 4.870% ($100,000 borrowed, 2025-11-11) | 3.370% (balances ≥ $10,000, 2025-11-11) |
+| CAD | 3.135% (C$130,000 borrowed, 2025-11-11) | 1.635% (balances ≥ C$13,000, 2025-11-11) |
+| JPY | 1.392% (¥11,000,000 borrowed, 2025-11-11) | 0.142% (balances ≥ ¥5,000,000, 2025-11-11) |
 
 # Disclaimer
 
