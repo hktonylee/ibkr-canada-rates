@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import textwrap
 from collections import OrderedDict
 from datetime import date
 from pathlib import Path
@@ -75,12 +74,12 @@ def build_latest_snapshot_sentence(data_dir: Path) -> str:
 def build_chart_section(data_dir: Path) -> str:
     """Return the README snippet that documents the rendered rate charts."""
 
-    grouped: "OrderedDict[str, list[str]]" = OrderedDict()
+    table_rows: "OrderedDict[str, dict[str, str]]" = OrderedDict()
 
-    def ensure_group(definition: ChartDefinition) -> list[str]:
-        if definition.group_heading not in grouped:
-            grouped[definition.group_heading] = []
-        return grouped[definition.group_heading]
+    def ensure_row(currency: str) -> dict[str, str]:
+        if currency not in table_rows:
+            table_rows[currency] = {"margin": "—", "interest": "—"}
+        return table_rows[currency]
 
     for definition in CHART_DEFINITIONS:
         records = load_rate_history(
@@ -100,25 +99,25 @@ def build_chart_section(data_dir: Path) -> str:
         chart_path = Path("assets") / latest.isoformat() / definition.filename
         chart_rel = chart_path.as_posix()
 
-        snippet = textwrap.dedent(
-            f"""
-            <p align=\"center\">
-              <img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"720\" />
-            </p>
-            """
-        ).strip()
+        snippet = (
+            f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"360\" />"
+        )
 
-        ensure_group(definition).append(snippet)
+        row = ensure_row(definition.currency)
+        column = "margin" if definition.dataset == "margin" else "interest"
+        row[column] = snippet
 
-    parts: list[str] = []
-    for group_heading, snippets in grouped.items():
-        parts.append(f"### {group_heading}")
-        parts.append("")
-        for snippet in snippets:
-            parts.append(snippet)
-            parts.append("")
+    lines = [
+        "The table below pairs the latest 31-day margin and interest rate histories for each currency.",
+        "",
+        "| Currency | Margin rate | Interest rate |",
+        "| --- | --- | --- |",
+    ]
 
-    return "\n".join(parts).strip()
+    for currency, cells in table_rows.items():
+        lines.append(f"| {currency} | {cells['margin']} | {cells['interest']} |")
+
+    return "\n".join(lines).strip()
 
 
 def render_template(template_path: Path, context: dict[str, str]) -> str:
