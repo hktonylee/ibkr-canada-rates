@@ -14,113 +14,127 @@ from typing import Iterable, List, Literal, Sequence, Tuple
 RateRecord = Tuple[dt.date, float]
 Dataset = Literal["margin", "interest"]
 
+MARGIN_COLOR = "#1f77b4"
+INTEREST_COLOR = "#d62728"
+
 
 @dataclass(frozen=True)
-class ChartDefinition:
-    """Configuration describing an individual chart to render."""
+class RateSeriesDefinition:
+    """Configuration describing a single rate series to render."""
 
-    slug: str
     dataset: Dataset
-    currency: str
     tier_lower_bound: str | None
     tier_upper_bound: str | None
-    title_suffix: str
     tier_display: str
+    legend_label: str
+    color: str
+
+
+@dataclass(frozen=True)
+class CombinedChartDefinition:
+    """Configuration describing a combined margin + interest chart."""
+
+    slug: str
+    currency: str
+    title_suffix: str
     alt_text: str
     y_axis_label: str
     source_label: str
-    group_heading: str
+    series: tuple[RateSeriesDefinition, ...]
     lookback_days: int = 31
-    color: str = "#1f77b4"
 
     @property
     def filename(self) -> str:
         return f"{self.slug}.svg"
 
 
-CHART_DEFINITIONS: tuple[ChartDefinition, ...] = (
-    ChartDefinition(
-        slug="usd-margin-100000",
-        dataset="margin",
+COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
+    CombinedChartDefinition(
+        slug="usd-rates-100000-10000",
         currency="USD",
-        tier_lower_bound="100000",
-        tier_upper_bound="1000000",
-        title_suffix="Margin Rate",
-        tier_display="$100,000 borrowed",
-        alt_text="Historical USD margin rate for $100,000 borrowed",
-        y_axis_label="Annual Margin Rate (%)",
-        source_label="IBKR Canada margin rate snapshots",
-        group_heading="Margin rates",
+        title_suffix="Margin and Interest Rates",
+        alt_text=(
+            "Historical USD margin and interest rates for $100,000 borrowed "
+            "and balances ≥ $10,000"
+        ),
+        y_axis_label="Annual Rate (%)",
+        source_label="IBKR Canada rate snapshots",
+        series=(
+            RateSeriesDefinition(
+                dataset="margin",
+                tier_lower_bound="100000",
+                tier_upper_bound="1000000",
+                tier_display="$100,000 borrowed",
+                legend_label="Margin ($100,000 borrowed)",
+                color=MARGIN_COLOR,
+            ),
+            RateSeriesDefinition(
+                dataset="interest",
+                tier_lower_bound="10000",
+                tier_upper_bound=None,
+                tier_display="balances ≥ $10,000",
+                legend_label="Interest (balances ≥ $10,000)",
+                color=INTEREST_COLOR,
+            ),
+        ),
     ),
-    ChartDefinition(
-        slug="cad-margin-130000",
-        dataset="margin",
+    CombinedChartDefinition(
+        slug="cad-rates-130000-13000",
         currency="CAD",
-        tier_lower_bound="130000",
-        tier_upper_bound="1300000",
-        title_suffix="Margin Rate",
-        tier_display="C$130,000 borrowed",
-        alt_text="Historical CAD margin rate for C$130,000 borrowed",
-        y_axis_label="Annual Margin Rate (%)",
-        source_label="IBKR Canada margin rate snapshots",
-        group_heading="Margin rates",
-        color="#ff7f0e",
+        title_suffix="Margin and Interest Rates",
+        alt_text=(
+            "Historical CAD margin and interest rates for C$130,000 borrowed "
+            "and balances ≥ C$13,000"
+        ),
+        y_axis_label="Annual Rate (%)",
+        source_label="IBKR Canada rate snapshots",
+        series=(
+            RateSeriesDefinition(
+                dataset="margin",
+                tier_lower_bound="130000",
+                tier_upper_bound="1300000",
+                tier_display="C$130,000 borrowed",
+                legend_label="Margin (C$130,000 borrowed)",
+                color=MARGIN_COLOR,
+            ),
+            RateSeriesDefinition(
+                dataset="interest",
+                tier_lower_bound="13000",
+                tier_upper_bound=None,
+                tier_display="balances ≥ C$13,000",
+                legend_label="Interest (balances ≥ C$13,000)",
+                color=INTEREST_COLOR,
+            ),
+        ),
     ),
-    ChartDefinition(
-        slug="jpy-margin-11000000",
-        dataset="margin",
+    CombinedChartDefinition(
+        slug="jpy-rates-11000000-5000000",
         currency="JPY",
-        tier_lower_bound="11000000",
-        tier_upper_bound="114000000",
-        title_suffix="Margin Rate",
-        tier_display="¥11,000,000 borrowed",
-        alt_text="Historical JPY margin rate for ¥11,000,000 borrowed",
-        y_axis_label="Annual Margin Rate (%)",
-        source_label="IBKR Canada margin rate snapshots",
-        group_heading="Margin rates",
-        color="#9467bd",
-    ),
-    ChartDefinition(
-        slug="cad-interest-13000",
-        dataset="interest",
-        currency="CAD",
-        tier_lower_bound="13000",
-        tier_upper_bound=None,
-        title_suffix="Interest Rate",
-        tier_display="balances ≥ C$13,000",
-        alt_text="Historical CAD interest rate for balances ≥ C$13,000",
-        y_axis_label="Annual Interest Rate (%)",
-        source_label="IBKR Canada interest rate snapshots",
-        group_heading="Interest rates",
-        color="#2ca02c",
-    ),
-    ChartDefinition(
-        slug="usd-interest-10000",
-        dataset="interest",
-        currency="USD",
-        tier_lower_bound="10000",
-        tier_upper_bound=None,
-        title_suffix="Interest Rate",
-        tier_display="balances ≥ $10,000",
-        alt_text="Historical USD interest rate for balances ≥ $10,000",
-        y_axis_label="Annual Interest Rate (%)",
-        source_label="IBKR Canada interest rate snapshots",
-        group_heading="Interest rates",
-        color="#d62728",
-    ),
-    ChartDefinition(
-        slug="jpy-interest-5000000",
-        dataset="interest",
-        currency="JPY",
-        tier_lower_bound="5000000",
-        tier_upper_bound=None,
-        title_suffix="Interest Rate",
-        tier_display="balances ≥ ¥5,000,000",
-        alt_text="Historical JPY interest rate for balances ≥ ¥5,000,000",
-        y_axis_label="Annual Interest Rate (%)",
-        source_label="IBKR Canada interest rate snapshots",
-        group_heading="Interest rates",
-        color="#17becf",
+        title_suffix="Margin and Interest Rates",
+        alt_text=(
+            "Historical JPY margin and interest rates for ¥11,000,000 borrowed "
+            "and balances ≥ ¥5,000,000"
+        ),
+        y_axis_label="Annual Rate (%)",
+        source_label="IBKR Canada rate snapshots",
+        series=(
+            RateSeriesDefinition(
+                dataset="margin",
+                tier_lower_bound="11000000",
+                tier_upper_bound="114000000",
+                tier_display="¥11,000,000 borrowed",
+                legend_label="Margin (¥11,000,000 borrowed)",
+                color=MARGIN_COLOR,
+            ),
+            RateSeriesDefinition(
+                dataset="interest",
+                tier_lower_bound="5000000",
+                tier_upper_bound=None,
+                tier_display="balances ≥ ¥5,000,000",
+                legend_label="Interest (balances ≥ ¥5,000,000)",
+                color=INTEREST_COLOR,
+            ),
+        ),
     ),
 )
 
@@ -196,31 +210,36 @@ def _scale(value: float, *, domain: Tuple[float, float], range_: Tuple[float, fl
     return out_start + ((value - start) / span) * (out_end - out_start)
 
 
-def build_svg(
-    records: Sequence[RateRecord],
+def build_multi_series_svg(
+    series_records: Sequence[tuple[RateSeriesDefinition, Sequence[RateRecord]]],
     *,
     title: str,
     y_axis_label: str,
-    line_color: str,
     source_label: str,
     width: int = 900,
-    height: int = 460,
+    height: int = 520,
 ) -> str:
-    if not records:
+    if not series_records:
         raise ValueError("No records provided")
 
-    rates = [record[1] for record in records]
+    all_records = [record for _definition, records in series_records for record in records]
+    if not all_records:
+        raise ValueError("No records provided")
+
+    rates = [record[1] for record in all_records]
     min_rate, max_rate = min(rates), max(rates)
     if min_rate == max_rate:
         # Expand the range slightly so the line and points are visible.
         min_rate -= 0.01
         max_rate += 0.01
 
-    margin_left, margin_right, margin_top, margin_bottom = 90, 40, 50, 160
+    margin_left, margin_right, margin_top, margin_bottom = 90, 40, 60, 200
     plot_width = width - margin_left - margin_right
     plot_height = height - margin_top - margin_bottom
+    if plot_width <= 0 or plot_height <= 0:  # pragma: no cover - defensive guard
+        raise ValueError("Invalid dimensions for chart")
 
-    unique_dates = sorted({date for date, _rate in records})
+    unique_dates = sorted({date for _definition, records in series_records for date, _rate in records})
     date_to_index = {date: idx for idx, date in enumerate(unique_dates)}
 
     def scale_x(date: dt.date) -> float:
@@ -237,7 +256,6 @@ def build_svg(
             range_=(height - margin_bottom, margin_top),
         )
 
-    points = [f"{scale_x(date):.2f},{scale_y(rate):.2f}" for date, rate in records]
     axis_lines = [
         f"<line x1='{margin_left}' y1='{height-margin_bottom}' x2='{width-margin_right}' y2='{height-margin_bottom}' stroke='#333' stroke-width='1' />",
         f"<line x1='{margin_left}' y1='{margin_top}' x2='{margin_left}' y2='{height-margin_bottom}' stroke='#333' stroke-width='1' />",
@@ -258,7 +276,7 @@ def build_svg(
         )
 
     x_ticks: List[str] = []
-    label_y = height - margin_bottom + 48
+    label_y = height - margin_bottom + 60
 
     for date in unique_dates:
         x = scale_x(date)
@@ -282,11 +300,35 @@ def build_svg(
             )
         )
 
-    circles = [
-        f"<circle cx='{scale_x(date):.2f}' cy='{scale_y(rate):.2f}' r='3' fill='{line_color}' />"
-        for date, rate in records
-    ]
+    polylines = []
+    circles: list[str] = []
+    for series_def, records in series_records:
+        points = [f"{scale_x(date):.2f},{scale_y(rate):.2f}" for date, rate in records]
+        polylines.append(
+            "<polyline fill='none' stroke='{color}' stroke-width='2' points='{points}' />".format(
+                color=series_def.color, points=" ".join(points)
+            )
+        )
+        circles.extend(
+            f"<circle cx='{scale_x(date):.2f}' cy='{scale_y(rate):.2f}' r='3' fill='{series_def.color}' />"
+            for date, rate in records
+        )
 
+    legend_items: list[str] = []
+    legend_x = margin_left
+    legend_y = height - margin_bottom + 20
+    for series_def, _records in series_records:
+        legend_items.append(
+            "".join(
+                [
+                    f"<rect x='{legend_x:.2f}' y='{legend_y-12:.2f}' width='18' height='18' rx='3' fill='{series_def.color}' />",
+                    f"<text x='{legend_x+26:.2f}' y='{legend_y+2:.2f}' font-size='14' fill='#333'>{series_def.legend_label}</text>",
+                ]
+            )
+        )
+        legend_x += 260
+
+    tier_summary = " • ".join(series_def.tier_display for series_def, _records in series_records)
     generated_on = dt.date.today().isoformat()
 
     svg = f"""<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}'>
@@ -294,46 +336,75 @@ def build_svg(
         text {{ font-family: 'DejaVu Sans', Arial, sans-serif; }}
     </style>
     <rect x='0' y='0' width='{width}' height='{height}' fill='white'/>
-    <text x='{width/2}' y='{margin_top-20}' text-anchor='middle' font-size='20' fill='#111'>{title}</text>
-    <text x='{width/2}' y='{height-margin_bottom+120}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
+    <text x='{width/2}' y='{margin_top-25}' text-anchor='middle' font-size='20' fill='#111'>{title}</text>
+    <text x='{width/2}' y='{margin_top+2}' text-anchor='middle' font-size='13' fill='#555'>{tier_summary}</text>
+    <text x='{width/2}' y='{height-margin_bottom+140}' text-anchor='middle' font-size='14' fill='#333'>Date</text>
     <text x='{margin_left-60}' y='{height/2}' text-anchor='middle' font-size='14' fill='#333' transform='rotate(-90 {margin_left-60} {height/2})'>{y_axis_label}</text>
     <text x='{width/2}' y='{height-20}' text-anchor='middle' font-size='12' fill='#555'>Data source: {source_label} • Generated on {generated_on}</text>
     {''.join(axis_lines)}
-    <polyline fill='none' stroke='{line_color}' stroke-width='2' points='{" ".join(points)}' />
+    {''.join(polylines)}
     {''.join(circles)}
+    {''.join(legend_items)}
     {''.join(y_ticks)}
     {''.join(x_ticks)}
 </svg>"""
     return svg
 
 
-def build_chart_svg(definition: ChartDefinition, records: Sequence[RateRecord]) -> str:
-    """Build a chart SVG for the provided definition and rate series."""
+def build_chart_svg(
+    definition: CombinedChartDefinition,
+    series_records: Sequence[tuple[RateSeriesDefinition, Sequence[RateRecord]]],
+) -> str:
+    """Build a combined chart SVG for the provided definition and series."""
 
-    if not records:
+    if not series_records:
         raise ValueError("No records provided")
 
-    start_date = records[0][0].isoformat()
-    end_date = records[-1][0].isoformat()
+    start_date = min(records[0][0] for _series, records in series_records).isoformat()
+    end_date = max(records[-1][0] for _series, records in series_records).isoformat()
     title = (
         f"Historical {definition.currency} {definition.title_suffix} "
-        f"({definition.tier_display}, {start_date} - {end_date})"
+        f"({start_date} - {end_date})"
     )
 
-    svg = build_svg(
-        records,
+    return build_multi_series_svg(
+        series_records,
         title=title,
         y_axis_label=definition.y_axis_label,
-        line_color=definition.color,
         source_label=definition.source_label,
     )
-
-    return svg
 
 
 def write_svg(svg: str, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(svg, encoding="utf-8")
+
+
+def load_series_records(
+    definition: CombinedChartDefinition, data_dir: Path
+) -> list[tuple[RateSeriesDefinition, list[RateRecord]]]:
+    """Load the margin and interest histories for a combined chart."""
+
+    series_records: list[tuple[RateSeriesDefinition, list[RateRecord]]] = []
+
+    for series_def in definition.series:
+        records = load_rate_history(
+            data_dir,
+            series_def.dataset,
+            currency=definition.currency,
+            tier_lower_bound=series_def.tier_lower_bound,
+            tier_upper_bound=series_def.tier_upper_bound,
+            lookback_days=definition.lookback_days,
+        )
+
+        if not records:
+            raise SystemExit(
+                f"No records found for {definition.currency} {series_def.dataset} tier"
+            )
+
+        series_records.append((series_def, records))
+
+    return series_records
 
 
 def parse_args() -> argparse.Namespace:
@@ -357,19 +428,21 @@ def parse_args() -> argparse.Namespace:
         "--only",
         metavar="SLUG",
         nargs="*",
-        choices=[definition.slug for definition in CHART_DEFINITIONS],
+        choices=[definition.slug for definition in COMBINED_CHART_DEFINITIONS],
         help="Optionally limit generation to the listed chart slugs",
     )
     return parser.parse_args()
 
 
-def iter_selected_definitions(only: Iterable[str] | None) -> Iterable[ChartDefinition]:
+def iter_selected_definitions(
+    only: Iterable[str] | None,
+) -> Iterable[CombinedChartDefinition]:
     if not only:
-        yield from CHART_DEFINITIONS
+        yield from COMBINED_CHART_DEFINITIONS
         return
 
     selected = set(only)
-    for definition in CHART_DEFINITIONS:
+    for definition in COMBINED_CHART_DEFINITIONS:
         if definition.slug in selected:
             yield definition
 
@@ -378,23 +451,10 @@ def main() -> None:
     args = parse_args()
 
     for definition in iter_selected_definitions(args.only):
-        records = load_rate_history(
-            args.data_dir,
-            definition.dataset,
-            currency=definition.currency,
-            tier_lower_bound=definition.tier_lower_bound,
-            tier_upper_bound=definition.tier_upper_bound,
-            lookback_days=definition.lookback_days,
-        )
+        series_records = load_series_records(definition, args.data_dir)
+        svg = build_chart_svg(definition, series_records)
 
-        if not records:
-            raise SystemExit(
-                f"No records found for {definition.currency} {definition.dataset} tier"
-            )
-
-        svg = build_chart_svg(definition, records)
-
-        latest_date = records[-1][0]
+        latest_date = max(records[-1][0] for _series, records in series_records)
         output_path = (
             args.output_dir
             / latest_date.isoformat()

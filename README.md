@@ -45,13 +45,13 @@ pytest
 The charts below track the latest 31-day history for several popular margin
 and interest rate tiers across USD, CAD, and JPY.
 
-The table below pairs the latest 31-day margin and interest rate histories for each currency.
+The table below shows the latest 31-day margin and interest rate histories for each currency in a single chart.
 
-| Currency | Margin rate | Interest rate |
-| --- | --- | --- |
-| USD | <img src="./assets/2025-11-21/usd-margin-100000.svg" alt="Historical USD margin rate for $100,000 borrowed" width="360" /> | <img src="./assets/2025-11-21/usd-interest-10000.svg" alt="Historical USD interest rate for balances ≥ $10,000" width="360" /> |
-| CAD | <img src="./assets/2025-11-21/cad-margin-130000.svg" alt="Historical CAD margin rate for C$130,000 borrowed" width="360" /> | <img src="./assets/2025-11-21/cad-interest-13000.svg" alt="Historical CAD interest rate for balances ≥ C$13,000" width="360" /> |
-| JPY | <img src="./assets/2025-11-21/jpy-margin-11000000.svg" alt="Historical JPY margin rate for ¥11,000,000 borrowed" width="360" /> | <img src="./assets/2025-11-21/jpy-interest-5000000.svg" alt="Historical JPY interest rate for balances ≥ ¥5,000,000" width="360" /> |
+| Currency | Margin + interest rates |
+| --- | --- |
+| USD | <img src="./assets/2025-11-21/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /> |
+| CAD | <img src="./assets/2025-11-21/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /> |
+| JPY | <img src="./assets/2025-11-21/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /> |
 
 # Disclaimer
 

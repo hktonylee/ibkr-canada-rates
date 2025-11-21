@@ -4,11 +4,13 @@
 from __future__ import annotations
 
 import argparse
-from collections import OrderedDict
 from datetime import date
 from pathlib import Path
 
-from build_rate_charts import CHART_DEFINITIONS, ChartDefinition, load_rate_history
+from build_rate_charts import (
+    COMBINED_CHART_DEFINITIONS,
+    load_series_records,
+)
 
 try:  # pragma: no cover - dependency injection path
     from jinja2 import Environment, FileSystemLoader, StrictUndefined  # type: ignore
@@ -74,48 +76,25 @@ def build_latest_snapshot_sentence(data_dir: Path) -> str:
 def build_chart_section(data_dir: Path) -> str:
     """Return the README snippet that documents the rendered rate charts."""
 
-    table_rows: "OrderedDict[str, dict[str, str]]" = OrderedDict()
+    lines = [
+        "The table below shows the latest 31-day margin and interest rate histories "
+        "for each currency in a single chart.",
+        "",
+        "| Currency | Margin + interest rates |",
+        "| --- | --- |",
+    ]
 
-    def ensure_row(currency: str) -> dict[str, str]:
-        if currency not in table_rows:
-            table_rows[currency] = {"margin": "—", "interest": "—"}
-        return table_rows[currency]
-
-    for definition in CHART_DEFINITIONS:
-        records = load_rate_history(
-            data_dir,
-            definition.dataset,
-            currency=definition.currency,
-            tier_lower_bound=definition.tier_lower_bound,
-            tier_upper_bound=definition.tier_upper_bound,
-            lookback_days=definition.lookback_days,
-        )
-        if not records:
-            raise SystemExit(
-                "No rate records found; ensure the data directory contains snapshots."
-            )
-
-        latest = records[-1][0]
+    for definition in COMBINED_CHART_DEFINITIONS:
+        series_records = load_series_records(definition, data_dir)
+        latest = max(records[-1][0] for _series, records in series_records)
         chart_path = Path("assets") / latest.isoformat() / definition.filename
         chart_rel = chart_path.as_posix()
 
         snippet = (
-            f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"360\" />"
+            f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
         )
 
-        row = ensure_row(definition.currency)
-        column = "margin" if definition.dataset == "margin" else "interest"
-        row[column] = snippet
-
-    lines = [
-        "The table below pairs the latest 31-day margin and interest rate histories for each currency.",
-        "",
-        "| Currency | Margin rate | Interest rate |",
-        "| --- | --- | --- |",
-    ]
-
-    for currency, cells in table_rows.items():
-        lines.append(f"| {currency} | {cells['margin']} | {cells['interest']} |")
+        lines.append(f"| {definition.currency} | {snippet} |")
 
     return "\n".join(lines).strip()
 
