@@ -14,6 +14,9 @@ from typing import Iterable, List, Literal, Sequence, Tuple
 RateRecord = Tuple[dt.date, float]
 Dataset = Literal["margin", "interest"]
 
+MARGIN_COLOR = "#1f77b4"
+INTEREST_COLOR = "#d62728"
+
 
 @dataclass(frozen=True)
 class RateSeriesDefinition:
@@ -63,7 +66,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound="1000000",
                 tier_display="$100,000 borrowed",
                 legend_label="Margin ($100,000 borrowed)",
-                color="#1f77b4",
+                color=MARGIN_COLOR,
             ),
             RateSeriesDefinition(
                 dataset="interest",
@@ -71,7 +74,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound=None,
                 tier_display="balances ≥ $10,000",
                 legend_label="Interest (balances ≥ $10,000)",
-                color="#d62728",
+                color=INTEREST_COLOR,
             ),
         ),
     ),
@@ -92,7 +95,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound="1300000",
                 tier_display="C$130,000 borrowed",
                 legend_label="Margin (C$130,000 borrowed)",
-                color="#ff7f0e",
+                color=MARGIN_COLOR,
             ),
             RateSeriesDefinition(
                 dataset="interest",
@@ -100,7 +103,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound=None,
                 tier_display="balances ≥ C$13,000",
                 legend_label="Interest (balances ≥ C$13,000)",
-                color="#2ca02c",
+                color=INTEREST_COLOR,
             ),
         ),
     ),
@@ -121,7 +124,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound="114000000",
                 tier_display="¥11,000,000 borrowed",
                 legend_label="Margin (¥11,000,000 borrowed)",
-                color="#9467bd",
+                color=MARGIN_COLOR,
             ),
             RateSeriesDefinition(
                 dataset="interest",
@@ -129,7 +132,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_upper_bound=None,
                 tier_display="balances ≥ ¥5,000,000",
                 legend_label="Interest (balances ≥ ¥5,000,000)",
-                color="#17becf",
+                color=INTEREST_COLOR,
             ),
         ),
     ),
