@@ -12,10 +12,11 @@ from typing import Iterable, List, Literal, Sequence, Tuple
 
 
 RateRecord = Tuple[dt.date, float]
-Dataset = Literal["margin", "interest"]
+Dataset = Literal["margin", "interest", "benchmark"]
 
 MARGIN_COLOR = "#1f77b4"
 INTEREST_COLOR = "#d62728"
+BENCHMARK_COLOR = "#9467bd"
 
 
 @dataclass(frozen=True)
@@ -69,6 +70,14 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 color=MARGIN_COLOR,
             ),
             RateSeriesDefinition(
+                dataset="benchmark",
+                tier_lower_bound=None,
+                tier_upper_bound=None,
+                tier_display="Benchmark rate",
+                legend_label="Benchmark rate",
+                color=BENCHMARK_COLOR,
+            ),
+            RateSeriesDefinition(
                 dataset="interest",
                 tier_lower_bound="10000",
                 tier_upper_bound=None,
@@ -96,6 +105,14 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 tier_display="C$130,000 borrowed",
                 legend_label="Margin (C$130,000 borrowed)",
                 color=MARGIN_COLOR,
+            ),
+            RateSeriesDefinition(
+                dataset="benchmark",
+                tier_lower_bound=None,
+                tier_upper_bound=None,
+                tier_display="Benchmark rate",
+                legend_label="Benchmark rate",
+                color=BENCHMARK_COLOR,
             ),
             RateSeriesDefinition(
                 dataset="interest",
@@ -127,6 +144,14 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
                 color=MARGIN_COLOR,
             ),
             RateSeriesDefinition(
+                dataset="benchmark",
+                tier_lower_bound=None,
+                tier_upper_bound=None,
+                tier_display="Benchmark rate",
+                legend_label="Benchmark rate",
+                color=BENCHMARK_COLOR,
+            ),
+            RateSeriesDefinition(
                 dataset="interest",
                 tier_lower_bound="5000000",
                 tier_upper_bound=None,
@@ -154,6 +179,8 @@ def load_rate_history(
         filename = "ibkr-canada-margin-rates.csv"
     elif dataset == "interest":
         filename = "ibkr-canada-interest-rates.csv"
+    elif dataset == "benchmark":
+        filename = "ibkr-canada-margin-rates.csv"
     else:  # pragma: no cover - defensive guard
         raise ValueError(f"Unsupported dataset: {dataset}")
 
@@ -172,25 +199,52 @@ def load_rate_history(
         with csv_path.open(newline="", encoding="utf-8") as handle:
             reader = csv.reader(handle)
             next(reader, None)  # header row
-            for _row_date, row_currency, lower, upper, rate, _diff in reader:
-                if row_currency != currency:
-                    continue
-                if tier_lower_bound is not None and lower != tier_lower_bound:
-                    continue
-                if tier_upper_bound is not None and upper != tier_upper_bound:
-                    continue
 
-                rate = rate.strip()
-                if not rate:
-                    continue
+            if dataset == "benchmark":
+                benchmark_rate: float | None = None
+                for _row_date, row_currency, _lower, _upper, rate, diff in reader:
+                    if row_currency != currency:
+                        continue
 
-                try:
-                    rate_value = float(rate)
-                except ValueError:  # pragma: no cover - unexpected value
-                    continue
+                    rate = rate.strip()
+                    diff = diff.strip()
+                    if not rate:
+                        continue
 
-                records_by_date[snapshot_date] = (snapshot_date, rate_value)
-                break
+                    try:
+                        rate_value = float(rate)
+                        diff_value = float(diff)
+                    except ValueError:  # pragma: no cover - unexpected value
+                        continue
+
+                    benchmark_rate = rate_value - diff_value
+                    break
+
+                if benchmark_rate is not None:
+                    records_by_date[snapshot_date] = (
+                        snapshot_date,
+                        benchmark_rate,
+                    )
+            else:
+                for _row_date, row_currency, lower, upper, rate, _diff in reader:
+                    if row_currency != currency:
+                        continue
+                    if tier_lower_bound is not None and lower != tier_lower_bound:
+                        continue
+                    if tier_upper_bound is not None and upper != tier_upper_bound:
+                        continue
+
+                    rate = rate.strip()
+                    if not rate:
+                        continue
+
+                    try:
+                        rate_value = float(rate)
+                    except ValueError:  # pragma: no cover - unexpected value
+                        continue
+
+                    records_by_date[snapshot_date] = (snapshot_date, rate_value)
+                    break
 
     records = list(records_by_date.values())
     records.sort()
