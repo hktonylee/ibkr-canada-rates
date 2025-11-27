@@ -2,7 +2,7 @@
 
 # ibkr-canada-rates
 
-This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/11/26/ibkr-canada-interest-rates.csv`](data/2025/11/26/ibkr-canada-interest-rates.csv) and [`data/2025/11/26/ibkr-canada-margin-rates.csv`](data/2025/11/26/ibkr-canada-margin-rates.csv).
+This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/11/27/ibkr-canada-interest-rates.csv`](data/2025/11/27/ibkr-canada-interest-rates.csv) and [`data/2025/11/27/ibkr-canada-margin-rates.csv`](data/2025/11/27/ibkr-canada-margin-rates.csv).
 
 The data is updated daily at 6AM EST.
 
@@ -49,9 +49,9 @@ The table below shows the latest 31-day margin and interest rate histories for e
 
 | Currency | Margin + interest rates |
 | --- | --- |
-| USD | <img src="./assets/2025-11-26/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /> |
-| CAD | <img src="./assets/2025-11-26/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /> |
-| JPY | <img src="./assets/2025-11-26/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /> |
+| USD | <img src="./assets/2025-11-27/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /> |
+| CAD | <img src="./assets/2025-11-27/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /> |
+| JPY | <img src="./assets/2025-11-27/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /> |
 
 # Disclaimer
 
