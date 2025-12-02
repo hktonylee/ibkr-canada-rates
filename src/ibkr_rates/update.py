@@ -66,6 +66,7 @@ SOURCES: Dict[str, SourceConfig] = {
         parser=_parse_margin,
         dataset="margin",
         region="US",
+        minimum_rows=5,
     ),
 }
 
