@@ -37,6 +37,7 @@ class CombinedChartDefinition:
 
     slug: str
     currency: str
+    region: str
     title_suffix: str
     alt_text: str
     y_axis_label: str
@@ -53,6 +54,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
     CombinedChartDefinition(
         slug="usd-rates-100000-10000",
         currency="USD",
+        region="IBKR Canada",
         title_suffix="Margin and Interest Rates",
         alt_text=(
             "Historical USD margin and interest rates for $100,000 borrowed "
@@ -90,6 +92,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
     CombinedChartDefinition(
         slug="cad-rates-130000-13000",
         currency="CAD",
+        region="IBKR Canada",
         title_suffix="Margin and Interest Rates",
         alt_text=(
             "Historical CAD margin and interest rates for C$130,000 borrowed "
@@ -127,6 +130,7 @@ COMBINED_CHART_DEFINITIONS: tuple[CombinedChartDefinition, ...] = (
     CombinedChartDefinition(
         slug="jpy-rates-11000000-5000000",
         currency="JPY",
+        region="IBKR Canada",
         title_suffix="Margin and Interest Rates",
         alt_text=(
             "Historical JPY margin and interest rates for ¥11,000,000 borrowed "
