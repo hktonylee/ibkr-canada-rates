@@ -91,7 +91,12 @@ def build_chart_section(data_dir: Path) -> str:
     ]
 
     currencies = ("USD", "CAD", "JPY")
-    regions = ("IBKR US", "IBKR Canada")
+    preferred_region_order = ["IBKR US", "IBKR Canada"]
+    regions: list[str] = list(preferred_region_order)
+    for definition in COMBINED_CHART_DEFINITIONS:
+        if definition.region not in regions:
+            regions.append(definition.region)
+
     cells: dict[str, dict[str, str]] = {
         currency: {region: "" for region in regions} for currency in currencies
     }
@@ -106,16 +111,22 @@ def build_chart_section(data_dir: Path) -> str:
             f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
         )
 
-        region = "IBKR US" if definition.currency == "USD" else "IBKR Canada"
+        region = definition.region
+        if region not in cells[definition.currency]:
+            # Accommodate unexpected regions by extending the table dynamically.
+            for currency in cells:
+                cells[currency][region] = ""
+            regions.append(region)
         cells[definition.currency][region] = snippet
 
-    lines.extend(["", "| Currency | IBKR US | IBKR Canada |", "| --- | --- | --- |"])
+    header = " | ".join(("Currency", *regions))
+    separator = " | ".join(("---", *("---" for _ in regions)))
+    lines.extend(["", f"| {header} |", f"| {separator} |"])
 
     for currency in currencies:
         row_cells = cells[currency]
-        lines.append(
-            f"| {currency} | {row_cells['IBKR US']} | {row_cells['IBKR Canada']} |"
-        )
+        ordered_cells = " | ".join(row_cells[region] for region in regions)
+        lines.append(f"| {currency} | {ordered_cells} |")
 
     return "\n".join(lines).strip()
 
