@@ -15,8 +15,8 @@ def _load_html(name: str) -> str:
 
 def test_run_update_writes_csv_files_and_updates_readme(tmp_path):
     overrides = {
-        "interest": _load_html("interest-rates.html"),
-        "margin": _load_html("margin-rates.html"),
+        "ca-interest": _load_html("interest-rates.html"),
+        "ca-margin": _load_html("margin-rates.html"),
         "us-interest": _load_html("interest-rates.html"),
         "us-margin": _load_html("margin-rates.html"),
     }
@@ -40,12 +40,12 @@ def test_run_update_writes_csv_files_and_updates_readme(tmp_path):
         data_dir, as_of_date=date(2024, 1, 1), html_overrides=overrides
     )
 
-    assert set(written) == {"interest", "margin", "us-interest", "us-margin"}
+    assert set(written) == {"ca-interest", "ca-margin", "us-interest", "us-margin"}
     date_dir = data_dir / "2024/01/01"
     assert date_dir.is_dir()
 
-    interest_csv = written["interest"].read_text(encoding="utf-8")
-    margin_csv = written["margin"].read_text(encoding="utf-8")
+    interest_csv = written["ca-interest"].read_text(encoding="utf-8")
+    margin_csv = written["ca-margin"].read_text(encoding="utf-8")
     us_interest_csv = written["us-interest"].read_text(encoding="utf-8")
     us_margin_csv = written["us-margin"].read_text(encoding="utf-8")
 

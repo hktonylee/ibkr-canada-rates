@@ -35,16 +35,16 @@ def _parse_margin(html: str, as_of: Optional[date]) -> Sequence[RateRow]:
 
 
 SOURCES: Dict[str, SourceConfig] = {
-    "interest": SourceConfig(
-        name="interest",
+    "ca-interest": SourceConfig(
+        name="ca-interest",
         url="https://www.interactivebrokers.ca/en/accounts/fees/pricing-interest-rates.php",
         filename="ibkr-canada-interest-rates.csv",
         parser=_parse_interest,
         dataset="interest",
         region="Canada",
     ),
-    "margin": SourceConfig(
-        name="margin",
+    "ca-margin": SourceConfig(
+        name="ca-margin",
         url="https://www.interactivebrokers.ca/en/trading/margin-rates.php",
         filename="ibkr-canada-margin-rates.csv",
         parser=_parse_margin,
@@ -243,9 +243,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     overrides: Dict[str, str] = {}
     if args.interest_html is not None:
-        overrides["interest"] = args.interest_html.read_text(encoding="utf-8")
+        overrides["ca-interest"] = args.interest_html.read_text(encoding="utf-8")
     if args.margin_html is not None:
-        overrides["margin"] = args.margin_html.read_text(encoding="utf-8")
+        overrides["ca-margin"] = args.margin_html.read_text(encoding="utf-8")
 
     run_update(
         args.output_dir,
