@@ -53,7 +53,7 @@ SOURCES: Dict[str, SourceConfig] = {
     ),
     "us-interest": SourceConfig(
         name="us-interest",
-        url="https://www.interactivebrokers.com/en/pricing/interest-rates.php",
+        url="https://www.interactivebrokers.com/en/accounts/fees/pricing-interest-rates.php",
         filename="ibkr-us-interest-rates.csv",
         parser=_parse_interest,
         dataset="interest",
