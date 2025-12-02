@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render README.md from README.md.jinja using the latest dataset."""
+"""Render README.md from README.md.jinja using the latest datasets."""
 
 from __future__ import annotations
 
@@ -20,57 +20,66 @@ except ModuleNotFoundError:  # pragma: no cover - fallback when jinja2 is unavai
     StrictUndefined = None  # type: ignore
 
 
-def find_latest_snapshot_files(data_dir: Path) -> tuple[date, Path, Path]:
-    """Return the latest (date, interest_path, margin_path) tuple."""
+def _snapshot_prefix(filename: str) -> str:
+    if filename.endswith("-interest-rates.csv"):
+        return filename[: -len("-interest-rates.csv")]
+    if filename.endswith("-margin-rates.csv"):
+        return filename[: -len("-margin-rates.csv")]
+    return filename
 
-    latest_date: date | None = None
-    latest_interest: Path | None = None
-    latest_margin: Path | None = None
 
-    for year_dir in sorted(data_dir.iterdir()):
-        if not year_dir.is_dir() or not year_dir.name.isdigit():
+def _format_region_label(region_slug: str) -> str:
+    if len(region_slug) <= 3:
+        return region_slug.upper()
+    return region_slug.title()
+
+
+def find_latest_snapshot_pairs(data_dir: Path) -> dict[str, tuple[date, Path, Path]]:
+    """Return the latest snapshots keyed by their filename prefix."""
+
+    latest: dict[str, tuple[date, Path, Path]] = {}
+
+    for interest_path in data_dir.rglob("ibkr-*-interest-rates.csv"):
+        prefix = _snapshot_prefix(interest_path.name)
+        margin_path = interest_path.with_name(f"{prefix}-margin-rates.csv")
+        if not margin_path.exists():
             continue
-        year = int(year_dir.name)
 
-        for month_dir in sorted(year_dir.iterdir()):
-            if not month_dir.is_dir() or not month_dir.name.isdigit():
-                continue
-            month = int(month_dir.name)
+        try:
+            day = int(interest_path.parent.name)
+            month = int(interest_path.parents[1].name)
+            year = int(interest_path.parents[2].name)
+        except (IndexError, ValueError):
+            continue
 
-            for day_dir in sorted(month_dir.iterdir()):
-                if not day_dir.is_dir() or not day_dir.name.isdigit():
-                    continue
-                day = int(day_dir.name)
+        snapshot_date = date(year, month, day)
+        existing = latest.get(prefix)
+        if existing is None or snapshot_date > existing[0]:
+            latest[prefix] = (snapshot_date, interest_path, margin_path)
 
-                interest_path = day_dir / "ibkr-canada-interest-rates.csv"
-                margin_path = day_dir / "ibkr-canada-margin-rates.csv"
-                if not interest_path.exists() or not margin_path.exists():
-                    continue
-
-                snapshot_date = date(year, month, day)
-                if latest_date is None or snapshot_date > latest_date:
-                    latest_date = snapshot_date
-                    latest_interest = interest_path
-                    latest_margin = margin_path
-
-    if latest_date is None or latest_interest is None or latest_margin is None:
+    if not latest:
         raise SystemExit(
             "No valid interest and margin rate CSV pairs found in the data directory."
         )
 
-    return latest_date, latest_interest, latest_margin
+    return latest
 
 
 def build_latest_snapshot_sentence(data_dir: Path) -> str:
     """Describe the newest interest and margin CSV snapshots for the README."""
 
-    _, interest_path, margin_path = find_latest_snapshot_files(data_dir)
-    interest_rel = interest_path.as_posix()
-    margin_rel = margin_path.as_posix()
+    snapshots = find_latest_snapshot_pairs(data_dir)
+    parts = []
+    for prefix, (_date, interest_path, margin_path) in sorted(snapshots.items()):
+        slug = _snapshot_prefix(prefix).removeprefix("ibkr-")
+        region = _format_region_label(slug)
+        interest_rel = interest_path.as_posix()
+        margin_rel = margin_path.as_posix()
+        parts.append(
+            f"{region}: [`{interest_rel}`]({interest_rel}) and [`{margin_rel}`]({margin_rel})"
+        )
 
-    return (
-        f"[`{interest_rel}`]({interest_rel}) and [`{margin_rel}`]({margin_rel})"
-    )
+    return "; ".join(parts)
 
 
 def build_chart_section(data_dir: Path) -> str:
@@ -79,10 +88,13 @@ def build_chart_section(data_dir: Path) -> str:
     lines = [
         "The table below shows the latest 31-day margin and interest rate histories "
         "for each currency in a single chart.",
-        "",
-        "| Currency | Margin + interest rates |",
-        "| --- | --- |",
     ]
+
+    currencies = ("USD", "CAD", "JPY")
+    regions = ("IBKR US", "IBKR Canada")
+    cells: dict[str, dict[str, str]] = {
+        currency: {region: "" for region in regions} for currency in currencies
+    }
 
     for definition in COMBINED_CHART_DEFINITIONS:
         series_records = load_series_records(definition, data_dir)
@@ -94,7 +106,16 @@ def build_chart_section(data_dir: Path) -> str:
             f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
         )
 
-        lines.append(f"| {definition.currency} | {snippet} |")
+        region = "IBKR US" if definition.currency == "USD" else "IBKR Canada"
+        cells[definition.currency][region] = snippet
+
+    lines.extend(["", "| Currency | IBKR US | IBKR Canada |", "| --- | --- | --- |"])
+
+    for currency in currencies:
+        row_cells = cells[currency]
+        lines.append(
+            f"| {currency} | {row_cells['IBKR US']} | {row_cells['IBKR Canada']} |"
+        )
 
     return "\n".join(lines).strip()
 

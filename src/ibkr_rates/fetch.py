@@ -1,4 +1,4 @@
-"""HTTP utilities for downloading IBKR Canada pages."""
+"""HTTP utilities for downloading IBKR Canada and US pages."""
 from __future__ import annotations
 
 from typing import Optional
