@@ -90,9 +90,10 @@ def build_chart_section(data_dir: Path) -> str:
         "for each currency in a single chart.",
     ]
 
-    regions: dict[str, list[str]] = {
-        "IBKR US": [],
-        "IBKR Canada": [],
+    currencies = ("USD", "CAD", "JPY")
+    regions = ("IBKR US", "IBKR Canada")
+    cells: dict[str, dict[str, str]] = {
+        currency: {region: "" for region in regions} for currency in currencies
     }
 
     for definition in COMBINED_CHART_DEFINITIONS:
@@ -105,19 +106,16 @@ def build_chart_section(data_dir: Path) -> str:
             f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
         )
 
-        cell = f"{definition.currency}: {snippet}"
-        if definition.currency == "USD":
-            regions["IBKR US"].append(cell)
-        else:
-            regions["IBKR Canada"].append(cell)
+        region = "IBKR US" if definition.currency == "USD" else "IBKR Canada"
+        cells[definition.currency][region] = snippet
 
-    lines.extend(["", "| IBKR US | IBKR Canada |", "| --- | --- |"])
+    lines.extend(["", "| Currency | IBKR US | IBKR Canada |", "| --- | --- | --- |"])
 
-    max_rows = max(len(entries) for entries in regions.values())
-    for idx in range(max_rows):
-        us_cell = regions["IBKR US"][idx] if idx < len(regions["IBKR US"]) else ""
-        ca_cell = regions["IBKR Canada"][idx] if idx < len(regions["IBKR Canada"]) else ""
-        lines.append(f"| {us_cell} | {ca_cell} |")
+    for currency in currencies:
+        row_cells = cells[currency]
+        lines.append(
+            f"| {currency} | {row_cells['IBKR US']} | {row_cells['IBKR Canada']} |"
+        )
 
     return "\n".join(lines).strip()
 
