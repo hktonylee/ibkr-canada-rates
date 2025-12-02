@@ -2,7 +2,7 @@
 
 # ibkr-canada-rates
 
-This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/12/02/ibkr-canada-interest-rates.csv`](data/2025/12/02/ibkr-canada-interest-rates.csv) and [`data/2025/12/02/ibkr-canada-margin-rates.csv`](data/2025/12/02/ibkr-canada-margin-rates.csv).
+This repository contains the daily IBKR Canada and US interest and margin rates, with the latest snapshots available in Canada: [`data/2025/12/02/ibkr-canada-interest-rates.csv`](data/2025/12/02/ibkr-canada-interest-rates.csv) and [`data/2025/12/02/ibkr-canada-margin-rates.csv`](data/2025/12/02/ibkr-canada-margin-rates.csv).
 
 The data is updated daily at 6AM EST.
 
@@ -55,5 +55,5 @@ The table below shows the latest 31-day margin and interest rate histories for e
 
 # Disclaimer
 
-This repository is for educational and informational purposes only. The data is scraped from publicly available IBKR Canada web pages and may contain errors or be outdated. I am not affiliated with Interactive Brokers or IBKR Canada in any way. Users should verify all rates directly with IBKR Canada before making any financial decisions. I disclaim all responsibility for the accuracy, completeness, or reliability of this data.
+This repository is for educational and informational purposes only. The data is scraped from publicly available IBKR Canada and US web pages and may contain errors or be outdated. I am not affiliated with Interactive Brokers, IBKR Canada, or IBKR US in any way. Users should verify all rates directly with IBKR before making any financial decisions. I disclaim all responsibility for the accuracy, completeness, or reliability of this data.
 
