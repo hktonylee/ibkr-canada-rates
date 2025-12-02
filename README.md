@@ -47,9 +47,16 @@ and interest rate tiers across USD, CAD, and JPY.
 
 The table below shows the latest 31-day margin and interest rate histories for each currency in a single chart.
 
+### IBKR US
+
 | Currency | Margin + interest rates |
 | --- | --- |
 | USD | <img src="./assets/2025-12-02/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /> |
+
+### IBKR Canada
+
+| Currency | Margin + interest rates |
+| --- | --- |
 | CAD | <img src="./assets/2025-12-02/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /> |
 | JPY | <img src="./assets/2025-12-02/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /> |
 

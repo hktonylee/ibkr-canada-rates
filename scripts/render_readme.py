@@ -88,9 +88,11 @@ def build_chart_section(data_dir: Path) -> str:
     lines = [
         "The table below shows the latest 31-day margin and interest rate histories "
         "for each currency in a single chart.",
-        "",
-        "| Currency | Margin + interest rates |",
-        "| --- | --- |",
+    ]
+
+    sections: list[tuple[str, list[str]]] = [
+        ("IBKR US", []),
+        ("IBKR Canada", []),
     ]
 
     for definition in COMBINED_CHART_DEFINITIONS:
@@ -103,7 +105,16 @@ def build_chart_section(data_dir: Path) -> str:
             f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
         )
 
-        lines.append(f"| {definition.currency} | {snippet} |")
+        if definition.currency == "USD":
+            sections[0][1].append(f"| {definition.currency} | {snippet} |")
+        else:
+            sections[1][1].append(f"| {definition.currency} | {snippet} |")
+
+    for heading, rows in sections:
+        if not rows:
+            continue
+        lines.extend(["", f"### {heading}", "", "| Currency | Margin + interest rates |", "| --- | --- |"])
+        lines.extend(rows)
 
     return "\n".join(lines).strip()
 
