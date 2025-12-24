@@ -91,7 +91,9 @@ def build_chart_section(data_dir: Path) -> str:
         chart_rel = chart_path.as_posix()
 
         snippet = (
+            f"<a href=\"./{chart_rel}?raw=1\">"
             f"<img src=\"./{chart_rel}\" alt=\"{definition.alt_text}\" width=\"480\" />"
+            "</a>"
         )
 
         lines.append(f"| {definition.currency} | {snippet} |")
