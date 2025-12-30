@@ -2,7 +2,7 @@
 
 # ibkr-canada-rates
 
-This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/12/29/ibkr-canada-interest-rates.csv`](data/2025/12/29/ibkr-canada-interest-rates.csv) and [`data/2025/12/29/ibkr-canada-margin-rates.csv`](data/2025/12/29/ibkr-canada-margin-rates.csv).
+This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2025/12/30/ibkr-canada-interest-rates.csv`](data/2025/12/30/ibkr-canada-interest-rates.csv) and [`data/2025/12/30/ibkr-canada-margin-rates.csv`](data/2025/12/30/ibkr-canada-margin-rates.csv).
 
 The data is updated daily at 6AM EST.
 
@@ -49,9 +49,9 @@ The table below shows the latest 31-day margin and interest rate histories for e
 
 | Currency | Margin + interest rates |
 | --- | --- |
-| USD | <a href="./assets/2025-12-29/usd-rates-100000-10000.svg?raw=1"><img src="./assets/2025-12-29/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /></a> |
-| CAD | <a href="./assets/2025-12-29/cad-rates-130000-13000.svg?raw=1"><img src="./assets/2025-12-29/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /></a> |
-| JPY | <a href="./assets/2025-12-29/jpy-rates-11000000-5000000.svg?raw=1"><img src="./assets/2025-12-29/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /></a> |
+| USD | <a href="./assets/2025-12-30/usd-rates-100000-10000.svg?raw=1"><img src="./assets/2025-12-30/usd-rates-100000-10000.svg" alt="Historical USD margin and interest rates for $100,000 borrowed and balances ≥ $10,000" width="480" /></a> |
+| CAD | <a href="./assets/2025-12-30/cad-rates-130000-13000.svg?raw=1"><img src="./assets/2025-12-30/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /></a> |
+| JPY | <a href="./assets/2025-12-30/jpy-rates-11000000-5000000.svg?raw=1"><img src="./assets/2025-12-30/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /></a> |
 
 # Disclaimer
 
