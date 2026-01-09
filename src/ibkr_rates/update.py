@@ -45,6 +45,18 @@ SOURCES: Dict[str, SourceConfig] = {
         filename="ibkr-canada-margin-rates.csv",
         parser=_parse_margin,
     ),
+    "us_interest": SourceConfig(
+        name="us_interest",
+        url="https://www.interactivebrokers.com/en/accounts/fees/pricing-interest-rates.php",
+        filename="ibkr-us-interest-rates.csv",
+        parser=_parse_interest,
+    ),
+    "us_margin": SourceConfig(
+        name="us_margin",
+        url="https://www.interactivebrokers.com/en/trading/margin-rates.php",
+        filename="ibkr-us-margin-rates.csv",
+        parser=_parse_margin,
+    ),
 }
 
 
@@ -116,8 +128,10 @@ def _update_readme_links(output_root: Path, written: Mapping[str, Path]) -> None
     try:
         interest_path = written["interest"]
         margin_path = written["margin"]
+        us_interest_path = written["us_interest"]
+        us_margin_path = written["us_margin"]
     except KeyError:
-        # Only update the README when both CSVs are refreshed.
+        # Only update the README when all CSVs are refreshed.
         return
 
     output_root = output_root.resolve()
@@ -129,19 +143,22 @@ def _update_readme_links(output_root: Path, written: Mapping[str, Path]) -> None
     try:
         interest_rel = interest_path.resolve().relative_to(repo_root).as_posix()
         margin_rel = margin_path.resolve().relative_to(repo_root).as_posix()
+        us_interest_rel = us_interest_path.resolve().relative_to(repo_root).as_posix()
+        us_margin_rel = us_margin_path.resolve().relative_to(repo_root).as_posix()
     except ValueError:
         # CSVs are outside of the repository – nothing to update.
         return
 
     updated_line = (
-        "This repository contains the daily IBKR Canada interest and margin rates, "
-        f"with the latest snapshots available in [`{interest_rel}`]({interest_rel}) "
-        f"and [`{margin_rel}`]({margin_rel})."
+        "This repository contains the daily IBKR Canada and US interest and margin rates, "
+        f"with the latest snapshots available in [`{interest_rel}`]({interest_rel}), "
+        f"[`{margin_rel}`]({margin_rel}), [`{us_interest_rel}`]({us_interest_rel}), "
+        f"and [`{us_margin_rel}`]({us_margin_rel})."
     )
 
     readme_text = readme_path.read_text(encoding="utf-8")
     pattern = re.compile(
-        r"This repository contains the daily IBKR Canada interest and margin rates,.*"
+        r"This repository contains the daily IBKR Canada and US interest and margin rates,.*"
     )
     new_text, count = pattern.subn(updated_line, readme_text, count=1)
     if count == 0:
@@ -154,7 +171,9 @@ def _update_readme_links(output_root: Path, written: Mapping[str, Path]) -> None
 def main(argv: Optional[Sequence[str]] = None) -> int:
     import argparse
 
-    parser = argparse.ArgumentParser(description="Download and export IBKR Canada rate tables.")
+    parser = argparse.ArgumentParser(
+        description="Download and export IBKR Canada and US rate tables."
+    )
     parser.add_argument("--output-dir", type=Path, default=Path("data"))
     parser.add_argument("--as-of", type=lambda s: date.fromisoformat(s), default=None)
     parser.add_argument(
@@ -163,8 +182,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         default="all",
         help="Which data set to refresh",
     )
-    parser.add_argument("--interest-html", type=Path, default=None, help="Use a local HTML file for interest rates")
-    parser.add_argument("--margin-html", type=Path, default=None, help="Use a local HTML file for margin rates")
+    parser.add_argument(
+        "--interest-html", type=Path, default=None, help="Use a local HTML file for Canada interest rates"
+    )
+    parser.add_argument(
+        "--margin-html", type=Path, default=None, help="Use a local HTML file for Canada margin rates"
+    )
+    parser.add_argument(
+        "--us-interest-html", type=Path, default=None, help="Use a local HTML file for US interest rates"
+    )
+    parser.add_argument(
+        "--us-margin-html", type=Path, default=None, help="Use a local HTML file for US margin rates"
+    )
 
     args = parser.parse_args(argv)
     source_names: Optional[Sequence[str]]
@@ -178,6 +207,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         overrides["interest"] = args.interest_html.read_text(encoding="utf-8")
     if args.margin_html is not None:
         overrides["margin"] = args.margin_html.read_text(encoding="utf-8")
+    if args.us_interest_html is not None:
+        overrides["us_interest"] = args.us_interest_html.read_text(encoding="utf-8")
+    if args.us_margin_html is not None:
+        overrides["us_margin"] = args.us_margin_html.read_text(encoding="utf-8")
 
     run_update(
         args.output_dir,
