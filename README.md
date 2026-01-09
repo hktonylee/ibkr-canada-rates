@@ -15,7 +15,7 @@ The table below shows the latest 31-day margin and interest rate histories for e
 | CAD | <a href="./assets/2026-01-09/cad-rates-130000-13000.svg?raw=1"><img src="./assets/2026-01-09/cad-rates-130000-13000.svg" alt="Historical CAD margin and interest rates for C$130,000 borrowed and balances ≥ C$13,000" width="480" /></a> |
 | JPY | <a href="./assets/2026-01-09/jpy-rates-11000000-5000000.svg?raw=1"><img src="./assets/2026-01-09/jpy-rates-11000000-5000000.svg" alt="Historical JPY margin and interest rates for ¥11,000,000 borrowed and balances ≥ ¥5,000,000" width="480" /></a> |
 
-This repository contains the daily IBKR Canada interest and margin rates, with the latest snapshots available in [`data/2026/01/09/ibkr-canada-interest-rates.csv`](data/2026/01/09/ibkr-canada-interest-rates.csv) and [`data/2026/01/09/ibkr-canada-margin-rates.csv`](data/2026/01/09/ibkr-canada-margin-rates.csv).
+This repository contains the daily IBKR Canada and US interest and margin rates, with the latest snapshots available in [`data/2026/01/09/ibkr-canada-interest-rates.csv`](data/2026/01/09/ibkr-canada-interest-rates.csv), [`data/2026/01/09/ibkr-canada-margin-rates.csv`](data/2026/01/09/ibkr-canada-margin-rates.csv), [`data/2026/01/09/ibkr-us-interest-rates.csv`](data/2026/01/09/ibkr-us-interest-rates.csv), and [`data/2026/01/09/ibkr-us-margin-rates.csv`](data/2026/01/09/ibkr-us-margin-rates.csv).
 
 The data is updated daily at 6AM EST.
 
@@ -36,7 +36,9 @@ instead of fetching from the network:
 PYTHONPATH=src python -m ibkr_rates.update \
     --output-dir data \
     --interest-html tests/interest-rates.html \
-    --margin-html tests/margin-rates.html
+    --margin-html tests/margin-rates.html \
+    --us-interest-html tests/interest-rates.html \
+    --us-margin-html tests/margin-rates.html
 ```
 
 ## Automation
@@ -56,4 +58,3 @@ pytest
 # Disclaimer
 
 This repository is for educational and informational purposes only. The data is scraped from publicly available IBKR Canada web pages and may contain errors or be outdated. I am not affiliated with Interactive Brokers or IBKR Canada in any way. Users should verify all rates directly with IBKR Canada before making any financial decisions. I disclaim all responsibility for the accuracy, completeness, or reliability of this data.
-
